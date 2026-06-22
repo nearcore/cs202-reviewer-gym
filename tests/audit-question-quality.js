@@ -7,12 +7,14 @@ const root = path.resolve(__dirname, '..');
 const context = { window: { location: { protocol: 'file:' } }, Promise, console };
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(root, 'scripts/data-loader.js'), 'utf8'), context, { filename: 'scripts/data-loader.js' });
+vm.runInContext(fs.readFileSync(path.join(root, 'scripts/quiz-engine.js'), 'utf8'), context, { filename: 'scripts/quiz-engine.js' });
 
 const questions = context.window.REVIEWER_DATA.questions;
 const normalize = value => String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
 const errors = [];
 const typeCounts = {};
 const exactKeys = new Map();
+const correctChoicePositions = [0, 0, 0, 0];
 
 for (const question of questions) {
   typeCounts[question.type] = (typeCounts[question.type] || 0) + 1;
@@ -28,6 +30,15 @@ for (const question of questions) {
   if (['multiple-choice', 'trace', 'vocabulary', 'matching', 'uml', 'mixed'].includes(question.type) && !question.choices.includes(question.answer)) {
     errors.push(`${question.id} has an answer that is not one of its choices.`);
   }
+  if (['multiple-choice', 'trace', 'vocabulary', 'matching', 'uml', 'mixed'].includes(question.type) && Array.isArray(question.choices)) {
+    const prepared = context.window.QuizEngine.prepareQuestionForSession(question, () => 0);
+    const position = prepared.choices.findIndex(choice => normalize(choice) === normalize(question.answer));
+    if (position >= 0 && position < correctChoicePositions.length) correctChoicePositions[position] += 1;
+  }
+}
+
+if (correctChoicePositions.slice(1).every(count => count === 0)) {
+  errors.push('Runtime choice shuffling appears broken: prepared choice answers are still all in position A.');
 }
 
 for (const ids of exactKeys.values()) {
@@ -48,4 +59,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(JSON.stringify({ status: 'ok', questionCount: questions.length, typeCounts, finalMixedQuestions: finalMixed.length, genuineCombinedFinalQuestions: combinedFinal.length, exactDuplicateGroups: 0 }, null, 2));
+console.log(JSON.stringify({ status: 'ok', questionCount: questions.length, typeCounts, finalMixedQuestions: finalMixed.length, genuineCombinedFinalQuestions: combinedFinal.length, exactDuplicateGroups: 0, preparedCorrectChoicePositions: correctChoicePositions }, null, 2));

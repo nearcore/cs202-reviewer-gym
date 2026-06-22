@@ -37,21 +37,35 @@
     const recommendation = ReviewScheduler.recommendation();
     const history = summary.state.history.slice(0, 5);
     main.innerHTML = `
-      <section class="hero">
-        <p class="eyebrow">CS202 Java practice environment</p>
-        <h1>Explain it. Trace it. Fix it. Code it.</h1>
-        <p class="lede">Work through short Java problems, keep mistakes in review, and use exam mode to test the full course.</p>
-        <div class="hero-actions">
-          <a class="button" href="#practice">Start daily review</a>
-          <a class="button secondary" href="#exam">Take exam mode</a>
-          <a class="button secondary" href="java-practice/README.md">Open Java practice</a>
+      <section class="hero gym-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">CS202 Java practice environment</p>
+          <h1>Train for the final like it is a coding gym.</h1>
+          <p class="lede">Pick a mission, answer active Java questions, and let missed topics come back for review.</p>
+          <div class="hero-actions">
+            <a class="button primary-cta" href="#practice">Start today's mission</a>
+            <a class="button secondary" href="#exam">Take exam mode</a>
+            <a class="button secondary" href="java-practice/README.md">Open Java practice</a>
+          </div>
         </div>
+        <aside class="mission-card" aria-label="Today's mission">
+          <p class="eyebrow">Today's mission</p>
+          <h2>${escapeHtml(recommendation.topic.name)}</h2>
+          <ol class="mission-steps">
+            <li>Study the idea</li>
+            <li>Trace one example</li>
+            <li>Fix one bug</li>
+            <li>Answer 5 questions</li>
+          </ol>
+          <div class="mission-meter"><span style="width:${summary.readiness}%"></span></div>
+          <small class="muted">Readiness meter: ${summary.readiness}%</small>
+        </aside>
       </section>
       <section class="stat-grid" aria-label="Study summary">
-        <article class="stat"><span class="number">${summary.readiness}%</span><span class="label">Final exam readiness</span><div class="progress-track"><div class="progress-bar ${summary.readiness >= 70 ? 'good' : 'warn'}" style="width:${summary.readiness}%"></div></div></article>
-        <article class="stat"><span class="number">${summary.completed}/${topics.length}</span><span class="label">Topics reviewed</span></article>
-        <article class="stat"><span class="number">${summary.accuracy}%</span><span class="label">Practice accuracy</span></article>
-        <article class="stat"><span class="number">${summary.state.streak}</span><span class="label">Day streak</span></article>
+        <article class="stat stat-card"><span class="stat-icon">🎯</span><span class="number">${summary.readiness}%</span><span class="label">Final exam readiness</span><div class="progress-track"><div class="progress-bar ${summary.readiness >= 70 ? 'good' : 'warn'}" style="width:${summary.readiness}%"></div></div></article>
+        <article class="stat stat-card"><span class="stat-icon">🧭</span><span class="number">${summary.completed}/${topics.length}</span><span class="label">Topics reviewed</span></article>
+        <article class="stat stat-card"><span class="stat-icon">⚡</span><span class="number">${summary.accuracy}%</span><span class="label">Practice accuracy</span></article>
+        <article class="stat stat-card"><span class="stat-icon">🔥</span><span class="number">${summary.state.streak}</span><span class="label">Day streak</span></article>
       </section>
       <section class="split">
         <article class="card">
@@ -79,7 +93,7 @@
       <section class="topic-grid">${topics.map(topic => {
         const stats = topicStats(topic, state);
         const status = stats.weak ? `<span class="pill weak">Needs review</span>` : stats.accuracy >= 75 && stats.attempts ? `<span class="pill strong">Strong</span>` : `<span class="pill">${escapeHtml(topic.scope)}</span>`;
-        return `<article class="card topic-card"><div class="topic-topline"><div><p class="eyebrow">${topic.number} · ${escapeHtml(topic.scope)}</p><h2>${escapeHtml(topic.name)}</h2></div>${status}</div><p>${escapeHtml(topic.summary)}</p><div><small class="muted">${stats.reviewed ? 'Reviewed' : 'Not reviewed'} · ${stats.attempts ? `${stats.accuracy}% question accuracy` : 'No question attempts'}</small><div class="progress-track"><div class="progress-bar ${stats.weak ? 'warn' : ''}" style="width:${stats.reviewed ? Math.max(35, stats.accuracy) : stats.accuracy}%"></div></div></div><div class="button-row">${topicLink(topic, 'Study')}<a class="button secondary" href="#practice/${topic.id}">Practice</a></div></article>`;
+        return `<article class="card topic-card level-card"><div class="topic-topline"><div><span class="level-number">${topic.number}</span><p class="eyebrow">${escapeHtml(topic.scope)}</p><h2>${escapeHtml(topic.name)}</h2></div>${status}</div><p>${escapeHtml(topic.summary)}</p><div><small class="muted">${stats.reviewed ? 'Reviewed' : 'Not reviewed'} · ${stats.attempts ? `${stats.accuracy}% question accuracy` : 'No question attempts'}</small><div class="progress-track"><div class="progress-bar ${stats.weak ? 'warn' : ''}" style="width:${stats.reviewed ? Math.max(35, stats.accuracy) : stats.accuracy}%"></div></div></div><div class="button-row">${topicLink(topic, 'Study')}<a class="button secondary" href="#practice/${topic.id}">Practice sprint</a></div></article>`;
       }).join('')}</section>`;
   }
 
@@ -112,17 +126,29 @@
 
   function renderPractice(preselected = 'all') {
     setNav('practice');
-    main.innerHTML = `${pageHead('Practice lab', 'Build a focused question set', 'Choose a topic, practice type, difficulty, and size. Wrong answers automatically enter weak-topic review.')}
-      <section class="card">
+    main.innerHTML = `${pageHead('Practice lab', 'Build a focused question set', 'Choose a mission, press start, and answer without letting the app become another boring notes page.')}
+      <section class="card practice-builder interactive-card">
+        <div class="practice-panel-title"><div><p class="eyebrow">Mission builder</p><h2>Set your study sprint</h2></div><span class="pill strong">Weak answers auto-review</span></div>
         <div class="form-grid">
           <label>Topic<select id="practice-topic">${practiceOptions(preselected)}</select></label>
           <label>Practice type<select id="practice-type"><option value="all">Mixed quiz</option><option value="trace">Trace the code</option><option value="debug">Fix the bug</option><option value="code-writing">Write the code</option><option value="vocabulary">Vocabulary</option><option value="matching">Vocabulary match</option><option value="uml">Read UML</option><option value="short-answer">Short answer</option><option value="multiple-choice">Concept check</option></select></label>
           <label>Difficulty<select id="practice-difficulty"><option value="all">All levels</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="exam">Exam</option></select></label>
           <label>Questions<select id="practice-count"><option value="3">3</option><option value="5" selected>5</option><option value="10">10</option></select></label>
         </div>
-        <div class="button-row"><button id="start-practice">Start practice</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
+        <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
+        <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col" style="margin-top:1rem"><article class="card"><h3>Trace</h3><p class="muted">Predict output, variable changes, and errors before revealing the answer.</p></article><article class="card"><h3>Fix</h3><p class="muted">Explain the cause, correct the code, then compare with the model answer.</p></article><article class="card"><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card"><span class="mode-icon">🔎</span><h3>Trace</h3><p class="muted">Predict output, variable changes, and errors before revealing the answer.</p></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Fix</h3><p class="muted">Explain the cause, correct the code, then compare with the model answer.</p></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+    const updatePracticePreview = () => {
+      const selectedTopic = document.querySelector('#practice-topic').value;
+      const type = document.querySelector('#practice-type').value;
+      const count = document.querySelector('#practice-count').value;
+      const topicLabel = selectedTopic === 'all' ? 'Mixed Java' : topicById(selectedTopic).name;
+      const typeLabel = type === 'all' ? 'mixed' : titleCase(type).toLowerCase();
+      document.querySelector('#practice-preview').textContent = `${topicLabel} ${typeLabel} sprint · ${count} questions · answers shuffle every run`;
+    };
+    ['#practice-topic', '#practice-type', '#practice-difficulty', '#practice-count'].forEach(selector => document.querySelector(selector).addEventListener('change', updatePracticePreview));
+    updatePracticePreview();
     document.querySelector('#start-practice').addEventListener('click', () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -146,10 +172,10 @@
     const cards = currentCards();
     const card = cards[flashcardState.index];
     main.innerHTML = `${pageHead('Vocabulary bank', 'Recall the word, then connect it to code', 'Flip the card only after you try to explain the term. Mark it known or keep it in the review loop.')}
-      <section class="card"><div class="form-grid" style="grid-template-columns:1fr auto"><label>Exam filter<select id="flashcard-filter"><option value="all" ${flashcardState.filter === 'all' ? 'selected' : ''}>All vocabulary</option><option value="midterm1" ${flashcardState.filter === 'midterm1' ? 'selected' : ''}>Midterm 1</option><option value="midterm2" ${flashcardState.filter === 'midterm2' ? 'selected' : ''}>Midterm 2</option><option value="final" ${flashcardState.filter === 'final' ? 'selected' : ''}>Final</option></select></label><p class="muted">Card ${flashcardState.index + 1} of ${cards.length}</p></div></section>
-      <section class="flashcard ${flashcardState.flipped ? 'flipped' : ''}" id="flashcard" role="button" tabindex="0" aria-label="Flip flashcard" style="margin-top:1rem"><div class="flashcard-inner"><article class="flashcard-face"><p class="eyebrow">${escapeHtml(card.topic)}</p><div class="flashcard-word">${escapeHtml(card.term)}</div><p class="muted">Click to flip</p></article><article class="flashcard-face flashcard-back"><p class="eyebrow">Definition</p><p>${escapeHtml(card.definition)}</p><p class="muted">Click to flip back</p></article></div></section>
-      <div class="button-row"><button id="known" class="success">I know this</button><button id="learning" class="secondary">Still learning</button><button id="next-card" class="quiet">Next card →</button></div>
-      <section class="card" style="margin-top:1rem"><h2>Code connection</h2>${codeBlock(card.example)}</section>`;
+      <section class="card flashcard-toolbar"><div class="form-grid" style="grid-template-columns:1fr auto"><label>Exam filter<select id="flashcard-filter"><option value="all" ${flashcardState.filter === 'all' ? 'selected' : ''}>All vocabulary</option><option value="midterm1" ${flashcardState.filter === 'midterm1' ? 'selected' : ''}>Midterm 1</option><option value="midterm2" ${flashcardState.filter === 'midterm2' ? 'selected' : ''}>Midterm 2</option><option value="final" ${flashcardState.filter === 'final' ? 'selected' : ''}>Final</option></select></label><p class="muted"><strong>Card ${flashcardState.index + 1}</strong> of ${cards.length}</p></div><div class="progress-track"><div class="progress-bar" style="width:${Math.round(((flashcardState.index + 1) / cards.length) * 100)}%"></div></div></section>
+      <section class="flashcard ${flashcardState.flipped ? 'flipped' : ''}" id="flashcard" role="button" tabindex="0" aria-label="Flip flashcard" style="margin-top:1rem"><div class="flashcard-inner"><article class="flashcard-face"><p class="eyebrow">${escapeHtml(card.topic)}</p><div class="flashcard-word">${escapeHtml(card.term)}</div><p class="flip-hint">Click, tap, or press Enter to flip</p></article><article class="flashcard-face flashcard-back"><p class="eyebrow">Definition</p><p>${escapeHtml(card.definition)}</p><p class="flip-hint">Click again to hide the answer</p></article></div></section>
+      <div class="button-row flashcard-actions"><button id="known" class="success">I know this</button><button id="learning" class="secondary">Still learning</button><button id="next-card" class="quiet">Next card →</button></div>
+      <section class="card code-connection" style="margin-top:1rem"><p class="eyebrow">Code connection</p><h2>Where this shows up</h2>${codeBlock(card.example)}</section>`;
     const flip = () => { flashcardState.flipped = !flashcardState.flipped; renderFlashcards(); };
     document.querySelector('#flashcard').addEventListener('click', flip);
     document.querySelector('#flashcard').addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); flip(); } });

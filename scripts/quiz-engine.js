@@ -5,10 +5,31 @@
   const codeBlock = code => code ? `<pre><code>${escapeHtml(code)}</code></pre>` : '';
   const titleCase = value => String(value).replaceAll('-', ' ').replace(/\b\w/g, char => char.toUpperCase());
 
+  function shuffle(items, random = Math.random) {
+    const copy = [...items];
+    for (let index = copy.length - 1; index > 0; index--) {
+      const swap = Math.floor(random() * (index + 1));
+      [copy[index], copy[swap]] = [copy[swap], copy[index]];
+    }
+    return copy;
+  }
+
+  function prepareQuestionForSession(question, random = Math.random) {
+    const prepared = { ...question };
+    if (Array.isArray(question.choices)) {
+      prepared.choices = shuffle(question.choices, random);
+    }
+    return prepared;
+  }
+
+  function prepareSessionQuestions(questions, random = Math.random) {
+    return questions.map(question => prepareQuestionForSession(question, random));
+  }
+
   class QuizSession {
     constructor({ root, questions, source = 'practice', exam = false, label = 'Practice', onComplete }) {
       this.root = root;
-      this.questions = questions;
+      this.questions = prepareSessionQuestions(questions);
       this.source = source;
       this.exam = exam;
       this.label = label;
@@ -31,7 +52,7 @@
       const question = this.current();
       const isSelf = Boolean(question.selfCheck);
       const choices = question.choices?.map((choice, index) => `
-        <label class="choice"><input type="radio" name="answer" value="${escapeHtml(choice)}"> <span>${String.fromCharCode(65 + index)}. ${escapeHtml(choice)}</span></label>`).join('') || '';
+        <label class="choice"><input type="radio" name="answer" value="${escapeHtml(choice)}"> <span class="choice-letter">${String.fromCharCode(65 + index)}</span><span>${escapeHtml(choice)}</span></label>`).join('') || '';
       const answerInput = question.choices ? `<div class="choice-list">${choices}</div>` : `<label>Your answer<textarea id="text-answer" placeholder="Write your answer or corrected code here."></textarea></label>`;
       const action = isSelf
         ? (this.exam
@@ -43,9 +64,9 @@
           <div class="page-head">
             <p class="eyebrow">${this.exam ? 'Exam in progress · no hints' : 'Active practice'}</p>
             <div class="topic-topline"><h1>${escapeHtml(this.label)}</h1><span class="question-counter">Question ${this.index + 1} of ${this.questions.length}</span></div>
-            <div class="progress-track"><div class="progress-bar" style="width:${Math.round((this.index / this.questions.length) * 100)}%"></div></div>
+            <div class="progress-track"><div class="progress-bar" style="width:${Math.round(((this.index + 1) / this.questions.length) * 100)}%"></div></div>
           </div>
-          <article class="card">
+          <article class="card question-card">
             <div class="question-meta"><span class="tag">${escapeHtml(question.topic)}</span><span class="tag">${escapeHtml(titleCase(question.type))}</span><span class="tag">${escapeHtml(titleCase(question.difficulty))}</span></div>
             <p class="question-prompt">${escapeHtml(question.prompt)}</p>
             ${codeBlock(question.code)}
@@ -120,5 +141,5 @@
     }
   }
 
-  window.QuizEngine = { QuizSession, escapeHtml, codeBlock };
+  window.QuizEngine = { QuizSession, escapeHtml, codeBlock, prepareQuestionForSession, prepareSessionQuestions };
 })();

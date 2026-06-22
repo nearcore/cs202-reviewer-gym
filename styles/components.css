@@ -65,3 +65,284 @@ textarea { min-height: 114px; font-family: ui-monospace, SFMono-Regular, Menlo, 
 .checklist input { width: 1rem; height: 1rem; }
 @media (max-width: 900px) { .topic-grid { grid-template-columns: repeat(2, 1fr); } .stat-grid { grid-template-columns: repeat(2, 1fr); } .form-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .topic-grid, .activity-grid, .stat-grid, .form-grid { grid-template-columns: 1fr; } .hero { padding: 1.3rem; } }
+
+/* Interactive polish layer */
+.card,
+.stat,
+.topic-card,
+.mode-card,
+.question-card {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.card:hover,
+.stat:hover,
+.topic-card:hover,
+.mode-card:hover {
+  transform: translateY(-2px);
+  border-color: #b7d4ee;
+  box-shadow: 0 18px 45px rgba(15, 35, 60, .09);
+}
+
+.gym-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+  gap: 1.25rem;
+  align-items: stretch;
+  padding: clamp(1.4rem, 3vw, 2.5rem);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 5%, rgba(255, 255, 255, .95), transparent 16rem),
+    linear-gradient(135deg, #eaf5ff 0%, #ffffff 48%, #edf7f1 100%);
+}
+
+.gym-hero::after {
+  content: "</>";
+  position: absolute;
+  right: 1.2rem;
+  top: -1.2rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 900;
+  color: rgba(22, 59, 99, .055);
+  pointer-events: none;
+}
+
+.hero-copy,
+.mission-card {
+  position: relative;
+  z-index: 1;
+}
+
+.primary-cta {
+  background: linear-gradient(135deg, #1769aa, #163b63);
+  border-color: #163b63;
+  box-shadow: 0 12px 26px rgba(23, 105, 170, .25);
+}
+
+.button:hover,
+button:hover {
+  filter: none;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(15, 35, 60, .12);
+}
+
+button:active,
+.button:active {
+  transform: translateY(0);
+}
+
+.mission-card {
+  padding: 1rem;
+  border: 1px solid rgba(158, 197, 229, .78);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+.mission-card h2 {
+  margin-bottom: .65rem;
+}
+
+.mission-steps {
+  display: grid;
+  gap: .35rem;
+  margin: .5rem 0 .85rem;
+  padding-left: 1.25rem;
+  color: #40536e;
+}
+
+.mission-meter {
+  height: 11px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: #dce8f3;
+  margin-bottom: .35rem;
+}
+
+.mission-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d68100, #1769aa, #13795b);
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -45% auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(23, 105, 170, .08);
+}
+
+.stat-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: .45rem;
+  border-radius: 10px;
+  background: #eef6ff;
+}
+
+.level-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.level-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: .45rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #163b63, #1769aa);
+  color: white;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(22, 59, 99, .18);
+}
+
+.topic-card .pill {
+  max-width: 8rem;
+  text-align: center;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.practice-builder {
+  border-color: #bdd8ef;
+  background: linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+}
+
+.practice-panel-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mission-preview {
+  margin-top: 1rem;
+  padding: .8rem .9rem;
+  border: 1px dashed #9ec5e5;
+  border-radius: 10px;
+  background: #eef7ff;
+  color: #18466f;
+  font-weight: 700;
+}
+
+.mode-card {
+  min-height: 140px;
+}
+
+.mode-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: .65rem;
+  border-radius: 14px;
+  background: #eef6ff;
+  font-size: 1.25rem;
+}
+
+.question-card {
+  border-color: #bcd7ee;
+  box-shadow: 0 18px 45px rgba(15, 35, 60, .08);
+}
+
+.choice {
+  position: relative;
+  transition: transform .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.choice:hover {
+  transform: translateX(4px);
+  border-color: #7ab0da;
+  background: #f4faff;
+}
+
+.choice:has(input:checked) {
+  box-shadow: 0 10px 22px rgba(23, 105, 170, .12);
+}
+
+.choice-letter {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: #e7f1fb;
+  color: #163b63;
+  font-weight: 800;
+}
+
+.choice:has(input:checked) .choice-letter {
+  background: #1769aa;
+  color: white;
+}
+
+.flashcard-toolbar {
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+.flashcard {
+  min-height: 330px;
+}
+
+.flashcard-inner {
+  min-height: 330px;
+}
+
+.flashcard-face {
+  border: 1px solid #9ec5e5;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(23, 105, 170, .10), transparent 11rem),
+    white;
+  box-shadow: 0 20px 55px rgba(15, 35, 60, .12);
+}
+
+.flashcard-back {
+  background:
+    radial-gradient(circle at 90% 15%, rgba(19, 121, 91, .13), transparent 11rem),
+    #eefaf5;
+}
+
+.flashcard-word {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.flip-hint {
+  color: #1769aa;
+  font-weight: 700;
+  margin-top: .65rem;
+}
+
+.flashcard-actions {
+  justify-content: center;
+}
+
+.code-connection pre {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .gym-hero {
+    grid-template-columns: 1fr;
+  }
+  .practice-panel-title {
+    display: block;
+  }
+}
