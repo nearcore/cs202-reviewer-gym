@@ -10,6 +10,33 @@
   const topicByName = name => topics.find(topic => topic.name === name);
   const percent = (value, total) => total ? Math.round((value / total) * 100) : 0;
   const titleCase = value => String(value).replaceAll('-', ' ').replace(/\b\w/g, letter => letter.toUpperCase());
+  const themeButton = document.querySelector('#theme-toggle');
+  const themeStorageKey = 'cs202-reviewer-theme';
+
+  function applyTheme(theme) {
+    const safeTheme = theme === 'night' ? 'night' : 'day';
+    document.documentElement.dataset.theme = safeTheme;
+    localStorage.setItem(themeStorageKey, safeTheme);
+    if (!themeButton) return;
+    const night = safeTheme === 'night';
+    themeButton.setAttribute('aria-pressed', String(night));
+    themeButton.setAttribute('aria-label', night ? 'Switch to day mode' : 'Switch to night mode');
+    const icon = themeButton.querySelector('.theme-toggle-icon');
+    const text = themeButton.querySelector('.theme-toggle-text');
+    if (icon) icon.textContent = night ? '🌙' : '☀️';
+    if (text) text.textContent = night ? 'Night' : 'Day';
+  }
+
+  function setupThemeToggle() {
+    const currentTheme = document.documentElement.dataset.theme === 'night' ? 'night' : 'day';
+    applyTheme(currentTheme);
+    if (!themeButton) return;
+    themeButton.addEventListener('click', () => {
+      const nextTheme = document.documentElement.dataset.theme === 'night' ? 'day' : 'night';
+      applyTheme(nextTheme);
+    });
+  }
+
 
   function topicStats(topic, state = ProgressStore.get()) {
     const topicQuestions = questions.filter(question => question.topic === topic.name);
@@ -231,6 +258,7 @@
     document.title = section === 'dashboard' ? 'CS202 Reviewer Gym' : `${titleCase(section)} · CS202 Reviewer Gym`;
   }
 
+  setupThemeToggle();
   window.addEventListener('hashchange', render);
   Promise.resolve(window.REVIEWER_READY).catch(() => {}).finally(render);
 })();

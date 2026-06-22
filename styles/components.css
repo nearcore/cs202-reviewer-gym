@@ -346,3 +346,294 @@ button:active,
     display: block;
   }
 }
+
+/* Theme polish: day mode = clean/aesthetic, night mode = cyberpunk study lab. */
+html[data-theme="day"] .card,
+html[data-theme="day"] .stat,
+html[data-theme="day"] .mission-card,
+html[data-theme="day"] .flashcard-face {
+  background: rgba(255, 255, 255, .82);
+  border-color: rgba(139, 160, 187, .30);
+  box-shadow: 0 16px 42px rgba(57, 72, 103, .08), inset 0 1px 0 rgba(255,255,255,.72);
+  backdrop-filter: blur(12px);
+}
+
+html[data-theme="day"] .gym-hero {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 233, 190, .72), transparent 15rem),
+    radial-gradient(circle at 88% 20%, rgba(119, 97, 255, .14), transparent 16rem),
+    linear-gradient(135deg, rgba(255,255,255,.90) 0%, rgba(238,245,255,.92) 52%, rgba(237, 255, 246, .90) 100%);
+  border-color: rgba(139, 160, 187, .28);
+  box-shadow: 0 20px 55px rgba(73, 91, 128, .12);
+}
+
+html[data-theme="day"] .button,
+html[data-theme="day"] button {
+  background: linear-gradient(135deg, #4b63f0, #2578c7);
+  border-color: rgba(75, 99, 240, .62);
+  color: white;
+}
+
+html[data-theme="day"] .button.secondary,
+html[data-theme="day"] button.secondary,
+html[data-theme="day"] .button.quiet,
+html[data-theme="day"] button.quiet {
+  background: rgba(255,255,255,.72);
+  color: #3654c7;
+  border-color: rgba(75, 99, 240, .22);
+}
+
+html[data-theme="day"] .primary-cta {
+  background: linear-gradient(135deg, #4b63f0, #12a68a);
+  box-shadow: 0 16px 34px rgba(75, 99, 240, .24);
+}
+
+html[data-theme="day"] .progress-track,
+html[data-theme="day"] .mission-meter {
+  background: rgba(139, 160, 187, .20);
+}
+
+html[data-theme="day"] .progress-bar {
+  background: linear-gradient(90deg, #4b63f0, #24a0d8);
+}
+
+html[data-theme="day"] .progress-bar.good {
+  background: linear-gradient(90deg, #0b8a68, #39c592);
+}
+
+html[data-theme="day"] .progress-bar.warn {
+  background: linear-gradient(90deg, #d68100, #f3aa28);
+}
+
+html[data-theme="day"] .choice:hover {
+  background: rgba(241, 247, 255, .92);
+}
+
+html[data-theme="night"] .card,
+html[data-theme="night"] .stat,
+html[data-theme="night"] .mission-card,
+html[data-theme="night"] .flashcard-face,
+html[data-theme="night"] .question-card,
+html[data-theme="night"] .practice-builder,
+html[data-theme="night"] .flashcard-toolbar {
+  background: linear-gradient(180deg, rgba(15, 22, 42, .90), rgba(8, 13, 26, .88));
+  border-color: rgba(62, 231, 255, .20);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, .35), 0 0 24px rgba(62, 231, 255, .07), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(12px);
+}
+
+html[data-theme="night"] .card:hover,
+html[data-theme="night"] .stat:hover,
+html[data-theme="night"] .topic-card:hover,
+html[data-theme="night"] .mode-card:hover {
+  border-color: rgba(62, 231, 255, .40);
+  box-shadow: 0 22px 62px rgba(0, 0, 0, .42), 0 0 32px rgba(62, 231, 255, .15), 0 0 42px rgba(255, 48, 202, .08);
+}
+
+html[data-theme="night"] .gym-hero {
+  background:
+    linear-gradient(120deg, rgba(255, 48, 202, .12), transparent 28%),
+    radial-gradient(circle at 82% 15%, rgba(62, 231, 255, .22), transparent 15rem),
+    radial-gradient(circle at 20% 80%, rgba(116, 87, 255, .20), transparent 16rem),
+    linear-gradient(135deg, rgba(10, 15, 31, .96), rgba(7, 10, 22, .94));
+  border-color: rgba(62, 231, 255, .24);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, .42), 0 0 38px rgba(62, 231, 255, .12);
+}
+
+html[data-theme="night"] .gym-hero::after {
+  color: rgba(62, 231, 255, .08);
+  text-shadow: 0 0 30px rgba(62, 231, 255, .24);
+}
+
+html[data-theme="night"] .eyebrow {
+  color: #3ee7ff;
+  text-shadow: 0 0 12px rgba(62, 231, 255, .28);
+}
+
+html[data-theme="night"] .button,
+html[data-theme="night"] button {
+  background: linear-gradient(135deg, #11c7e8, #714dff);
+  border-color: rgba(62, 231, 255, .46);
+  color: #03101c;
+  box-shadow: 0 0 22px rgba(62, 231, 255, .16);
+}
+
+html[data-theme="night"] .button:hover,
+html[data-theme="night"] button:hover {
+  box-shadow: 0 0 24px rgba(62, 231, 255, .25), 0 0 34px rgba(255, 48, 202, .12);
+}
+
+html[data-theme="night"] .button.secondary,
+html[data-theme="night"] button.secondary,
+html[data-theme="night"] .button.quiet,
+html[data-theme="night"] button.quiet {
+  background: rgba(62, 231, 255, .08);
+  color: #dffaff;
+  border-color: rgba(62, 231, 255, .24);
+}
+
+html[data-theme="night"] .button.danger,
+html[data-theme="night"] button.danger {
+  color: #ffd9e8;
+  background: rgba(255, 92, 147, .16);
+  border-color: rgba(255, 92, 147, .34);
+}
+
+html[data-theme="night"] .button.success,
+html[data-theme="night"] button.success {
+  color: #03170f;
+  background: linear-gradient(135deg, #57ffb0, #3ee7ff);
+  border-color: rgba(87, 255, 176, .46);
+}
+
+html[data-theme="night"] .primary-cta {
+  background: linear-gradient(135deg, #3ee7ff, #ff30ca);
+  border-color: rgba(62, 231, 255, .52);
+  box-shadow: 0 0 28px rgba(62, 231, 255, .24), 0 0 40px rgba(255, 48, 202, .14);
+}
+
+html[data-theme="night"] .level-number,
+html[data-theme="night"] .choice-letter,
+html[data-theme="night"] .stat-icon,
+html[data-theme="night"] .mode-icon {
+  color: #06101e;
+  background: linear-gradient(135deg, #3ee7ff, #ff30ca);
+  box-shadow: 0 0 20px rgba(62, 231, 255, .22);
+}
+
+html[data-theme="night"] .tag,
+html[data-theme="night"] .pill {
+  color: #c9fbff;
+  background: rgba(62, 231, 255, .10);
+  border: 1px solid rgba(62, 231, 255, .20);
+}
+
+html[data-theme="night"] .pill.weak {
+  color: #ffd166;
+  background: rgba(255, 209, 102, .12);
+  border-color: rgba(255, 209, 102, .24);
+}
+
+html[data-theme="night"] .pill.strong {
+  color: #57ffb0;
+  background: rgba(87, 255, 176, .12);
+  border-color: rgba(87, 255, 176, .24);
+}
+
+html[data-theme="night"] .pill.exam {
+  color: #f6b7ff;
+  background: rgba(255, 48, 202, .12);
+  border-color: rgba(255, 48, 202, .24);
+}
+
+html[data-theme="night"] .progress-track,
+html[data-theme="night"] .mission-meter {
+  background: rgba(62, 231, 255, .10);
+  border: 1px solid rgba(62, 231, 255, .12);
+}
+
+html[data-theme="night"] .progress-bar {
+  background: linear-gradient(90deg, #3ee7ff, #714dff, #ff30ca);
+  box-shadow: 0 0 16px rgba(62, 231, 255, .32);
+}
+
+html[data-theme="night"] .progress-bar.good {
+  background: linear-gradient(90deg, #57ffb0, #3ee7ff);
+}
+
+html[data-theme="night"] .progress-bar.warn {
+  background: linear-gradient(90deg, #ffd166, #ff30ca);
+}
+
+html[data-theme="night"] .mission-meter span {
+  background: linear-gradient(90deg, #ffd166, #3ee7ff, #ff30ca);
+  box-shadow: 0 0 18px rgba(62, 231, 255, .30);
+}
+
+html[data-theme="night"] .mission-steps,
+html[data-theme="night"] label,
+html[data-theme="night"] .question-meta {
+  color: #9daac0;
+}
+
+html[data-theme="night"] select,
+html[data-theme="night"] input[type="text"],
+html[data-theme="night"] textarea {
+  color: #e9fbff;
+  background: rgba(7, 12, 25, .92);
+  border-color: rgba(62, 231, 255, .25);
+}
+
+html[data-theme="night"] .choice {
+  color: #e9fbff;
+  background: rgba(10, 17, 34, .64);
+  border-color: rgba(104, 139, 174, .34);
+}
+
+html[data-theme="night"] .choice:hover {
+  background: rgba(62, 231, 255, .08);
+  border-color: rgba(62, 231, 255, .38);
+}
+
+html[data-theme="night"] .choice:has(input:checked) {
+  background: rgba(62, 231, 255, .12);
+  border-color: rgba(62, 231, 255, .58);
+}
+
+html[data-theme="night"] .choice:has(input:checked) .choice-letter {
+  color: #06101e;
+}
+
+html[data-theme="night"] .feedback.correct {
+  color: #cfffe7;
+  background: rgba(87, 255, 176, .12);
+  border-color: rgba(87, 255, 176, .28);
+}
+
+html[data-theme="night"] .feedback.incorrect {
+  color: #ffd5e5;
+  background: rgba(255, 92, 147, .13);
+  border-color: rgba(255, 92, 147, .28);
+}
+
+html[data-theme="night"] .flashcard-face {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(62, 231, 255, .16), transparent 13rem),
+    linear-gradient(180deg, rgba(15, 22, 42, .96), rgba(8, 13, 26, .94));
+}
+
+html[data-theme="night"] .flashcard-back {
+  background:
+    radial-gradient(circle at 85% 14%, rgba(255, 48, 202, .18), transparent 13rem),
+    linear-gradient(180deg, rgba(13, 22, 42, .96), rgba(8, 13, 26, .94));
+}
+
+html[data-theme="night"] .flip-hint,
+html[data-theme="night"] a {
+  color: #3ee7ff;
+}
+
+html[data-theme="night"] .empty {
+  color: #9daac0;
+  border-color: rgba(62, 231, 255, .20);
+  background: rgba(62, 231, 255, .06);
+}
+
+html[data-theme="night"] .history-list li {
+  border-bottom-color: rgba(62, 231, 255, .15);
+}
+
+html[data-theme="night"] .notice {
+  background: rgba(62, 231, 255, .10);
+  color: #dffaff;
+}
+
+html[data-theme="night"] .notice.warning {
+  background: rgba(255, 209, 102, .13);
+  color: #ffe0a3;
+}
+
+html[data-theme="night"] .notice.success {
+  background: rgba(87, 255, 176, .12);
+  color: #cffff0;
+}

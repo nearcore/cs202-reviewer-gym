@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Active Java practice for CS202.">
   <title>CS202 Reviewer Gym</title>
+  <script>
+    (() => {
+      const savedTheme = localStorage.getItem('cs202-reviewer-theme');
+      document.documentElement.dataset.theme = savedTheme === 'night' ? 'night' : 'day';
+    })();
+  </script>
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/components.css">
 </head>
@@ -15,14 +21,20 @@
       <span class="brand-mark">&lt;/&gt;</span>
       <span>CS202 <strong>Reviewer Gym</strong></span>
     </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="#dashboard" data-route="dashboard">Dashboard</a>
-      <a href="#topics" data-route="topics">Topics</a>
-      <a href="#practice" data-route="practice">Practice</a>
-      <a href="#flashcards" data-route="flashcards">Flashcards</a>
-      <a href="#exam" data-route="exam">Exam mode</a>
-      <a href="#progress" data-route="progress">Progress</a>
-    </nav>
+    <div class="header-actions">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#dashboard" data-route="dashboard">Dashboard</a>
+        <a href="#topics" data-route="topics">Topics</a>
+        <a href="#practice" data-route="practice">Practice</a>
+        <a href="#flashcards" data-route="flashcards">Flashcards</a>
+        <a href="#exam" data-route="exam">Exam mode</a>
+        <a href="#progress" data-route="progress">Progress</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to night mode" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+        <span class="theme-toggle-text">Day</span>
+      </button>
+    </div>
   </header>
   <main id="main" tabindex="-1"></main>
   <footer class="site-footer">CS202 Reviewer Gym · Learn → See → Trace → Fix → Build → Quiz → Retain</footer>
