@@ -58,6 +58,60 @@
     return `<a class="${className}" href="#topic/${topic.id}">${escapeHtml(label)}</a>`;
   }
 
+
+  function activityIcon(label = '') {
+    const lower = label.toLowerCase();
+    if (lower.includes('flashcard')) return '🃏';
+    if (lower.includes('exam')) return '🧪';
+    if (lower.includes('practice')) return '⚡';
+    if (lower.includes('review')) return '🔁';
+    if (lower.includes('topic')) return '📚';
+    return '✦';
+  }
+
+  function pathMeta(index) {
+    return [
+      { icon: '01', badge: 'Warm-up', action: 'Start reset', tone: 'blue' },
+      { icon: '02', badge: 'Core OOP', action: 'Build base', tone: 'green' },
+      { icon: '03', badge: 'Final run', action: 'Sprint now', tone: 'purple' }
+    ][index] || { icon: String(index + 1).padStart(2, '0'), badge: 'Study route', action: 'Start path', tone: 'blue' };
+  }
+
+  function renderQuickStudyPath(path, index, state) {
+    const meta = pathMeta(index);
+    const pathTopics = path.topics.map(topicById).filter(Boolean);
+    const done = pathTopics.filter(topic => state.completedTopics[topic.id]).length;
+    const progress = percent(done, pathTopics.length);
+    const firstTopic = pathTopics[0] || topics[0];
+    return `<div class="study-path-card path-${meta.tone}">
+      <div class="path-orb" aria-hidden="true">${escapeHtml(meta.icon)}</div>
+      <div class="path-body">
+        <div class="path-title-line"><h3>${escapeHtml(path.name)}</h3><span class="path-badge">${escapeHtml(meta.badge)}</span></div>
+        <p class="muted">${escapeHtml(path.next)}</p>
+        <div class="path-progress"><span style="width:${progress}%"></span></div>
+        <div class="path-topic-row">${pathTopics.map(topic => topicLink(topic, topic.name, 'button quiet path-topic')).join('')}</div>
+      </div>
+      <a class="path-launch" href="#topic/${firstTopic.id}">${escapeHtml(meta.action)} →</a>
+    </div>`;
+  }
+
+  function renderRecentActivity(history) {
+    if (!history.length) {
+      return `<div class="activity-empty">
+        <div class="activity-empty-icon">✦</div>
+        <h3>No study log yet</h3>
+        <p class="muted">Start one practice sprint or flip a flashcard. Your wins and weak spots will appear here like a training feed.</p>
+        <a class="button secondary" href="#practice">Create first activity</a>
+      </div>`;
+    }
+    return `<div class="timeline-list">${history.map((item, index) => `<div class="timeline-item">
+      <span class="timeline-rail" aria-hidden="true"></span>
+      <span class="timeline-icon" aria-hidden="true">${activityIcon(item.label)}</span>
+      <span class="timeline-copy"><strong>${escapeHtml(item.label)}</strong><small>${escapeHtml(item.details)}</small></span>
+      <time>${escapeHtml(item.date)}</time>
+    </div>`).join('')}</div><div class="activity-footer"><a class="button secondary" href="#progress">View full log</a><span class="muted">Last ${Math.min(history.length, 5)} actions</span></div>`;
+  }
+
   function renderDashboard() {
     setNav('dashboard');
     const summary = ProgressStore.summary(topics);
@@ -107,9 +161,15 @@
           <div class="button-row"><a class="button secondary" href="#progress">View progress</a></div>
         </article>
       </section>
-      <section class="two-col" style="margin-top:1rem">
-        <article class="card"><p class="eyebrow">Quick study paths</p><div class="stack">${studyPaths.map(path => `<div><h3>${escapeHtml(path.name)}</h3><p class="muted">${escapeHtml(path.next)}</p><div class="button-row">${path.topics.map(id => topicLink(topicById(id), topicById(id).name, 'button quiet')).join('')}</div></div>`).join('')}</div></article>
-        <article class="card"><p class="eyebrow">Recent activity</p>${history.length ? `<ul class="history-list">${history.map(item => `<li><span>${escapeHtml(item.label)}<br><small class="muted">${escapeHtml(item.details)}</small></span><small class="muted">${escapeHtml(item.date)}</small></li>`).join('')}</ul>` : '<div class="empty">Start a topic or practice set to build your study history.</div>'}</article>
+      <section class="two-col dashboard-bottom" style="margin-top:1rem">
+        <article class="card study-paths-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Quick study paths</p><h2>Pick a training route</h2></div><span class="panel-chip">${studyPaths.length} paths</span></div>
+          <div class="study-path-stack">${studyPaths.map((path, index) => renderQuickStudyPath(path, index, summary.state)).join('')}</div>
+        </article>
+        <article class="card activity-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Recent activity</p><h2>Training feed</h2></div><span class="panel-chip live">Live log</span></div>
+          ${renderRecentActivity(history)}
+        </article>
       </section>`;
   }
 

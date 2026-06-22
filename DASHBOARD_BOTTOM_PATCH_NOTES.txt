@@ -1,0 +1,7 @@
+Dashboard bottom panel polish patch
+Changed files:
+scripts/app.js
+styles/components.css
+Focus:
+- Quick study paths now use richer route cards with icons, badges, progress, and launch buttons.
+- Recent activity now uses a timeline/training feed design with icons, empty state, and full log action.
