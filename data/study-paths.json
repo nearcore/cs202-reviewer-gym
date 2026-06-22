@@ -1,0 +1,5 @@
+[
+  {"name":"Midterm 1 reset","topics":["basics","conditions-loops","arrays","graphics"]},
+  {"name":"OOP foundation","topics":["methods","classes","constructors","inheritance","equals"]},
+  {"name":"Final sweep","topics":["interfaces","static-final","records","final-mixed"]}
+]

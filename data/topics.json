@@ -1,0 +1,20 @@
+{
+  "note": "This editable manifest supplies the website’s topic order, labels, and scope when the reviewer is served through HTTP. The direct-file fallback keeps the full lesson activities in scripts/data-loader.js.",
+  "topics": [
+    {"id":"basics","name":"Java Basics","scope":"Midterm 1"},
+    {"id":"conditions-loops","name":"Conditions, Loops, and Operators","scope":"Midterm 1"},
+    {"id":"arrays","name":"Arrays and ArrayLists","scope":"Midterm 1 · Midterm 2"},
+    {"id":"methods","name":"Methods","scope":"Midterm 2"},
+    {"id":"classes","name":"Classes and Objects","scope":"Midterm 2"},
+    {"id":"constructors","name":"Constructors","scope":"Midterm 2"},
+    {"id":"inheritance","name":"Inheritance and Polymorphism","scope":"Midterm 2 · Final"},
+    {"id":"interfaces","name":"Interfaces and KeyListener","scope":"Final"},
+    {"id":"equals","name":"equals(), ==, =, and toString()","scope":"Midterm 2 · Final"},
+    {"id":"exceptions","name":"Exceptions, Files, and Null Pointers","scope":"Midterm 2 · Final"},
+    {"id":"static-final","name":"Static, Final, Memory, and Garbage Collection","scope":"Final"},
+    {"id":"graphics","name":"Graphics","scope":"Midterm 1 · Final"},
+    {"id":"records","name":"Records vs Classes","scope":"Final"},
+    {"id":"final-mixed","name":"Final Exam Mixed Practice","scope":"Final"},
+    {"id":"vocabulary","name":"Vocabulary Bank","scope":"Midterm 1 · Midterm 2 · Final"}
+  ]
+}

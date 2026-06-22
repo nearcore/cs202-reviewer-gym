@@ -1,0 +1,8 @@
+{
+  "midterm1":{"label":"Midterm 1","tags":["midterm1"]},
+  "midterm2":{"label":"Midterm 2","tags":["midterm1","midterm2"]},
+  "final":{"label":"Final Exam","tags":["midterm1","midterm2","final"]},
+  "debug":{"label":"Bug Fix Exam","types":["debug"]},
+  "trace":{"label":"Code Trace Exam","types":["trace"]},
+  "vocabulary":{"label":"Vocabulary Exam","types":["vocabulary"]}
+}

@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "authoritativeWhenServed": true,
+  "description": "Authoritative expansion configuration for the active CS202 question bank. scripts/data-loader.js expands each configured topic to its target with unique IDs and complete runtime question objects. A synchronous equivalent is retained only so index.html works through file://.",
+  "targets": {
+    "Java Basics": 15,
+    "Conditions, Loops, and Operators": 20,
+    "Arrays and ArrayLists": 25,
+    "Methods": 25,
+    "Classes and Objects": 30,
+    "Constructors": 25,
+    "Inheritance and Polymorphism": 30,
+    "Interfaces and KeyListener": 15,
+    "equals(), ==, =, and toString()": 20,
+    "Exceptions, Files, and Null Pointers": 20,
+    "Static, Final, Memory, and Garbage Collection": 15,
+    "Graphics": 10,
+    "Records vs Classes": 10,
+    "Final Exam Mixed Practice": 50
+  },
+  "requiredRuntimeFields": [
+    "id",
+    "topic",
+    "subtopic",
+    "type",
+    "difficulty",
+    "prompt",
+    "answer",
+    "explanation",
+    "examTags"
+  ],
+  "supportedQuestionTypes": [
+    "multiple-choice",
+    "short-answer",
+    "trace",
+    "debug",
+    "code-writing",
+    "vocabulary",
+    "matching",
+    "uml",
+    "mixed"
+  ]
+}
