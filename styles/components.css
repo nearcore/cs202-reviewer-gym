@@ -1599,3 +1599,22 @@ html[data-theme="night"] .path-practice {
     align-items: flex-start;
   }
 }
+
+
+/* Bug Fix Lab */
+.bugfix-control-panel, .bugfix-card, .bugfix-review { position: relative; overflow: hidden; }
+.bugfix-card::before, .bugfix-review::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at top right, rgba(14,165,233,.14), transparent 35%); }
+.quest-title-row { display: flex; justify-content: space-between; gap: 1rem; align-items: start; position: relative; z-index: 1; }
+.file-path-card { display: grid; gap: .35rem; margin: 1rem 0; padding: .85rem 1rem; border: 1px solid var(--border); border-radius: 1rem; background: rgba(15,23,42,.04); position: relative; z-index: 1; }
+.file-path-card span { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 800; }
+.file-path-card code { white-space: normal; word-break: break-word; font-weight: 800; }
+.bugfix-assumption ul { margin: .5rem 0 0 1.1rem; color: var(--muted); }
+.bugfix-brief-grid, .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .85rem; margin: 1rem 0; position: relative; z-index: 1; }
+.bugfix-brief-grid article, .review-grid article { padding: .85rem; border: 1px solid var(--border); border-radius: 1rem; background: var(--surface-soft); }
+.task-callout { padding: 1rem; border-radius: 1rem; background: linear-gradient(135deg, rgba(14,165,233,.12), rgba(168,85,247,.1)); border: 1px solid var(--border); position: relative; z-index: 1; }
+.bugfix-reflection { display: grid; gap: .8rem; margin-top: 1rem; position: relative; z-index: 1; }
+.bugfix-reflection textarea, .bugfix-reflection input { width: 100%; }
+.bugfix-clue-box { margin-top: 1rem; }
+.reflection-summary { display: grid; gap: .45rem; margin: 1rem 0; padding: 1rem; border-radius: 1rem; border: 1px dashed var(--border); background: var(--surface-soft); }
+.no-clues { margin-top: 1rem; }
+@media (max-width: 850px) { .bugfix-brief-grid, .review-grid { grid-template-columns: 1fr; } .quest-title-row { flex-direction: column; } }

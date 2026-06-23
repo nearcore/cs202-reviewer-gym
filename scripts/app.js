@@ -4,6 +4,7 @@
   const { escapeHtml, codeBlock } = QuizEngine;
   let flashcardState = { filter: 'all', index: 0, flipped: false };
   let tracingGameState = { mode: 'level1', topic: 'all', currentId: null, answered: false, answer: '', correct: false, usedClues: [] };
+  let bugFixLabState = { mode: 'level1', topic: 'all', currentId: null, reviewShown: false, usedClues: [], fixNote: '', reasonNote: '', conceptNote: '', selfRated: null };
 
   const route = () => (location.hash.replace(/^#/, '') || 'dashboard').split('/');
   const go = value => { location.hash = value; };
@@ -969,7 +970,7 @@
         <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
         <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Fix</h3><p class="muted">Explain the cause, correct the code, then compare with the model answer.</p></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Open broken code in IntelliJ, repair it, then explain what changed.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
     const updatePracticePreview = () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -1167,6 +1168,156 @@
     if (retryTrace) retryTrace.addEventListener('click', () => { tracingGameState.answered = false; tracingGameState.answer = ''; tracingGameState.correct = false; tracingGameState.usedClues = []; renderTracingGame(); });
   }
 
+
+  function bugFixData() {
+    return window.BUG_FIX_LAB_DATA || { modes: {}, base: [], extras: { level1: [], level2: [], level3: [] }, assumptions: [] };
+  }
+
+  function bugFixModeMeta(mode = bugFixLabState.mode) {
+    return bugFixData().modes?.[mode] || { label: 'Guided Fix', clues: 1, description: '' };
+  }
+
+  function allBugFixItems() {
+    const data = bugFixData();
+    return [...(data.base || []), ...(data.extras?.level1 || []), ...(data.extras?.level2 || []), ...(data.extras?.level3 || [])];
+  }
+
+  function bugFixTopicNames() {
+    return [...new Set(allBugFixItems().map(item => item.topic))].sort();
+  }
+
+  function availableBugFixItems() {
+    const data = bugFixData();
+    const base = bugFixLabState.mode === 'level3' ? [] : (data.base || []);
+    const extras = data.extras?.[bugFixLabState.mode] || [];
+    return [...base, ...extras].filter(item => bugFixLabState.topic === 'all' || item.topic === bugFixLabState.topic);
+  }
+
+  function bugFixItemKey(item) {
+    return `${item.level || 'bugfix'}:${item.id}`;
+  }
+
+  function findBugFixItem(key = bugFixLabState.currentId) {
+    return allBugFixItems().find(item => bugFixItemKey(item) === key) || null;
+  }
+
+  function pickBugFixItem(avoidKey = bugFixLabState.currentId) {
+    const pool = availableBugFixItems();
+    if (!pool.length) return null;
+    let item = pool[Math.floor(Math.random() * pool.length)];
+    if (pool.length > 1 && avoidKey) {
+      let guard = 0;
+      while (bugFixItemKey(item) === avoidKey && guard < 10) { item = pool[Math.floor(Math.random() * pool.length)]; guard++; }
+    }
+    bugFixLabState.currentId = bugFixItemKey(item);
+    bugFixLabState.reviewShown = false;
+    bugFixLabState.usedClues = [];
+    bugFixLabState.fixNote = '';
+    bugFixLabState.reasonNote = '';
+    bugFixLabState.conceptNote = '';
+    bugFixLabState.selfRated = null;
+    return item;
+  }
+
+  function bugFixTopicOptions() {
+    return `<option value="all">All bug-fix topics</option>${bugFixTopicNames().map(name => `<option value="${escapeHtml(name)}" ${bugFixLabState.topic === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}`;
+  }
+
+  function renderBugFixAssumptions() {
+    const assumptions = bugFixData().assumptions || [];
+    if (!assumptions.length) return '';
+    return `<aside class="trace-assumption bugfix-assumption"><strong>Before you start:</strong><ul>${assumptions.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul></aside>`;
+  }
+
+  function renderBugFixClue(item) {
+    const clueLimit = bugFixModeMeta().clues || 0;
+    const clues = (item.clues || []).slice(0, clueLimit);
+    if (!clues.length) return `<div class="trace-clue-box no-clues"><strong>No clues for this mode.</strong><p class="muted">Try the fix first, then compare with the official review.</p></div>`;
+    return `<div class="trace-clue-box bugfix-clue-box">
+      <div class="trace-clue-title"><strong>Optional clue</strong><span>${bugFixLabState.usedClues.length}/${clues.length} used</span></div>
+      <div class="trace-clue-actions">${clues.map((clue, index) => `<button type="button" class="button quiet bugfix-clue-button" data-clue-index="${index}" ${bugFixLabState.usedClues.includes(index) ? 'disabled' : ''}>Use clue</button>`).join('')}</div>
+      ${bugFixLabState.usedClues.length ? `<ol class="trace-clue-list">${bugFixLabState.usedClues.map(index => `<li>${escapeHtml(clues[index])}</li>`).join('')}</ol>` : `<p class="muted">The clue stays hidden unless you choose to use it.</p>`}
+    </div>`;
+  }
+
+  function renderBugFixReview(item) {
+    if (!bugFixLabState.reviewShown) return '';
+    const rating = bugFixLabState.selfRated ? `<span class="pill ${bugFixLabState.selfRated === 'fixed' ? 'strong' : 'weak'}">${bugFixLabState.selfRated === 'fixed' ? 'Marked fixed' : 'Needs review'}</span>` : '';
+    return `<section class="card bugfix-review">
+      <div class="trace-result-top"><span class="result-badge">Official review</span>${rating}</div>
+      <h2>${escapeHtml(item.title)}</h2>
+      <div class="review-grid">
+        <article><p class="eyebrow">Recommended fix / review</p><p>${escapeHtml(item.officialReview)}</p></article>
+        <article><p class="eyebrow">Common mistake</p><p>${escapeHtml(item.commonMistake)}</p></article>
+        <article><p class="eyebrow">Self-check</p><p>${escapeHtml(item.selfCheck)}</p></article>
+      </div>
+      <div class="reflection-summary"><p><strong>Your fix:</strong> ${escapeHtml(bugFixLabState.fixNote || 'No note entered.')}</p><p><strong>Your reason:</strong> ${escapeHtml(bugFixLabState.reasonNote || 'No reason entered.')}</p><p><strong>Concept:</strong> ${escapeHtml(bugFixLabState.conceptNote || item.skill)}</p></div>
+      <div class="button-row"><button id="bugfix-fixed" class="success">I fixed it</button><button id="bugfix-needs-review" class="secondary">Keep in review</button><button id="bugfix-next" class="button quiet">Next bug →</button></div>
+    </section>`;
+  }
+
+  function renderBugFixLab() {
+    setNav('bugfix');
+    let item = findBugFixItem();
+    if (!item || !availableBugFixItems().some(entry => bugFixItemKey(entry) === bugFixLabState.currentId)) item = pickBugFixItem();
+    const pool = availableBugFixItems();
+    const modeMeta = bugFixModeMeta();
+    const isReviewMode = bugFixLabState.mode === 'level3';
+    main.innerHTML = `${pageHead('Bug Fix Lab', 'Fix code in IntelliJ, then explain why', 'Use the website as the mission board. Use IntelliJ as the repair shop. Official reviews stay hidden until after you attempt the task.')}
+      <section class="card bugfix-control-panel">
+        <div class="trace-mode-tabs" role="tablist" aria-label="Bug Fix Lab mode">
+          <button class="trace-mode ${bugFixLabState.mode === 'level1' ? 'active' : ''}" data-bugfix-mode="level1"><strong>Level 1</strong><span>Guided Fix · 1 clue</span></button>
+          <button class="trace-mode ${bugFixLabState.mode === 'level2' ? 'active' : ''}" data-bugfix-mode="level2"><strong>Level 2</strong><span>Solo Fix · no clue</span></button>
+          <button class="trace-mode ${bugFixLabState.mode === 'level3' ? 'active' : ''}" data-bugfix-mode="level3"><strong>Level 3</strong><span>Code Review · refactor</span></button>
+        </div>
+        <div class="trace-toolbar">
+          <label>Topic<select id="bugfix-topic">${bugFixTopicOptions()}</select></label>
+          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · ${escapeHtml(modeMeta.description || '')}</div>
+        </div>
+      </section>
+      ${item ? `<section class="card bugfix-card">
+        <div class="quest-title-row"><div><p class="eyebrow">${escapeHtml(modeMeta.label)} · ${escapeHtml(item.topic)}</p><h2>${escapeHtml(item.title)}</h2><p class="muted">Skill focus: ${escapeHtml(item.skill)}</p></div><span class="pill">${escapeHtml(item.id)}</span></div>
+        <div class="file-path-card"><span>Open in IntelliJ</span><code>${escapeHtml(item.filePath)}</code></div>
+        ${renderBugFixAssumptions()}
+        <div class="bugfix-brief-grid">
+          <article><p class="eyebrow">Bug report</p><p>${escapeHtml(item.bugReport)}</p></article>
+          <article><p class="eyebrow">Actual behavior</p><p>${escapeHtml(item.actualBehavior)}</p></article>
+          <article><p class="eyebrow">Expected behavior</p><p>${escapeHtml(item.expectedBehavior)}</p></article>
+        </div>
+        <p class="task-callout"><strong>Your task:</strong> ${escapeHtml(item.task)}</p>
+        ${codeBlock(item.code, 'java')}
+        ${renderBugFixClue(item)}
+        <section class="bugfix-reflection">
+          <h3>${isReviewMode ? 'Review notes' : 'Fix notes'}</h3>
+          <label>What did you fix or identify?<textarea id="bugfix-fix-note" rows="3" placeholder="Example: I changed name = name to this.name = name..." ${bugFixLabState.reviewShown ? 'disabled' : ''}>${escapeHtml(bugFixLabState.fixNote)}</textarea></label>
+          <label>Why was it wrong, weak, or risky?<textarea id="bugfix-reason-note" rows="3" placeholder="Explain the Java rule or design reason..." ${bugFixLabState.reviewShown ? 'disabled' : ''}>${escapeHtml(bugFixLabState.reasonNote)}</textarea></label>
+          <label>Concept involved<input id="bugfix-concept-note" value="${escapeHtml(bugFixLabState.conceptNote)}" placeholder="constructor, static, equals, inheritance..."></label>
+          <div class="button-row"><button id="show-bugfix-review" class="primary-cta" ${bugFixLabState.reviewShown ? 'disabled' : ''}>I attempted it — show official review</button><button id="new-bugfix" class="button secondary">New random bug</button></div>
+        </section>
+      </section>${renderBugFixReview(item)}` : `<section class="card"><h2>No bug-fix items found</h2><p>Try choosing all topics or another support mode.</p></section>`}`;
+
+    document.querySelectorAll('[data-bugfix-mode]').forEach(button => button.addEventListener('click', () => { bugFixLabState.mode = button.dataset.bugfixMode; pickBugFixItem(null); renderBugFixLab(); }));
+    const topicSelect = document.querySelector('#bugfix-topic');
+    if (topicSelect) topicSelect.addEventListener('change', event => { bugFixLabState.topic = event.target.value; pickBugFixItem(null); renderBugFixLab(); });
+    document.querySelectorAll('.bugfix-clue-button').forEach(button => button.addEventListener('click', () => { const index = Number(button.dataset.clueIndex); if (!bugFixLabState.usedClues.includes(index)) bugFixLabState.usedClues.push(index); renderBugFixLab(); }));
+    const saveReflection = () => {
+      bugFixLabState.fixNote = document.querySelector('#bugfix-fix-note')?.value.trim() || '';
+      bugFixLabState.reasonNote = document.querySelector('#bugfix-reason-note')?.value.trim() || '';
+      bugFixLabState.conceptNote = document.querySelector('#bugfix-concept-note')?.value.trim() || '';
+    };
+    const showReview = document.querySelector('#show-bugfix-review');
+    if (showReview) showReview.addEventListener('click', () => { saveReflection(); bugFixLabState.reviewShown = true; renderBugFixLab(); });
+    const newBug = document.querySelector('#new-bugfix');
+    if (newBug) newBug.addEventListener('click', () => { pickBugFixItem(); renderBugFixLab(); });
+    const nextBug = document.querySelector('#bugfix-next');
+    if (nextBug) nextBug.addEventListener('click', () => { pickBugFixItem(); renderBugFixLab(); });
+    const fixed = document.querySelector('#bugfix-fixed');
+    if (fixed) fixed.addEventListener('click', () => { const current = findBugFixItem(); bugFixLabState.selfRated = 'fixed'; if (current) ProgressStore.recordAnswer({ id: `bugfix-${bugFixLabState.mode}-${current.id}`, topic: current.topic }, true, `Bug Fix Lab ${modeMeta.label}`); renderBugFixLab(); });
+    const needsReview = document.querySelector('#bugfix-needs-review');
+    if (needsReview) needsReview.addEventListener('click', () => { const current = findBugFixItem(); bugFixLabState.selfRated = 'review'; if (current) ProgressStore.recordAnswer({ id: `bugfix-${bugFixLabState.mode}-${current.id}`, topic: current.topic }, false, `Bug Fix Lab ${modeMeta.label}`); renderBugFixLab(); });
+  }
+
+
   function renderFlashcards() {
     setNav('flashcards');
     const cards = currentCards();
@@ -1225,6 +1376,7 @@
     else if (section === 'topics') renderTopics();
     else if (section === 'practice') renderPractice(id || 'all');
     else if (section === 'tracing') renderTracingGame();
+    else if (section === 'bugfix') renderBugFixLab();
     else if (section === 'flashcards') renderFlashcards();
     else if (section === 'exam') renderExam();
     else if (section === 'progress') renderProgress();
