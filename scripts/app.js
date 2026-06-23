@@ -3,6 +3,7 @@
   const main = document.querySelector('#main');
   const { escapeHtml, codeBlock } = QuizEngine;
   let flashcardState = { filter: 'all', index: 0, flipped: false };
+  let tracingGameState = { mode: 'level1', topic: 'all', currentId: null, answered: false, answer: '', correct: false, usedClues: [] };
 
   const route = () => (location.hash.replace(/^#/, '') || 'dashboard').split('/');
   const go = value => { location.hash = value; };
@@ -768,7 +769,7 @@
         <div class="hero-actions thought-actions">
           <button id="new-thought" class="primary-cta" type="button">New random thought</button>
           <a class="button secondary" href="#topic/${relatedTopic.id}">Review related topic</a>
-          <a class="button secondary" href="#practice">Start practice</a>
+          <a class="button secondary" href="#tracing">Tracing Game</a>
         </div>
       </div>
     </section>`;
@@ -816,10 +817,20 @@
 
   function pathMeta(index) {
     return [
-      { icon: '01', badge: 'Warm-up', action: 'Start reset', tone: 'blue' },
-      { icon: '02', badge: 'Core OOP', action: 'Build base', tone: 'green' },
-      { icon: '03', badge: 'Final run', action: 'Sprint now', tone: 'purple' }
-    ][index] || { icon: String(index + 1).padStart(2, '0'), badge: 'Study route', action: 'Start path', tone: 'blue' };
+      { icon: '01', tone: 'blue', defaultBadge: 'Start here' },
+      { icon: '02', tone: 'green', defaultBadge: 'Main route' },
+      { icon: '03', tone: 'purple', defaultBadge: 'Exam prep' }
+    ][index] || { icon: String(index + 1).padStart(2, '0'), tone: 'blue', defaultBadge: 'Study route' };
+  }
+
+  function pathQuestionCount(pathTopics) {
+    const names = new Set(pathTopics.map(topic => topic.name));
+    return questions.filter(question => names.has(question.topic)).length;
+  }
+
+  function renderPathPlan(plan = []) {
+    if (!plan.length) return '';
+    return `<ol class="path-plan">${plan.map((step, index) => `<li><span>${index + 1}</span>${escapeHtml(step)}</li>`).join('')}</ol>`;
   }
 
   function renderQuickStudyPath(path, index, state) {
@@ -828,15 +839,25 @@
     const done = pathTopics.filter(topic => state.completedTopics[topic.id]).length;
     const progress = percent(done, pathTopics.length);
     const firstTopic = pathTopics[0] || topics[0];
-    return `<div class="study-path-card path-${meta.tone}">
+    const questionCount = pathQuestionCount(pathTopics);
+    const badge = path.badge || meta.defaultBadge;
+    const cta = path.cta || 'Start path';
+    return `<div class="study-path-card guided-path path-${meta.tone}">
       <div class="path-orb" aria-hidden="true">${escapeHtml(meta.icon)}</div>
       <div class="path-body">
-        <div class="path-title-line"><h3>${escapeHtml(path.name)}</h3><span class="path-badge">${escapeHtml(meta.badge)}</span></div>
-        <p class="muted">${escapeHtml(path.next)}</p>
+        <div class="path-title-line"><h3>${escapeHtml(path.name)}</h3><span class="path-badge">${escapeHtml(badge)}</span></div>
+        <p class="path-goal">${escapeHtml(path.goal || path.next || 'Open each topic, complete the trace, then do a focused practice set.')}</p>
+        <div class="path-meta-row"><span>⏱ ${escapeHtml(path.time || '20–40 min')}</span><span>📚 ${pathTopics.length} topics</span><span>❓ ${questionCount} questions</span></div>
+        ${renderPathPlan(path.plan)}
+        <div class="path-progress-label"><span>${done}/${pathTopics.length} topics reviewed</span><span>${progress}%</span></div>
         <div class="path-progress"><span style="width:${progress}%"></span></div>
+        <p class="path-checkpoint"><strong>Checkpoint:</strong> ${escapeHtml(path.checkpoint || 'You should be able to explain the topic and answer a small practice set.')}</p>
         <div class="path-topic-row">${pathTopics.map(topic => topicLink(topic, topic.name, 'button quiet path-topic')).join('')}</div>
       </div>
-      <a class="path-launch" href="#topic/${firstTopic.id}">${escapeHtml(meta.action)} →</a>
+      <div class="path-actions">
+        <a class="path-launch" href="#topic/${firstTopic.id}">${escapeHtml(cta)} →</a>
+        <a class="path-practice" href="#practice/${firstTopic.id}">Practice first topic</a>
+      </div>
     </div>`;
   }
 
@@ -885,7 +906,7 @@
       </section>
       <section class="two-col dashboard-bottom" style="margin-top:1rem">
         <article class="card study-paths-panel">
-          <div class="panel-heading"><div><p class="eyebrow">Quick study paths</p><h2>Pick a training route</h2></div><span class="panel-chip">${studyPaths.length} paths</span></div>
+          <div class="panel-heading"><div><p class="eyebrow">Guided study paths</p><h2>Follow a focused route</h2></div><span class="panel-chip">${studyPaths.length} routes</span></div>
           <div class="study-path-stack">${studyPaths.map((path, index) => renderQuickStudyPath(path, index, summary.state)).join('')}</div>
         </article>
         <article class="card activity-panel">
@@ -948,7 +969,7 @@
         <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
         <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card"><span class="mode-icon">🔎</span><h3>Trace</h3><p class="muted">Predict output, variable changes, and errors before revealing the answer.</p></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Fix</h3><p class="muted">Explain the cause, correct the code, then compare with the model answer.</p></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Fix</h3><p class="muted">Explain the cause, correct the code, then compare with the model answer.</p></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
     const updatePracticePreview = () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -975,6 +996,165 @@
     const filtered = flashcardState.filter === 'all' ? vocabulary : vocabulary.filter(item => item.examTags.includes(flashcardState.filter));
     if (flashcardState.index >= filtered.length) flashcardState.index = 0;
     return filtered;
+  }
+
+
+  function tracingData() {
+    return window.TRACING_GAME_DATA || { modes: {}, base: [], extras: { level1: [], level2: [], level3: [] } };
+  }
+
+  function tracingModeMeta(mode = tracingGameState.mode) {
+    return tracingData().modes[mode] || { label: 'Guided', clues: 2 };
+  }
+
+  function allTracingProblems() {
+    const data = tracingData();
+    return [...(data.base || []), ...(data.extras?.level1 || []), ...(data.extras?.level2 || []), ...(data.extras?.level3 || [])];
+  }
+
+  function tracingTopicNames() {
+    return [...new Set(allTracingProblems().map(problem => problem.topic))].sort();
+  }
+
+  function availableTracingProblems() {
+    const data = tracingData();
+    const base = data.base || [];
+    const extras = data.extras?.[tracingGameState.mode] || [];
+    return [...base, ...extras].filter(problem => tracingGameState.topic === 'all' || problem.topic === tracingGameState.topic);
+  }
+
+  function tracingProblemKey(problem) {
+    return `${problem.level || 'base'}:${problem.id}`;
+  }
+
+  function findTracingProblem(key = tracingGameState.currentId) {
+    return allTracingProblems().find(problem => tracingProblemKey(problem) === key) || null;
+  }
+
+  function pickTracingProblem(avoidKey = tracingGameState.currentId) {
+    const pool = availableTracingProblems();
+    if (!pool.length) return null;
+    let problem = pool[Math.floor(Math.random() * pool.length)];
+    if (pool.length > 1) {
+      while (tracingProblemKey(problem) === avoidKey) problem = pool[Math.floor(Math.random() * pool.length)];
+    }
+    tracingGameState.currentId = tracingProblemKey(problem);
+    tracingGameState.answered = false;
+    tracingGameState.answer = '';
+    tracingGameState.correct = false;
+    tracingGameState.usedClues = [];
+    return problem;
+  }
+
+  function normalizeTraceAnswer(value = '') {
+    return String(value).trim().replace(/\r\n/g, '\n').replace(/[ \t]+/g, ' ').replace(/\n[ \t]+/g, '\n').toLowerCase();
+  }
+
+  function checkTracingAnswer(problem, answer) {
+    const submitted = normalizeTraceAnswer(answer);
+    const valid = [problem.answer, ...(problem.answerAliases || [])].map(normalizeTraceAnswer);
+    return valid.includes(submitted);
+  }
+
+  function tracingTopicOptions() {
+    return `<option value="all">All tracing topics</option>${tracingTopicNames().map(name => `<option value="${escapeHtml(name)}" ${tracingGameState.topic === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}`;
+  }
+
+  function renderClueControls(problem) {
+    const clueLimit = tracingModeMeta().clues || 0;
+    if (!clueLimit) return `<div class="trace-clue-panel solo"><strong>Solo mode:</strong> no clues available. Predict first, then submit.</div>`;
+    const clues = (problem.clues || []).slice(0, clueLimit);
+    return `<div class="trace-clue-panel">
+      <div class="trace-clue-title"><strong>Optional clues</strong><span>${tracingGameState.usedClues.length}/${clues.length} used</span></div>
+      <div class="trace-clue-actions">${clues.map((clue, index) => `<button type="button" class="button quiet trace-clue-button" data-clue-index="${index}" ${tracingGameState.usedClues.includes(index) ? 'disabled' : ''}>Use clue ${index + 1}</button>`).join('')}</div>
+      ${tracingGameState.usedClues.length ? `<ol class="trace-clue-list">${tracingGameState.usedClues.map(index => `<li>${escapeHtml(clues[index])}</li>`).join('')}</ol>` : `<p class="muted">Clues stay hidden unless you choose to spend one.</p>`}
+    </div>`;
+  }
+
+  function renderTracingResult(problem) {
+    if (!tracingGameState.answered) return '';
+    const mastery = tracingGameState.correct && tracingGameState.usedClues.length === 0 ? 'Mastered without clues' : tracingGameState.correct ? 'Correct with support' : 'Needs review';
+    return `<section class="card trace-result ${tracingGameState.correct ? 'correct' : 'incorrect'}">
+      <div class="trace-result-top"><span class="result-badge">${tracingGameState.correct ? 'Correct' : 'Check it again'}</span><span class="pill">${escapeHtml(mastery)}</span></div>
+      <h2>Official answer</h2>
+      <pre class="trace-answer"><code>${escapeHtml(problem.answer)}</code></pre>
+      <h3>Explanation</h3>
+      <p>${escapeHtml(problem.explanation)}</p>
+      <h3>Common mistake</h3>
+      <p>${escapeHtml(problem.commonMistake)}</p>
+      <div class="button-row"><button id="next-trace" class="primary-cta">Next random trace</button><button id="retry-trace" class="button secondary">Retry this one</button></div>
+    </section>`;
+  }
+
+  function renderTracingGame() {
+    setNav('tracing');
+    let problem = findTracingProblem();
+    if (!problem || !availableTracingProblems().some(item => tracingProblemKey(item) === tracingGameState.currentId)) problem = pickTracingProblem();
+    const pool = availableTracingProblems();
+    const data = tracingData();
+    const modeMeta = tracingModeMeta();
+    const modeCounts = {
+      level1: (data.base || []).length + (data.extras?.level1 || []).length,
+      level2: (data.base || []).length + (data.extras?.level2 || []).length,
+      level3: (data.extras?.level3 || []).length
+    };
+    main.innerHTML = `${pageHead('Tracing Game', 'Predict the code before Java tells you', 'Clues are hidden until you ask. Explanations appear only after you submit an answer.')}
+      <section class="card trace-control-panel">
+        <div class="trace-mode-tabs" role="tablist" aria-label="Tracing support mode">
+          <button class="trace-mode ${tracingGameState.mode === 'level1' ? 'active' : ''}" data-mode="level1"><strong>Level 1</strong><span>Guided · 2 clues</span></button>
+          <button class="trace-mode ${tracingGameState.mode === 'level2' ? 'active' : ''}" data-mode="level2"><strong>Level 2</strong><span>Hinted · 1 clue</span></button>
+          <button class="trace-mode ${tracingGameState.mode === 'level3' ? 'active' : ''}" data-mode="level3"><strong>Level 3</strong><span>Solo · no clues</span></button>
+        </div>
+        <div class="form-grid trace-filter-grid">
+          <label>Topic<select id="tracing-topic">${tracingTopicOptions()}</select></label>
+          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · 25 base problems can appear in all levels · ${modeCounts.level3} solo-only problems</div>
+        </div>
+      </section>
+      ${problem ? `<section class="card trace-game-card">
+        <div class="trace-problem-head">
+          <div><p class="eyebrow">${escapeHtml(modeMeta.label)} · ${escapeHtml(problem.topic)}</p><h2>${escapeHtml(problem.title)}</h2><p class="muted">Skill: ${escapeHtml(problem.skill)}</p></div>
+          <span class="pill ${problem.level === 'base' ? 'strong' : ''}">${problem.level === 'base' ? 'Base problem' : titleCase(problem.level)}</span>
+        </div>
+        ${codeBlock(problem.code)}
+        <div class="trace-question"><strong>${escapeHtml(problem.question)}</strong></div>
+        ${renderClueControls(problem)}
+        <label class="trace-answer-box">Your answer<textarea id="trace-answer" rows="4" placeholder="Type the exact output, value, or error here..." ${tracingGameState.answered ? 'disabled' : ''}>${escapeHtml(tracingGameState.answer)}</textarea></label>
+        <div class="button-row"><button id="submit-trace" class="primary-cta" ${tracingGameState.answered ? 'disabled' : ''}>Submit answer</button><button id="new-trace" class="button secondary">New random trace</button></div>
+      </section>${renderTracingResult(problem)}` : `<section class="card"><h2>No tracing problems found</h2><p>Try choosing all topics or another support mode.</p></section>`}`;
+
+    document.querySelectorAll('.trace-mode').forEach(button => button.addEventListener('click', () => {
+      tracingGameState.mode = button.dataset.mode;
+      pickTracingProblem(null);
+      renderTracingGame();
+    }));
+    const topicSelect = document.querySelector('#tracing-topic');
+    if (topicSelect) topicSelect.addEventListener('change', event => {
+      tracingGameState.topic = event.target.value;
+      pickTracingProblem(null);
+      renderTracingGame();
+    });
+    document.querySelectorAll('.trace-clue-button').forEach(button => button.addEventListener('click', () => {
+      const index = Number(button.dataset.clueIndex);
+      if (!tracingGameState.usedClues.includes(index)) tracingGameState.usedClues.push(index);
+      renderTracingGame();
+    }));
+    const submit = document.querySelector('#submit-trace');
+    if (submit) submit.addEventListener('click', () => {
+      const current = findTracingProblem();
+      if (!current) return;
+      const answer = document.querySelector('#trace-answer').value;
+      tracingGameState.answer = answer;
+      tracingGameState.correct = checkTracingAnswer(current, answer);
+      tracingGameState.answered = true;
+      ProgressStore.recordAnswer({ id: `tracing-game-${tracingGameState.mode}-${current.id}`, topic: current.topic }, tracingGameState.correct, `Tracing Game ${modeMeta.label}${tracingGameState.usedClues.length ? ` · ${tracingGameState.usedClues.length} clue(s)` : ''}`);
+      renderTracingGame();
+    });
+    const newTrace = document.querySelector('#new-trace');
+    if (newTrace) newTrace.addEventListener('click', () => { pickTracingProblem(); renderTracingGame(); });
+    const nextTrace = document.querySelector('#next-trace');
+    if (nextTrace) nextTrace.addEventListener('click', () => { pickTracingProblem(); renderTracingGame(); });
+    const retryTrace = document.querySelector('#retry-trace');
+    if (retryTrace) retryTrace.addEventListener('click', () => { tracingGameState.answered = false; tracingGameState.answer = ''; tracingGameState.correct = false; tracingGameState.usedClues = []; renderTracingGame(); });
   }
 
   function renderFlashcards() {
@@ -1034,6 +1214,7 @@
     if (section === 'topic') renderTopicDetail(id);
     else if (section === 'topics') renderTopics();
     else if (section === 'practice') renderPractice(id || 'all');
+    else if (section === 'tracing') renderTracingGame();
     else if (section === 'flashcards') renderFlashcards();
     else if (section === 'exam') renderExam();
     else if (section === 'progress') renderProgress();

@@ -1,0 +1,35 @@
+CS202 Reviewer Gym — Tracing Game Patch
+
+Added the first IntelliJ Quest-style activity: Tracing Game.
+
+What changed:
+- Added a new Tracing Game page at #tracing.
+- Added a Tracing Game navigation link.
+- Added 100 tracing problems:
+  - 25 base tracing problems that can appear in Levels 1, 2, and 3.
+  - 25 extra Level 1 guided tracing problems.
+  - 25 extra Level 2 hinted tracing problems.
+  - 25 extra Level 3 solo tracing problems.
+- Level 1 has two optional hidden clues.
+- Level 2 has one optional hidden clue.
+- Level 3 has no clues.
+- Explanations, official answer, and common mistake appear only after the user submits an answer.
+- The game randomly picks a problem when opened, when filters change, and when the user clicks New random trace.
+- Clue usage is tracked separately from correctness in the result message.
+- Tracing answers are recorded in local progress and weak-topic review.
+
+Files changed or added:
+- index.html
+- pages/tracing-game.html
+- scripts/app.js
+- scripts/tracing-game-data.js
+- styles/components.css
+- tests/validate-tracing-game.js
+
+Validation run:
+- node --check scripts/app.js
+- node --check scripts/tracing-game-data.js
+- node tests/validate-question-data.js
+- node tests/audit-question-quality.js
+- node tests/validate-tracing-game.js
+- bash tests/sample-checks/check-structure.sh
