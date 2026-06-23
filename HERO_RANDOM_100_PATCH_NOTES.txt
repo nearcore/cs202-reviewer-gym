@@ -1,0 +1,13 @@
+Hero random thought patch
+
+- Removed the hero title inside the thought container.
+- Removed the OOP + Java subtitle line.
+- Removed the 10/12 indicator.
+- Removed the separate exam connection line.
+- Expanded the thought deck to 100 Java/OOP facts, jokes, tips, traps, and quote-style reminders.
+- The hero thought is randomly selected on each page load/reload.
+- The New random thought button now chooses a random different thought instead of going in order.
+
+Changed files:
+- scripts/app.js
+- styles/components.css

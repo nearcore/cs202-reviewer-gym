@@ -39,139 +39,734 @@
 
 
 
-  const thoughtStorageKey = 'cs202-reviewer-hero-thought-index';
   const javaThoughts = [
     {
-      icon: '🧠',
-      label: 'OOP Tip',
-      headline: 'Objects should do something, not just hold things.',
-      body: 'Fields describe state. Methods describe behavior. A class starts to make sense when those two belong together.',
-      exam: 'Exam connection: identify attributes vs behaviors before writing a class.',
-      topic: 'Classes and Objects'
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Objects are tiny responsibility holders.",
+        "body": "A good object keeps related data and behavior together, so the rest of the program does not have to micromanage every detail.",
+        "topic": "Classes and Objects"
     },
     {
-      icon: '⚠️',
-      label: 'Common Trap',
-      headline: '=, ==, and equals() are three different conversations.',
-      body: '= assigns. == compares primitive values or object references. equals() checks logical equality when the class defines it properly.',
-      exam: 'Exam connection: String and object comparison questions love this trap.',
-      topic: 'equals(), ==, =, and toString()'
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "=, ==, and equals() are not interchangeable.",
+        "body": "Use = to assign, == to compare primitives or references, and equals() when you want meaningful object equality.",
+        "topic": "equals(), ==, =, and toString()"
     },
     {
-      icon: '😂',
-      label: 'Java Joke',
-      headline: 'I asked my object to explain itself.',
-      body: 'It said, “Call toString() first.”',
-      exam: 'Exam connection: toString() returns a readable String version of an object’s state.',
-      topic: 'equals(), ==, =, and toString()'
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "My object refused to introduce itself.",
+        "body": "It said, “Override toString() first, then we can talk.”",
+        "topic": "equals(), ==, =, and toString()"
     },
     {
-      icon: '💡',
-      label: 'Java Fact',
-      headline: 'A constructor is not a method wearing a disguise.',
-      body: 'It has the same name as the class and no return type, not even void.',
-      exam: 'Exam connection: constructor headers are easy points if you remember the no-return-type rule.',
-      topic: 'Constructors'
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "A constructor has no return type.",
+        "body": "Not int, not String, not even void. If it has a return type, Java sees it as a method instead.",
+        "topic": "Constructors"
     },
     {
-      icon: '🎯',
-      label: 'Exam Reminder',
-      headline: 'Trace slowly. Java does exactly what the code says, not what the variable name suggests.',
-      body: 'When a question asks for output, track each assignment and loop update before choosing an answer.',
-      exam: 'Exam connection: trace questions reward patience more than guessing.',
-      topic: 'Conditions, Loops, and Operators'
+        "icon": "🎯",
+        "label": "Trace Tip",
+        "headline": "Java follows the code, not the story in your head.",
+        "body": "When tracing output, write down each variable change. Guessing is how loops win.",
+        "topic": "Conditions, Loops, and Operators"
     },
     {
-      icon: '🧬',
-      label: 'OOP Tip',
-      headline: 'Inheritance should pass the “is-a” test.',
-      body: 'A Dog is an Animal makes sense. A Dog is a Collar does not. extends should model a real subtype relationship.',
-      exam: 'Exam connection: use the is-a rule before choosing inheritance.',
-      topic: 'Inheritance and Polymorphism'
+        "icon": "🧬",
+        "label": "OOP Tip",
+        "headline": "Inheritance should pass the is-a test.",
+        "body": "A subclass should truly be a more specific kind of its superclass, not just something that happens to use similar code.",
+        "topic": "Inheritance and Polymorphism"
     },
     {
-      icon: '🔌',
-      label: 'Interface Tip',
-      headline: 'An interface is a promise: “I know how to do this behavior.”',
-      body: 'When a class implements an interface, it agrees to provide the required methods.',
-      exam: 'Exam connection: KeyListener questions usually test required method headers.',
-      topic: 'Interfaces and KeyListener'
+        "icon": "🔌",
+        "label": "Interface Tip",
+        "headline": "An interface is a behavior contract.",
+        "body": "When a class implements an interface, it promises to provide the required methods.",
+        "topic": "Interfaces and KeyListener"
     },
     {
-      icon: '🧯',
-      label: 'Bug Radar',
-      headline: 'NullPointerException is Java saying, “There is no object there.”',
-      body: 'You tried to call a method or access a field through a reference that points to null.',
-      exam: 'Exam connection: look for variables declared but never assigned an object.',
-      topic: 'Static, Final, Memory, and Garbage Collection'
+        "icon": "🧯",
+        "label": "Bug Hint",
+        "headline": "NullPointerException means the object was never really there.",
+        "body": "You tried to use a reference that points to null. Find where the object should have been created or assigned.",
+        "topic": "Exceptions, Files, and Null Pointers"
     },
     {
-      icon: '📦',
-      label: 'Array Tip',
-      headline: 'Arrays start at 0 because Java likes humbling people early.',
-      body: 'The first item is index 0, and the last item is length - 1.',
-      exam: 'Exam connection: off-by-one loop errors are classic final material.',
-      topic: 'Arrays and ArrayLists'
+        "icon": "📦",
+        "label": "Array Tip",
+        "headline": "The last array index is length - 1.",
+        "body": "If an array has 5 items, the valid indexes are 0 through 4. Index 5 is outside the fence.",
+        "topic": "Arrays and ArrayLists"
     },
     {
-      icon: '🪞',
-      label: 'Record Note',
-      headline: 'A record is for simple data that already knows how to describe itself.',
-      body: 'Records automatically provide useful basics like accessors, equals(), hashCode(), and toString().',
-      exam: 'Exam connection: know when a record is simpler than a full class.',
-      topic: 'Records vs Classes'
+        "icon": "🪞",
+        "label": "Record Note",
+        "headline": "A record is simple data with built-in manners.",
+        "body": "Records automatically provide accessors, equals(), hashCode(), and toString() for their components.",
+        "topic": "Records vs Classes"
     },
     {
-      icon: '🛠️',
-      label: 'Debug Tip',
-      headline: 'The compiler is not being mean. It is being specific.',
-      body: 'Read the first error carefully. Later errors are sometimes just consequences of the first one.',
-      exam: 'Exam connection: fix-code questions often have one real cause and several symptoms.',
-      topic: 'Java Basics'
+        "icon": "🛠️",
+        "label": "Debug Tip",
+        "headline": "Read the first compiler error first.",
+        "body": "Later errors can be side effects. The first error usually points closer to the real problem.",
+        "topic": "Java Basics"
     },
     {
-      icon: '🔁',
-      label: 'Loop Reminder',
-      headline: 'A loop needs three things: start, stop, and change.',
-      body: 'Initialize the variable, write the condition, then update the variable so the loop can eventually finish.',
-      exam: 'Exam connection: infinite loops usually forget the change part.',
-      topic: 'Conditions, Loops, and Operators'
+        "icon": "🔁",
+        "label": "Loop Reminder",
+        "headline": "A loop needs a start, a stop, and a change.",
+        "body": "Initialize something, test something, then update something. Missing one of those creates chaos.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Private fields are not secrecy. They are protection.",
+        "body": "Encapsulation keeps outside code from changing object state in random ways.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "Good code explains what it is doing before comments have to apologize for it.",
+        "body": "Names, structure, and small methods can make a program easier to read before extra comments are needed.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "A static method walked into a class.",
+        "body": "No object was needed, so nobody opened the door.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "static belongs to the class, not one object.",
+        "body": "A static field is shared by the class. An instance field belongs to each individual object.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Overloading and overriding are cousins, not twins.",
+        "body": "Overloading means same method name with different parameters. Overriding means a subclass replaces inherited behavior.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "🎨",
+        "label": "Graphics Tip",
+        "headline": "paintComponent is where custom Swing drawing usually happens.",
+        "body": "Call super.paintComponent(g) first, then draw shapes, text, or images using the Graphics object.",
+        "topic": "Graphics"
+    },
+    {
+        "icon": "⌨️",
+        "label": "KeyListener Tip",
+        "headline": "KeyListener has three required methods.",
+        "body": "keyPressed, keyReleased, and keyTyped must exist, even if one of them has an empty body.",
+        "topic": "Interfaces and KeyListener"
+    },
+    {
+        "icon": "🧪",
+        "label": "Exam Reminder",
+        "headline": "A non-void method must return something on every valid path.",
+        "body": "If Java can reach the end without a return, the method is incomplete.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "🧃",
+        "label": "Java Joke",
+        "headline": "My loop said it would stop eventually.",
+        "body": "That was three hours ago.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🧭",
+        "label": "Study Hint",
+        "headline": "Trace before you fix.",
+        "body": "If you do not know what the code currently does, changing it is just guessing with confidence.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "📚",
+        "label": "Vocabulary Tip",
+        "headline": "Instantiate means create an object.",
+        "body": "When you write new Student(), Java creates a Student object and returns a reference to it.",
+        "topic": "Vocabulary Bank"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "A local variable disappears after its block ends.",
+        "body": "Fields live with the object. Locals live inside methods or blocks.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "A class is a plan. An object is the thing built from it.",
+        "body": "The class describes what objects know and do. Each object gets its own state.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "ArrayList can grow. Arrays cannot.",
+        "body": "An array has a fixed length. An ArrayList can add and remove elements as needed.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "I named my variable temp.",
+        "body": "Now it has been in production for three semesters.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "🎯",
+        "label": "Trace Tip",
+        "headline": "Check loop boundaries before checking loop logic.",
+        "body": "Many wrong answers come from one extra iteration or one missing iteration.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🛡️",
+        "label": "Access Tip",
+        "headline": "public means everyone can call it. private means the class controls it.",
+        "body": "Access modifiers help define what outside code is allowed to touch.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "A bug is just a very confident misunderstanding.",
+        "body": "The code is doing something. Your job is to find the difference between expected behavior and actual behavior.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "🧬",
+        "label": "Polymorphism Tip",
+        "headline": "Polymorphism lets one reference type point to different object types.",
+        "body": "A superclass reference can hold subclass objects, and overridden methods still use the actual object’s behavior.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "final does not always mean the same thing.",
+        "body": "A final variable cannot be reassigned. A final method cannot be overridden. A final class cannot be extended.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "📦",
+        "label": "Array Tip",
+        "headline": "Enhanced for-loops are great for reading, not indexing.",
+        "body": "Use a normal for-loop when you need the index position or need to update by index.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "🧯",
+        "label": "Bug Hint",
+        "headline": "The semicolon after an if statement can quietly break your logic.",
+        "body": "if (ready); creates an empty if-body. The next block may run no matter what.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Methods should describe actions.",
+        "body": "A method name like calculateTotal or moveLeft tells you what behavior the object can perform.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "String is a class, not a primitive type.",
+        "body": "That is why comparing strings with equals() matters more than using ==.",
+        "topic": "equals(), ==, =, and toString()"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "My subclass said it was independent.",
+        "body": "Then it called super().",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "🏗️",
+        "label": "Constructor Tip",
+        "headline": "super() calls the parent constructor.",
+        "body": "If you do not write it, Java may insert a no-argument super() call automatically.",
+        "topic": "Constructors"
+    },
+    {
+        "icon": "🎮",
+        "label": "KeyListener Tip",
+        "headline": "keyPressed is usually the useful one for movement.",
+        "body": "For game-style controls, keyPressed often handles arrows or WASD more directly than keyTyped.",
+        "topic": "Interfaces and KeyListener"
+    },
+    {
+        "icon": "🎯",
+        "label": "Exam Reminder",
+        "headline": "Method headers are exam magnets.",
+        "body": "Know the access modifier, return type, method name, parameter list, and where the body begins.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "Make the easy things obvious and the dangerous things private.",
+        "body": "That is a good mindset for fields, setters, and object design.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "A copy constructor should make a new object, not just borrow the old reference.",
+        "body": "Copy the needed values so the new object has its own state.",
+        "topic": "Constructors"
+    },
+    {
+        "icon": "🧪",
+        "label": "Exam Reminder",
+        "headline": "instanceof checks what an object really is at runtime.",
+        "body": "It is useful before casting when you are not sure what subtype a reference contains.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "🛠️",
+        "label": "Debug Tip",
+        "headline": "If a variable is wrong, find the last line that changed it.",
+        "body": "Trace backward from the bad value instead of staring at the whole program at once.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "Garbage collection cleans up unreachable objects.",
+        "body": "When no references can reach an object anymore, Java can reclaim that memory later.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "The garbage collector visited my code.",
+        "body": "It left after realizing I was still referencing all my problems.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "📚",
+        "label": "Vocabulary Tip",
+        "headline": "A parameter is the variable in the method header.",
+        "body": "An argument is the actual value you pass when calling the method.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "🎨",
+        "label": "Graphics Tip",
+        "headline": "Coordinates start at the top-left corner.",
+        "body": "In many Java drawing contexts, x increases to the right and y increases downward.",
+        "topic": "Graphics"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Do not compare objects by how they print.",
+        "body": "toString() is for display. equals() is for logical equality.",
+        "topic": "equals(), ==, =, and toString()"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "A setter should protect meaning, not just change a field.",
+        "body": "If a value can be invalid, the setter is a good place to check it.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "🔁",
+        "label": "Loop Reminder",
+        "headline": "break leaves the loop. continue skips to the next round.",
+        "body": "Both change control flow, but they do very different things.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "switch can choose among matching cases.",
+        "body": "It is useful when one expression controls several possible branches.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Switch fall-through happens when break is missing.",
+        "body": "Without break, Java can keep running into the next case in a traditional switch statement.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "I tried to cast my homework to Finished.",
+        "body": "Java said: incompatible types.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "🧪",
+        "label": "Exam Reminder",
+        "headline": "A stub compiles but does not really solve the problem yet.",
+        "body": "Stubs are placeholders. They help structure code before the real logic is written.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "📦",
+        "label": "Array Tip",
+        "headline": "Parallel arrays work, but objects are usually cleaner.",
+        "body": "If two arrays describe the same thing, a class might describe that data better.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "🪞",
+        "label": "Record Note",
+        "headline": "Records are best when the data is the main point.",
+        "body": "When behavior becomes complex, a normal class may be more flexible.",
+        "topic": "Records vs Classes"
+    },
+    {
+        "icon": "🧯",
+        "label": "Bug Hint",
+        "headline": "An off-by-one error is small enough to hide and big enough to fail.",
+        "body": "Check the start index, the stop condition, and whether the loop uses < or <=.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🔐",
+        "label": "Access Tip",
+        "headline": "protected is not the same as public.",
+        "body": "protected allows access from subclasses and same-package classes, but it is still more limited than public.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "The best fix is the one you can explain after writing it.",
+        "body": "If you cannot explain why the change works, test it again and trace it slowly.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "int division drops the decimal part.",
+        "body": "5 / 2 gives 2 when both values are integers. Use double if you need 2.5.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Modulo gives the remainder, not the percentage.",
+        "body": "x % 2 is useful for checking even or odd numbers because it gives the remainder after division by 2.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "A class name should usually be a noun.",
+        "body": "A method name is often a verb. That small habit makes code easier to read.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "My boolean said it was fine.",
+        "body": "That was false.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🎯",
+        "label": "Trace Tip",
+        "headline": "Trace conditions as true or false, not vibes.",
+        "body": "Write the actual comparison result before entering an if, else-if, or loop.",
+        "topic": "Conditions, Loops, and Operators"
+    },
+    {
+        "icon": "🛠️",
+        "label": "Debug Tip",
+        "headline": "A missing import can look scarier than it is.",
+        "body": "If Java cannot find a class, check spelling, package names, and imports before rewriting logic.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "📚",
+        "label": "Vocabulary Tip",
+        "headline": "A field is a variable that belongs to an object or class.",
+        "body": "A local variable belongs to a method or block and disappears when that block is done.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "void means the method returns nothing.",
+        "body": "A void method may still print, change object state, or call other methods.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Printing is not the same as returning.",
+        "body": "System.out.println shows output. return sends a value back to the caller.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "🧬",
+        "label": "Polymorphism Tip",
+        "headline": "The reference type controls what methods are visible.",
+        "body": "The actual object controls which overridden method runs.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "I made everything public once.",
+        "body": "Then my objects had no privacy and my bugs had full access.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "🎨",
+        "label": "Graphics Tip",
+        "headline": "repaint() asks Swing to draw again later.",
+        "body": "Do not call paintComponent directly. Change state, then request a repaint.",
+        "topic": "Graphics"
+    },
+    {
+        "icon": "⌨️",
+        "label": "KeyListener Tip",
+        "headline": "Focus matters for keyboard input.",
+        "body": "If key events are not working, the component may not have keyboard focus.",
+        "topic": "Interfaces and KeyListener"
+    },
+    {
+        "icon": "🧪",
+        "label": "Exam Reminder",
+        "headline": "equals() should be consistent.",
+        "body": "If two objects are equal now, they should stay equal unless their meaningful state changes.",
+        "topic": "equals(), ==, =, and toString()"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "Every class ultimately inherits from Object.",
+        "body": "That is where methods like toString() and equals() originally come from.",
+        "topic": "equals(), ==, =, and toString()"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "A method signature does not include the return type.",
+        "body": "In Java, the signature is the method name plus parameter types.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Behavior belongs where the data lives.",
+        "body": "If a method constantly needs another object’s fields, that behavior might belong in that other class.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "📦",
+        "label": "Array Tip",
+        "headline": "Multidimensional arrays are arrays of arrays.",
+        "body": "A 2D array can be pictured like rows and columns, but Java stores it as nested arrays.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "I asked the array for one more item.",
+        "body": "It threw boundaries at me.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "🛠️",
+        "label": "Debug Tip",
+        "headline": "Runtime errors happen while the program is running.",
+        "body": "The code may compile successfully and still fail when a bad input, null reference, or invalid index appears.",
+        "topic": "Exceptions, Files, and Null Pointers"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "try/catch handles exceptions without pretending they cannot happen.",
+        "body": "The try block contains risky code. The catch block explains what to do if the exception occurs.",
+        "topic": "Exceptions, Files, and Null Pointers"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Catching an exception does not automatically fix the cause.",
+        "body": "It only lets your program respond instead of crashing immediately.",
+        "topic": "Exceptions, Files, and Null Pointers"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "The computer is literal. That is both the problem and the clue.",
+        "body": "When Java behaves strangely, it is usually obeying something you accidentally wrote.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "🎯",
+        "label": "Trace Tip",
+        "headline": "Trace object references, not just values.",
+        "body": "Two variables can point to the same object. Changing the object through one reference affects what the other sees.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Composition means an object has another object.",
+        "body": "Inheritance is is-a. Composition is has-a. They solve different design problems.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "Do not use inheritance just to avoid typing code twice.",
+        "body": "Shared code is nice, but the relationship still has to make sense.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "Abstract classes can define partial behavior.",
+        "body": "They can have normal methods, fields, constructors, and abstract methods for subclasses to complete.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "🧪",
+        "label": "Exam Reminder",
+        "headline": "An abstract method has no body.",
+        "body": "It declares what must exist, and subclasses provide the implementation.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "My abstract class had big plans.",
+        "body": "It just needed someone else to implement them.",
+        "topic": "Inheritance and Polymorphism"
+    },
+    {
+        "icon": "💬",
+        "label": "Quote-ish",
+        "headline": "Small methods make big programs less scary.",
+        "body": "Breaking work into clear pieces helps with tracing, testing, and debugging.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "A side effect changes something outside the return value.",
+        "body": "Printing, modifying a field, or changing a list can all be side effects.",
+        "topic": "Methods"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "The diamond operator lets Java infer generic types.",
+        "body": "new ArrayList<String>() can often become new ArrayList<>() when the type is clear from context.",
+        "topic": "Arrays and ArrayLists"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "Getters reveal data carefully. Setters change data carefully.",
+        "body": "They give controlled access instead of letting outside code touch fields directly.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "📚",
+        "label": "Vocabulary Tip",
+        "headline": "A class variable is usually static.",
+        "body": "It belongs to the class itself instead of being copied into every object.",
+        "topic": "Static, Final, Memory, and Garbage Collection"
+    },
+    {
+        "icon": "😂",
+        "label": "Java Joke",
+        "headline": "My code compiled on the first try.",
+        "body": "Then I woke up and fixed the missing semicolon.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "🎯",
+        "label": "Exam Reminder",
+        "headline": "When fixing code, change the cause, not just the symptom.",
+        "body": "A single wrong variable, missing return, or bad condition can create several visible problems.",
+        "topic": "Final Exam Mixed Practice"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "Comments explain why, not just what.",
+        "body": "The code already shows what it does. A useful comment explains the reason behind a choice.",
+        "topic": "Java Basics"
+    },
+    {
+        "icon": "⚠️",
+        "label": "Common Trap",
+        "headline": "A default constructor disappears when you write another constructor.",
+        "body": "If you define a constructor with parameters, Java no longer gives you a no-argument constructor for free.",
+        "topic": "Constructors"
+    },
+    {
+        "icon": "🧠",
+        "label": "OOP Tip",
+        "headline": "this means the current object.",
+        "body": "Use this.field when you need to clearly refer to the object’s field instead of a local variable or parameter.",
+        "topic": "Classes and Objects"
+    },
+    {
+        "icon": "💡",
+        "label": "Java Fact",
+        "headline": "super means the parent side of the object.",
+        "body": "Use super.method() or super(...) when you need parent behavior or a parent constructor.",
+        "topic": "Inheritance and Polymorphism"
     }
-  ];
+];
 
-  function defaultThoughtIndex() {
-    const dayKey = new Date().toISOString().slice(0, 10).replaceAll('-', '');
-    return Number(dayKey) % javaThoughts.length;
+  function randomThoughtIndex(except = -1) {
+    if (javaThoughts.length <= 1) return 0;
+    let next = Math.floor(Math.random() * javaThoughts.length);
+    while (next === except) next = Math.floor(Math.random() * javaThoughts.length);
+    return next;
   }
 
+  let currentThoughtIndex = randomThoughtIndex();
+
   function getThoughtIndex() {
-    const saved = Number(localStorage.getItem(thoughtStorageKey));
-    if (Number.isInteger(saved) && saved >= 0 && saved < javaThoughts.length) return saved;
-    const daily = defaultThoughtIndex();
-    localStorage.setItem(thoughtStorageKey, String(daily));
-    return daily;
+    return currentThoughtIndex;
   }
 
   function renderHeroThought() {
     const thought = javaThoughts[getThoughtIndex()];
     const relatedTopic = topicByName(thought.topic) || topics[0];
-    return `<section class="hero gym-hero thought-hero">
+    return `<section class="hero gym-hero thought-hero" aria-label="Random Java and OOP thought">
       <div class="thought-board">
-        <div class="thought-heading">
-          <div>
-            <h1>CS202 Reviewer Gym</h1>
-            <p class="thought-kicker">OOP + Java facts, traps, jokes, and reminders that rotate while you review.</p>
-          </div>
-          <span class="thought-count">${getThoughtIndex() + 1}/${javaThoughts.length}</span>
-        </div>
-        <article class="thought-card" aria-live="polite">
+        <article class="thought-card thought-random-card" aria-live="polite">
           <div class="thought-type"><span class="thought-icon">${escapeHtml(thought.icon)}</span><span>${escapeHtml(thought.label)}</span></div>
           <h2>${escapeHtml(thought.headline)}</h2>
           <p class="thought-body">${escapeHtml(thought.body)}</p>
-          <p class="thought-exam">${escapeHtml(thought.exam)}</p>
         </article>
         <div class="hero-actions thought-actions">
-          <button id="new-thought" class="primary-cta" type="button">New thought</button>
+          <button id="new-thought" class="primary-cta" type="button">New random thought</button>
           <a class="button secondary" href="#topic/${relatedTopic.id}">Review related topic</a>
           <a class="button secondary" href="#practice">Start practice</a>
         </div>
@@ -183,8 +778,7 @@
     const button = document.querySelector('#new-thought');
     if (!button) return;
     button.addEventListener('click', () => {
-      const next = (getThoughtIndex() + 1) % javaThoughts.length;
-      localStorage.setItem(thoughtStorageKey, String(next));
+      currentThoughtIndex = randomThoughtIndex(getThoughtIndex());
       renderDashboard();
     });
   }

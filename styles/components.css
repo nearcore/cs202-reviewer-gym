@@ -1165,3 +1165,58 @@ html[data-theme="night"] .thought-kicker {
     justify-self: start;
   }
 }
+
+/* Random hero thought deck: no title/subtitle/count, just the useful rotating thought. */
+.thought-hero {
+  padding: clamp(1rem, 2.2vw, 1.55rem);
+}
+
+.thought-random-card {
+  min-height: clamp(150px, 18vw, 220px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.thought-random-card::after {
+  content: "{}";
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.5rem);
+  bottom: clamp(.75rem, 2vw, 1.5rem);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 900;
+  color: rgba(23, 105, 170, .055);
+  pointer-events: none;
+}
+
+.thought-random-card .thought-type,
+.thought-random-card h2,
+.thought-random-card .thought-body {
+  position: relative;
+  z-index: 1;
+}
+
+.thought-random-card h2 {
+  max-width: 860px;
+  margin-bottom: .7rem;
+}
+
+.thought-random-card .thought-body {
+  max-width: 820px;
+  font-size: clamp(1rem, 1.4vw, 1.14rem);
+}
+
+html[data-theme="night"] .thought-random-card::after {
+  color: rgba(62, 231, 255, .10);
+  text-shadow: 0 0 22px rgba(62, 231, 255, .20), 0 0 34px rgba(255, 48, 202, .10);
+}
+
+@media (max-width: 640px) {
+  .thought-random-card {
+    min-height: 170px;
+  }
+  .thought-actions {
+    display: grid;
+  }
+}
