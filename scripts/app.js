@@ -970,7 +970,7 @@
         <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
         <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Open broken code in IntelliJ, repair it, then explain what changed.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Inspect broken code, explain the fix, then compare with the official review.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
     const updatePracticePreview = () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -1252,7 +1252,7 @@
         <article><p class="eyebrow">Self-check</p><p>${escapeHtml(item.selfCheck)}</p></article>
       </div>
       <div class="reflection-summary"><p><strong>Your fix:</strong> ${escapeHtml(bugFixLabState.fixNote || 'No note entered.')}</p><p><strong>Your reason:</strong> ${escapeHtml(bugFixLabState.reasonNote || 'No reason entered.')}</p><p><strong>Concept:</strong> ${escapeHtml(bugFixLabState.conceptNote || item.skill)}</p></div>
-      <div class="button-row"><button id="bugfix-fixed" class="success">I fixed it</button><button id="bugfix-needs-review" class="secondary">Keep in review</button><button id="bugfix-next" class="button quiet">Next bug →</button></div>
+      <div class="button-row"><button id="bugfix-fixed" class="success">I understood the fix</button><button id="bugfix-needs-review" class="secondary">Keep in review</button><button id="bugfix-next" class="button quiet">Next bug →</button></div>
     </section>`;
   }
 
@@ -1263,7 +1263,7 @@
     const pool = availableBugFixItems();
     const modeMeta = bugFixModeMeta();
     const isReviewMode = bugFixLabState.mode === 'level3';
-    main.innerHTML = `${pageHead('Bug Fix Lab', 'Fix code in IntelliJ, then explain why', 'Use the website as the mission board. Use IntelliJ as the repair shop. Official reviews stay hidden until after you attempt the task.')}
+    main.innerHTML = `${pageHead('Bug Fix Lab', 'Find the bug, explain the fix, then review why', 'Work directly in the website. Clues and official reviews stay hidden until after you attempt the task.')}
       <section class="card bugfix-control-panel">
         <div class="trace-mode-tabs" role="tablist" aria-label="Bug Fix Lab mode">
           <button class="trace-mode ${bugFixLabState.mode === 'level1' ? 'active' : ''}" data-bugfix-mode="level1"><strong>Level 1</strong><span>Guided Fix · 1 clue</span></button>
@@ -1277,7 +1277,6 @@
       </section>
       ${item ? `<section class="card bugfix-card">
         <div class="quest-title-row"><div><p class="eyebrow">${escapeHtml(modeMeta.label)} · ${escapeHtml(item.topic)}</p><h2>${escapeHtml(item.title)}</h2><p class="muted">Skill focus: ${escapeHtml(item.skill)}</p></div><span class="pill">${escapeHtml(item.id)}</span></div>
-        <div class="file-path-card"><span>Open in IntelliJ</span><code>${escapeHtml(item.filePath)}</code></div>
         ${renderBugFixAssumptions()}
         <div class="bugfix-brief-grid">
           <article><p class="eyebrow">Bug report</p><p>${escapeHtml(item.bugReport)}</p></article>
@@ -1289,7 +1288,7 @@
         ${renderBugFixClue(item)}
         <section class="bugfix-reflection">
           <h3>${isReviewMode ? 'Review notes' : 'Fix notes'}</h3>
-          <label>What did you fix or identify?<textarea id="bugfix-fix-note" rows="3" placeholder="Example: I changed name = name to this.name = name..." ${bugFixLabState.reviewShown ? 'disabled' : ''}>${escapeHtml(bugFixLabState.fixNote)}</textarea></label>
+          <label>What would you fix or identify?<textarea id="bugfix-fix-note" rows="3" placeholder="Example: Change name = name to this.name = name..." ${bugFixLabState.reviewShown ? 'disabled' : ''}>${escapeHtml(bugFixLabState.fixNote)}</textarea></label>
           <label>Why was it wrong, weak, or risky?<textarea id="bugfix-reason-note" rows="3" placeholder="Explain the Java rule or design reason..." ${bugFixLabState.reviewShown ? 'disabled' : ''}>${escapeHtml(bugFixLabState.reasonNote)}</textarea></label>
           <label>Concept involved<input id="bugfix-concept-note" value="${escapeHtml(bugFixLabState.conceptNote)}" placeholder="constructor, static, equals, inheritance..."></label>
           <div class="button-row"><button id="show-bugfix-review" class="primary-cta" ${bugFixLabState.reviewShown ? 'disabled' : ''}>I attempted it — show official review</button><button id="new-bugfix" class="button secondary">New random bug</button></div>

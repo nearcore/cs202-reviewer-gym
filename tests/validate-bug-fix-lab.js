@@ -10,7 +10,7 @@ vm.runInContext(fs.readFileSync(path.join(root, 'scripts/bug-fix-lab-data.js'), 
 
 const data = context.window.BUG_FIX_LAB_DATA;
 const errors = [];
-const required = ['id', 'title', 'topic', 'skill', 'filePath', 'bugReport', 'actualBehavior', 'expectedBehavior', 'task', 'code', 'officialReview', 'commonMistake', 'selfCheck'];
+const required = ['id', 'title', 'topic', 'skill', 'bugReport', 'actualBehavior', 'expectedBehavior', 'task', 'code', 'officialReview', 'commonMistake', 'selfCheck'];
 const groups = {
   base: data?.base || [],
   level1: data?.extras?.level1 || [],
@@ -36,7 +36,6 @@ for (const [group, items] of Object.entries(groups)) {
     if (!Array.isArray(item.clues)) errors.push(`${key} clues must be an array.`);
     if ((group === 'base' || group === 'level1') && item.clues.length < 1) errors.push(`${key} needs one hidden clue.`);
     if ((group === 'level2' || group === 'level3') && item.clues.length > 0) errors.push(`${key} should not include clues.`);
-    if (item.filePath && !fs.existsSync(path.join(root, item.filePath))) errors.push(`${key} filePath does not exist: ${item.filePath}`);
     if (group === 'level3' && !/review|refactor|design|logic|style|concept|multiple|side effect|state|focus|readability|structure|mutat/i.test(`${item.task} ${item.officialReview} ${item.bugReport}`)) errors.push(`${key} should clearly be review/refactor oriented.`);
   }
 }

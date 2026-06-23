@@ -98,4 +98,4 @@ node scripts/export-expanded-questions.js /tmp/cs202-expanded-questions.json
 
 ## Bug Fix Lab
 
-The Bug Fix Lab connects the website to IntelliJ practice. The site gives a bug report, file path, expected behavior, optional clue rules, reflection boxes, and an official review after the attempt. Practice files live in `java-practice/bug-fix-lab/`.
+The Bug Fix Lab is a website-only quest mode for reading broken or weak Java snippets, identifying the issue, writing a short explanation, and comparing with the official review after attempting. It includes hidden clues for guided practice, no-clue solo practice, and Level 3 code review/refactor challenges.
