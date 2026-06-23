@@ -37,6 +37,10 @@ for (const [group, items] of Object.entries(groups)) {
     if ((group === 'base' || group === 'level1') && item.clues.length < 1) errors.push(`${key} needs one hidden clue.`);
     if ((group === 'level2' || group === 'level3') && item.clues.length > 0) errors.push(`${key} should not include clues.`);
     if (group === 'level3' && !/review|refactor|design|logic|style|concept|multiple|side effect|state|focus|readability|structure|mutat/i.test(`${item.task} ${item.officialReview} ${item.bugReport}`)) errors.push(`${key} should clearly be review/refactor oriented.`);
+    const codeLines = String(item.code || '').split(/\r?\n/);
+    const longLines = codeLines.filter(line => line.length > 120);
+    if (longLines.length) errors.push(`${key} has code lines longer than 120 characters; format code into readable Java lines.`);
+    if (String(item.code || '').trim().split(/\r?\n/).length < 4) errors.push(`${key} code should be formatted across multiple readable lines.`);
   }
 }
 

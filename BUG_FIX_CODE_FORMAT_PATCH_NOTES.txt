@@ -1,0 +1,5 @@
+Bug Fix Lab code formatting patch
+
+- Reformatted Bug Fix Lab snippets so Java code displays across readable lines instead of one long horizontal line.
+- Preserved the website-only Bug Fix Lab workflow.
+- Added validation checks so future Bug Fix Lab snippets cannot stay as unreadable one-line code blocks.

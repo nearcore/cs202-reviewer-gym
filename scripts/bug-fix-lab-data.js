@@ -241,7 +241,7 @@
       "actualBehavior": "0",
       "expectedBehavior": "95",
       "task": "Fix the setter so it updates the field.",
-      "code": "public class BugFixBase011 { static class Grade { private int score; void setScore(int score) { score = score; } int getScore(){ return score; } } public static void main(String[] args){ Grade g = new Grade(); g.setScore(95); System.out.println(g.getScore()); } }\n",
+      "code": "public class BugFixBase011 {\n    static class Grade {\n        private int score;\n        void setScore(int score) {\n            score = score;\n        }\n        int getScore() {\n            return score;\n        }\n    }\n    public static void main(String[] args) {\n        Grade g = new Grade();\n        g.setScore(95);\n        System.out.println(g.getScore());\n    }\n}\n",
       "clues": [
         "The parameter and field have the same name."
       ],
@@ -262,7 +262,7 @@
       "actualBehavior": "infinite loop",
       "expectedBehavior": "prints 0 1 2",
       "task": "Fix the update so the loop moves toward the condition becoming false.",
-      "code": "public class BugFixBase012 { public static void main(String[] args){ for (int i=0; i<3; i--) { System.out.println(i); } } }\n",
+      "code": "public class BugFixBase012 {\n    public static void main(String[] args) {\n        for (int i=0; i<3; i--) {\n            System.out.println(i);\n        }\n    }\n}\n",
       "clues": [
         "The variable is moving the wrong direction."
       ],
@@ -283,7 +283,7 @@
       "actualBehavior": "2.0",
       "expectedBehavior": "2.5",
       "task": "Fix the calculation so division uses a double.",
-      "code": "public class BugFixBase013 { public static void main(String[] args){ int total = 5; double avg = total / 2; System.out.println(avg); } }\n",
+      "code": "public class BugFixBase013 {\n    public static void main(String[] args) {\n        int total = 5;\n        double avg = total / 2;\n        System.out.println(avg);\n    }\n}\n",
       "clues": [
         "Both operands are int before assignment to double."
       ],
@@ -304,7 +304,7 @@
       "actualBehavior": "5",
       "expectedBehavior": "6",
       "task": "Return the changed value or use a mutable object if mutation is intended.",
-      "code": "public class BugFixBase014 { static void addOne(int x){ x++; } public static void main(String[] args){ int n=5; addOne(n); System.out.println(n); } }\n",
+      "code": "public class BugFixBase014 {\n    static void addOne(int x) {\n        x++;\n    }\n    public static void main(String[] args) {\n        int n=5;\n        addOne(n);\n        System.out.println(n);\n    }\n}\n",
       "clues": [
         "Primitive parameters are copied into the method."
       ],
@@ -325,7 +325,7 @@
       "actualBehavior": "CLASS_NAME$Book@...",
       "expectedBehavior": "Book: Java",
       "task": "Fix the method signature so Java recognizes it as toString().",
-      "code": "public class BugFixBase015 { static class Book { String title=\"Java\"; public String tostring(){ return \"Book: \" + title; } } public static void main(String[] args){ System.out.println(new Book()); } }\n",
+      "code": "public class BugFixBase015 {\n    static class Book {\n        String title=\"Java\";\n        public String tostring() {\n            return \"Book: \" + title;\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Book());\n    }\n}\n",
       "clues": [
         "The name must be exactly toString with no parameters."
       ],
@@ -346,7 +346,7 @@
       "actualBehavior": "constructor Person cannot be applied",
       "expectedBehavior": "Student: Mina",
       "task": "Call the superclass constructor from the subclass constructor.",
-      "code": "public class BugFixBase016 { static class Person { String name; Person(String name){ this.name=name; } } static class Student extends Person { Student(String name){} } public static void main(String[] args){ System.out.println(new Student(\"Mina\").name); } }\n",
+      "code": "public class BugFixBase016 {\n    static class Person {\n        String name;\n        Person(String name) {\n            this.name=name;\n        }\n    }\n    static class Student extends Person {\n        Student(String name) {\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Student(\"Mina\").name);\n    }\n}\n",
       "clues": [
         "Person requires a name."
       ],
@@ -367,7 +367,7 @@
       "actualBehavior": "cannot assign a value to final variable",
       "expectedBehavior": "constant remains 10",
       "task": "Remove the reassignment or do not make it final if it must change.",
-      "code": "public class BugFixBase017 { public static void main(String[] args){ final int LIMIT = 10; LIMIT = 12; System.out.println(LIMIT); } }\n",
+      "code": "public class BugFixBase017 {\n    public static void main(String[] args) {\n        final int LIMIT = 10;\n        LIMIT = 12;\n        System.out.println(LIMIT);\n    }\n}\n",
       "clues": [
         "final means the variable cannot be reassigned."
       ],
@@ -388,7 +388,7 @@
       "actualBehavior": "blank panel",
       "expectedBehavior": "draws oval",
       "task": "Fix the method signature so it overrides paintComponent.",
-      "code": "import javax.swing.*; import java.awt.*; public class BugFixBase018 extends JPanel { protected void PaintComponent(Graphics g){ super.paintComponent(g); g.drawOval(10,10,30,30); } }\n",
+      "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixBase018 extends JPanel {\n    protected void PaintComponent(Graphics g) {\n        super.paintComponent(g);\n        g.drawOval(10,10,30,30);\n    }\n}\n",
       "clues": [
         "Java method names are case-sensitive."
       ],
@@ -409,7 +409,7 @@
       "actualBehavior": "empty name",
       "expectedBehavior": "typed name",
       "task": "Consume the leftover newline before calling nextLine for the name.",
-      "code": "import java.util.*; public class BugFixBase019 { public static void main(String[] args){ Scanner s = new Scanner(System.in); int age = s.nextInt(); String name = s.nextLine(); System.out.println(name + \" \" + age); } }\n",
+      "code": "import java.util.*;\npublic class BugFixBase019 {\n    public static void main(String[] args) {\n        Scanner s = new Scanner(System.in);\n        int age = s.nextInt();\n        String name = s.nextLine();\n        System.out.println(name + \" \" + age);\n    }\n}\n",
       "clues": [
         "nextInt leaves the newline in the input buffer."
       ],
@@ -430,7 +430,7 @@
       "actualBehavior": "5",
       "expectedBehavior": "6",
       "task": "Use row first, then column.",
-      "code": "public class BugFixBase020 { public static void main(String[] args){ int[][] grid={{1,2,3},{4,5,6}}; System.out.println(grid[1][1]); } }\n",
+      "code": "public class BugFixBase020 {\n    public static void main(String[] args) {\n        int[][] grid= {\n            {\n                1,2,3\n            }\n            , {\n                4,5,6\n            }\n        };\n        System.out.println(grid[1][1]);\n    }\n}\n",
       "clues": [
         "grid[row][column], not grid[column][row]."
       ],
@@ -451,7 +451,7 @@
       "actualBehavior": "unreachable catch block",
       "expectedBehavior": "specific catch first",
       "task": "Put the more specific exception before the broader exception.",
-      "code": "public class BugFixBase021 { public static void main(String[] args){ try { String s=null; System.out.println(s.length()); } catch (Exception e) { System.out.println(\"problem\"); } catch (NullPointerException e) { System.out.println(\"null\"); } } }\n",
+      "code": "public class BugFixBase021 {\n    public static void main(String[] args) {\n        try {\n            String s=null;\n            System.out.println(s.length());\n        }\n        catch (Exception e) {\n            System.out.println(\"problem\");\n        }\n        catch (NullPointerException e) {\n            System.out.println(\"null\");\n        }\n    }\n}\n",
       "clues": [
         "Exception catches every subclass exception too."
       ],
@@ -472,7 +472,7 @@
       "actualBehavior": "is not abstract and does not override",
       "expectedBehavior": "prints area",
       "task": "Implement the abstract method or make the subclass abstract.",
-      "code": "public class BugFixBase022 { static abstract class Shape { abstract double area(); } static class Rectangle extends Shape { double w=3,h=4; } public static void main(String[] args){ System.out.println(new Rectangle().area()); } }\n",
+      "code": "public class BugFixBase022 {\n    static abstract class Shape {\n        abstract double area();\n    }\n    static class Rectangle extends Shape {\n        double w=3,h=4;\n    }\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n    }\n}\n",
       "clues": [
         "Any concrete subclass must implement all inherited abstract methods."
       ],
@@ -493,7 +493,7 @@
       "actualBehavior": "unexpected type",
       "expectedBehavior": "ArrayList<Integer>",
       "task": "Use the wrapper class for primitive values.",
-      "code": "import java.util.*; public class BugFixBase023 { public static void main(String[] args){ ArrayList<int> nums = new ArrayList<>(); nums.add(3); System.out.println(nums); } }\n",
+      "code": "import java.util.*;\npublic class BugFixBase023 {\n    public static void main(String[] args) {\n        ArrayList<int> nums = new ArrayList<>();\n        nums.add(3);\n        System.out.println(nums);\n    }\n}\n",
       "clues": [
         "Generics need reference types, not primitives."
       ],
@@ -514,7 +514,7 @@
       "actualBehavior": "both changed",
       "expectedBehavior": "copy independent",
       "task": "Make a defensive copy of mutable fields.",
-      "code": "import java.util.*; public class BugFixBase024 { static class Scores { int[] values; Scores(int[] values){ this.values=values; } Scores(Scores other){ this.values=other.values; } } public static void main(String[] args){ Scores a=new Scores(new int[]{1,2}); Scores b=new Scores(a); b.values[0]=9; System.out.println(a.values[0]); } }\n",
+      "code": "import java.util.*;\npublic class BugFixBase024 {\n    static class Scores {\n        int[] values;\n        Scores(int[] values) {\n            this.values=values;\n        }\n        Scores(Scores other) {\n            this.values=other.values;\n        }\n    }\n    public static void main(String[] args) {\n        Scores a=new Scores(new int[] {\n            1,2\n        }\n        );\n        Scores b=new Scores(a);\n        b.values[0]=9;\n        System.out.println(a.values[0]);\n    }\n}\n",
       "clues": [
         "The array reference was copied, not the array contents."
       ],
@@ -535,7 +535,7 @@
       "actualBehavior": "Tue Other",
       "expectedBehavior": "Tue",
       "task": "Add break statements or use arrow cases.",
-      "code": "public class BugFixBase025 { public static void main(String[] args){ int day=2; switch(day){ case 2: System.out.println(\"Tue\"); default: System.out.println(\"Other\"); } } }\n",
+      "code": "public class BugFixBase025 {\n    public static void main(String[] args) {\n        int day=2;\n        switch(day) {\n            case 2: System.out.println(\"Tue\");\n            default: System.out.println(\"Other\");\n        }\n    }\n}\n",
       "clues": [
         "Colon switch cases fall through without break."
       ],
@@ -559,7 +559,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included.",
-        "code": "public class BugFixLevel1001 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel1001 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [
           "Compare < and <= carefully."
         ],
@@ -580,7 +580,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop.",
-        "code": "public class BugFixLevel1002 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel1002 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [
           "Check the value before the loop starts."
         ],
@@ -601,7 +601,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method.",
-        "code": "public class BugFixLevel1003 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel1003 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [
           "The method returns a new value but does not change n by itself."
         ],
@@ -622,7 +622,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly.",
-        "code": "public class BugFixLevel1004 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel1004 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [
           "Constructors must have exactly the same name as the class."
         ],
@@ -643,7 +643,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature.",
-        "code": "public class BugFixLevel1005 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel1005 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [
           "The parameter type must be Object to override Object.equals."
         ],
@@ -664,7 +664,7 @@
         "actualBehavior": "missing base info",
         "expectedBehavior": "base + detail",
         "task": "Call the superclass version when extending behavior.",
-        "code": "public class BugFixLevel1006 { static class Person { String describe(){ return \"Person\"; } } static class Student extends Person { String describe(){ return \"Student\"; } } public static void main(String[] args){ System.out.println(new Student().describe()); } }\n",
+        "code": "public class BugFixLevel1006 {\n    static class Person {\n        String describe() {\n            return \"Person\";\n        }\n    }\n    static class Student extends Person {\n        String describe() {\n            return \"Student\";\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Student().describe());\n    }\n}\n",
         "clues": [
           "super.methodName() runs the inherited method."
         ],
@@ -685,7 +685,7 @@
         "actualBehavior": "resource leak warning",
         "expectedBehavior": "scanner closed",
         "task": "Use try-with-resources for file reading.",
-        "code": "import java.io.*; import java.util.*; public class BugFixLevel1007 { public static void main(String[] args) throws Exception { Scanner in = new Scanner(new File(\"data.txt\")); if(in.hasNextLine()) System.out.println(in.nextLine()); } }\n",
+        "code": "import java.io.*;\nimport java.util.*;\npublic class BugFixLevel1007 {\n    public static void main(String[] args) throws Exception {\n        Scanner in = new Scanner(new File(\"data.txt\"));\n        if(in.hasNextLine()) System.out.println(in.nextLine());\n    }\n}\n",
         "clues": [
           "Objects that manage files should be closed."
         ],
@@ -706,7 +706,7 @@
         "actualBehavior": "dirty repaint",
         "expectedBehavior": "clean repaint",
         "task": "Call the superclass paintComponent first.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel1008 extends JPanel { protected void paintComponent(Graphics g){ g.fillRect(10,10,40,40); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel1008 extends JPanel {\n    protected void paintComponent(Graphics g) {\n        g.fillRect(10,10,40,40);\n    }\n}\n",
         "clues": [
           "super.paintComponent(g) clears/prepares the panel."
         ],
@@ -727,7 +727,7 @@
         "actualBehavior": "attempting weaker access",
         "expectedBehavior": "class compiles",
         "task": "Make the implemented method public.",
-        "code": "public class BugFixLevel1009 { interface Drawable { void draw(); } static class Icon implements Drawable { void draw(){ System.out.println(\"*\"); } } }\n",
+        "code": "public class BugFixLevel1009 {\n    interface Drawable {\n        void draw();\n    }\n    static class Icon implements Drawable {\n        void draw() {\n            System.out.println(\"*\");\n        }\n    }\n}\n",
         "clues": [
           "Interface methods are public contracts."
         ],
@@ -748,7 +748,7 @@
         "actualBehavior": "cannot assign final field",
         "expectedBehavior": "valid compact constructor",
         "task": "Use a compact constructor or validate parameters correctly.",
-        "code": "public class BugFixLevel1010 { record Course(String code, int credits) { public Course(String code, int credits) { this.code = code; this.credits = credits; } } }\n",
+        "code": "public class BugFixLevel1010 {\n    record Course(String code, int credits) {\n        public Course(String code, int credits) {\n            this.code = code;\n            this.credits = credits;\n        }\n    }\n}\n",
         "clues": [
           "Record components are final fields managed by the record."
         ],
@@ -769,7 +769,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included.",
-        "code": "public class BugFixLevel1011 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel1011 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [
           "Compare < and <= carefully."
         ],
@@ -790,7 +790,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop.",
-        "code": "public class BugFixLevel1012 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel1012 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [
           "Check the value before the loop starts."
         ],
@@ -811,7 +811,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method.",
-        "code": "public class BugFixLevel1013 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel1013 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [
           "The method returns a new value but does not change n by itself."
         ],
@@ -832,7 +832,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly.",
-        "code": "public class BugFixLevel1014 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel1014 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [
           "Constructors must have exactly the same name as the class."
         ],
@@ -853,7 +853,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature.",
-        "code": "public class BugFixLevel1015 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel1015 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [
           "The parameter type must be Object to override Object.equals."
         ],
@@ -874,7 +874,7 @@
         "actualBehavior": "missing base info",
         "expectedBehavior": "base + detail",
         "task": "Call the superclass version when extending behavior.",
-        "code": "public class BugFixLevel1016 { static class Person { String describe(){ return \"Person\"; } } static class Student extends Person { String describe(){ return \"Student\"; } } public static void main(String[] args){ System.out.println(new Student().describe()); } }\n",
+        "code": "public class BugFixLevel1016 {\n    static class Person {\n        String describe() {\n            return \"Person\";\n        }\n    }\n    static class Student extends Person {\n        String describe() {\n            return \"Student\";\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Student().describe());\n    }\n}\n",
         "clues": [
           "super.methodName() runs the inherited method."
         ],
@@ -895,7 +895,7 @@
         "actualBehavior": "resource leak warning",
         "expectedBehavior": "scanner closed",
         "task": "Use try-with-resources for file reading.",
-        "code": "import java.io.*; import java.util.*; public class BugFixLevel1017 { public static void main(String[] args) throws Exception { Scanner in = new Scanner(new File(\"data.txt\")); if(in.hasNextLine()) System.out.println(in.nextLine()); } }\n",
+        "code": "import java.io.*;\nimport java.util.*;\npublic class BugFixLevel1017 {\n    public static void main(String[] args) throws Exception {\n        Scanner in = new Scanner(new File(\"data.txt\"));\n        if(in.hasNextLine()) System.out.println(in.nextLine());\n    }\n}\n",
         "clues": [
           "Objects that manage files should be closed."
         ],
@@ -916,7 +916,7 @@
         "actualBehavior": "dirty repaint",
         "expectedBehavior": "clean repaint",
         "task": "Call the superclass paintComponent first.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel1018 extends JPanel { protected void paintComponent(Graphics g){ g.fillRect(10,10,40,40); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel1018 extends JPanel {\n    protected void paintComponent(Graphics g) {\n        g.fillRect(10,10,40,40);\n    }\n}\n",
         "clues": [
           "super.paintComponent(g) clears/prepares the panel."
         ],
@@ -937,7 +937,7 @@
         "actualBehavior": "attempting weaker access",
         "expectedBehavior": "class compiles",
         "task": "Make the implemented method public.",
-        "code": "public class BugFixLevel1019 { interface Drawable { void draw(); } static class Icon implements Drawable { void draw(){ System.out.println(\"*\"); } } }\n",
+        "code": "public class BugFixLevel1019 {\n    interface Drawable {\n        void draw();\n    }\n    static class Icon implements Drawable {\n        void draw() {\n            System.out.println(\"*\");\n        }\n    }\n}\n",
         "clues": [
           "Interface methods are public contracts."
         ],
@@ -958,7 +958,7 @@
         "actualBehavior": "cannot assign final field",
         "expectedBehavior": "valid compact constructor",
         "task": "Use a compact constructor or validate parameters correctly.",
-        "code": "public class BugFixLevel1020 { record Course(String code, int credits) { public Course(String code, int credits) { this.code = code; this.credits = credits; } } }\n",
+        "code": "public class BugFixLevel1020 {\n    record Course(String code, int credits) {\n        public Course(String code, int credits) {\n            this.code = code;\n            this.credits = credits;\n        }\n    }\n}\n",
         "clues": [
           "Record components are final fields managed by the record."
         ],
@@ -979,7 +979,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included.",
-        "code": "public class BugFixLevel1021 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel1021 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [
           "Compare < and <= carefully."
         ],
@@ -1000,7 +1000,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop.",
-        "code": "public class BugFixLevel1022 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel1022 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [
           "Check the value before the loop starts."
         ],
@@ -1021,7 +1021,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method.",
-        "code": "public class BugFixLevel1023 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel1023 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [
           "The method returns a new value but does not change n by itself."
         ],
@@ -1042,7 +1042,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly.",
-        "code": "public class BugFixLevel1024 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel1024 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [
           "Constructors must have exactly the same name as the class."
         ],
@@ -1063,7 +1063,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature.",
-        "code": "public class BugFixLevel1025 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel1025 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [
           "The parameter type must be Object to override Object.equals."
         ],
@@ -1086,7 +1086,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2001 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel2001 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Adjust the boundary to include the final intended value.",
         "commonMistake": "Changing the update instead of the condition.",
@@ -1105,7 +1105,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2002 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel2002 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Set total to 0 before adding array values.",
         "commonMistake": "Looking only inside the loop and ignoring initialization.",
@@ -1124,7 +1124,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2003 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel2003 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use n = doubleIt(n); before printing.",
         "commonMistake": "Calling a return method and ignoring the returned value.",
@@ -1143,7 +1143,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2004 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel2004 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Rename the method-like member to the class name and remove return type if needed.",
         "commonMistake": "Changing capitalization and accidentally making a method.",
@@ -1162,7 +1162,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2005 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel2005 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Change equals(Book other) to equals(Object other), check type, then compare fields.",
         "commonMistake": "Overloading equals instead of overriding it.",
@@ -1181,7 +1181,7 @@
         "actualBehavior": "missing base info",
         "expectedBehavior": "base + detail",
         "task": "Call the superclass version when extending behavior. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2006 { static class Person { String describe(){ return \"Person\"; } } static class Student extends Person { String describe(){ return \"Student\"; } } public static void main(String[] args){ System.out.println(new Student().describe()); } }\n",
+        "code": "public class BugFixLevel2006 {\n    static class Person {\n        String describe() {\n            return \"Person\";\n        }\n    }\n    static class Student extends Person {\n        String describe() {\n            return \"Student\";\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Student().describe());\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use super.describe() and add the subclass detail.",
         "commonMistake": "Replacing behavior when the task asked to extend behavior.",
@@ -1200,7 +1200,7 @@
         "actualBehavior": "resource leak warning",
         "expectedBehavior": "scanner closed",
         "task": "Use try-with-resources for file reading. Work without a clue first, then compare after you attempt it.",
-        "code": "import java.io.*; import java.util.*; public class BugFixLevel2007 { public static void main(String[] args) throws Exception { Scanner in = new Scanner(new File(\"data.txt\")); if(in.hasNextLine()) System.out.println(in.nextLine()); } }\n",
+        "code": "import java.io.*;\nimport java.util.*;\npublic class BugFixLevel2007 {\n    public static void main(String[] args) throws Exception {\n        Scanner in = new Scanner(new File(\"data.txt\"));\n        if(in.hasNextLine()) System.out.println(in.nextLine());\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use try (Scanner in = new Scanner(file)) { ... }.",
         "commonMistake": "Ignoring resource warnings because the output looks right.",
@@ -1219,7 +1219,7 @@
         "actualBehavior": "dirty repaint",
         "expectedBehavior": "clean repaint",
         "task": "Call the superclass paintComponent first. Work without a clue first, then compare after you attempt it.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel2008 extends JPanel { protected void paintComponent(Graphics g){ g.fillRect(10,10,40,40); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel2008 extends JPanel {\n    protected void paintComponent(Graphics g) {\n        g.fillRect(10,10,40,40);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Add super.paintComponent(g); at the start of paintComponent.",
         "commonMistake": "Drawing directly without letting Swing prepare the component.",
@@ -1238,7 +1238,7 @@
         "actualBehavior": "attempting weaker access",
         "expectedBehavior": "class compiles",
         "task": "Make the implemented method public. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2009 { interface Drawable { void draw(); } static class Icon implements Drawable { void draw(){ System.out.println(\"*\"); } } }\n",
+        "code": "public class BugFixLevel2009 {\n    interface Drawable {\n        void draw();\n    }\n    static class Icon implements Drawable {\n        void draw() {\n            System.out.println(\"*\");\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Change void draw() to public void draw().",
         "commonMistake": "Forgetting that implemented interface methods must be public.",
@@ -1257,7 +1257,7 @@
         "actualBehavior": "cannot assign final field",
         "expectedBehavior": "valid compact constructor",
         "task": "Use a compact constructor or validate parameters correctly. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2010 { record Course(String code, int credits) { public Course(String code, int credits) { this.code = code; this.credits = credits; } } }\n",
+        "code": "public class BugFixLevel2010 {\n    record Course(String code, int credits) {\n        public Course(String code, int credits) {\n            this.code = code;\n            this.credits = credits;\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use public Course { if (credits < 0) throw ...; } for validation.",
         "commonMistake": "Treating record fields like normal mutable fields.",
@@ -1276,7 +1276,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2011 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel2011 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Adjust the boundary to include the final intended value.",
         "commonMistake": "Changing the update instead of the condition.",
@@ -1295,7 +1295,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2012 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel2012 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Set total to 0 before adding array values.",
         "commonMistake": "Looking only inside the loop and ignoring initialization.",
@@ -1314,7 +1314,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2013 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel2013 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use n = doubleIt(n); before printing.",
         "commonMistake": "Calling a return method and ignoring the returned value.",
@@ -1333,7 +1333,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2014 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel2014 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Rename the method-like member to the class name and remove return type if needed.",
         "commonMistake": "Changing capitalization and accidentally making a method.",
@@ -1352,7 +1352,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2015 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel2015 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Change equals(Book other) to equals(Object other), check type, then compare fields.",
         "commonMistake": "Overloading equals instead of overriding it.",
@@ -1371,7 +1371,7 @@
         "actualBehavior": "missing base info",
         "expectedBehavior": "base + detail",
         "task": "Call the superclass version when extending behavior. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2016 { static class Person { String describe(){ return \"Person\"; } } static class Student extends Person { String describe(){ return \"Student\"; } } public static void main(String[] args){ System.out.println(new Student().describe()); } }\n",
+        "code": "public class BugFixLevel2016 {\n    static class Person {\n        String describe() {\n            return \"Person\";\n        }\n    }\n    static class Student extends Person {\n        String describe() {\n            return \"Student\";\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(new Student().describe());\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use super.describe() and add the subclass detail.",
         "commonMistake": "Replacing behavior when the task asked to extend behavior.",
@@ -1390,7 +1390,7 @@
         "actualBehavior": "resource leak warning",
         "expectedBehavior": "scanner closed",
         "task": "Use try-with-resources for file reading. Work without a clue first, then compare after you attempt it.",
-        "code": "import java.io.*; import java.util.*; public class BugFixLevel2017 { public static void main(String[] args) throws Exception { Scanner in = new Scanner(new File(\"data.txt\")); if(in.hasNextLine()) System.out.println(in.nextLine()); } }\n",
+        "code": "import java.io.*;\nimport java.util.*;\npublic class BugFixLevel2017 {\n    public static void main(String[] args) throws Exception {\n        Scanner in = new Scanner(new File(\"data.txt\"));\n        if(in.hasNextLine()) System.out.println(in.nextLine());\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use try (Scanner in = new Scanner(file)) { ... }.",
         "commonMistake": "Ignoring resource warnings because the output looks right.",
@@ -1409,7 +1409,7 @@
         "actualBehavior": "dirty repaint",
         "expectedBehavior": "clean repaint",
         "task": "Call the superclass paintComponent first. Work without a clue first, then compare after you attempt it.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel2018 extends JPanel { protected void paintComponent(Graphics g){ g.fillRect(10,10,40,40); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel2018 extends JPanel {\n    protected void paintComponent(Graphics g) {\n        g.fillRect(10,10,40,40);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Add super.paintComponent(g); at the start of paintComponent.",
         "commonMistake": "Drawing directly without letting Swing prepare the component.",
@@ -1428,7 +1428,7 @@
         "actualBehavior": "attempting weaker access",
         "expectedBehavior": "class compiles",
         "task": "Make the implemented method public. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2019 { interface Drawable { void draw(); } static class Icon implements Drawable { void draw(){ System.out.println(\"*\"); } } }\n",
+        "code": "public class BugFixLevel2019 {\n    interface Drawable {\n        void draw();\n    }\n    static class Icon implements Drawable {\n        void draw() {\n            System.out.println(\"*\");\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Change void draw() to public void draw().",
         "commonMistake": "Forgetting that implemented interface methods must be public.",
@@ -1447,7 +1447,7 @@
         "actualBehavior": "cannot assign final field",
         "expectedBehavior": "valid compact constructor",
         "task": "Use a compact constructor or validate parameters correctly. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2020 { record Course(String code, int credits) { public Course(String code, int credits) { this.code = code; this.credits = credits; } } }\n",
+        "code": "public class BugFixLevel2020 {\n    record Course(String code, int credits) {\n        public Course(String code, int credits) {\n            this.code = code;\n            this.credits = credits;\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use public Course { if (credits < 0) throw ...; } for validation.",
         "commonMistake": "Treating record fields like normal mutable fields.",
@@ -1466,7 +1466,7 @@
         "actualBehavior": "prints 0 1",
         "expectedBehavior": "prints 0 1 2",
         "task": "Fix the condition so all intended values are included. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2021 { public static void main(String[] args){ for(int i=0; i<2; i++){ System.out.println(i); } } }\n",
+        "code": "public class BugFixLevel2021 {\n    public static void main(String[] args) {\n        for(int i=0; i<2; i++) {\n            System.out.println(i);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Adjust the boundary to include the final intended value.",
         "commonMistake": "Changing the update instead of the condition.",
@@ -1485,7 +1485,7 @@
         "actualBehavior": "16",
         "expectedBehavior": "12",
         "task": "Initialize the accumulator correctly before the loop. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2022 { public static void main(String[] args){ int[] nums={2,4,6}; int total=4; for(int n: nums){ total += n; } System.out.println(total); } }\n",
+        "code": "public class BugFixLevel2022 {\n    public static void main(String[] args) {\n        int[] nums= {\n            2,4,6\n        };\n        int total=4;\n        for(int n: nums) {\n            total += n;\n        }\n        System.out.println(total);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Set total to 0 before adding array values.",
         "commonMistake": "Looking only inside the loop and ignoring initialization.",
@@ -1504,7 +1504,7 @@
         "actualBehavior": "10",
         "expectedBehavior": "20",
         "task": "Store or print the return value from the method. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2023 { static int doubleIt(int x){ return x*2; } public static void main(String[] args){ int n=10; doubleIt(n); System.out.println(n); } }\n",
+        "code": "public class BugFixLevel2023 {\n    static int doubleIt(int x) {\n        return x*2;\n    }\n    public static void main(String[] args) {\n        int n=10;\n        doubleIt(n);\n        System.out.println(n);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Use n = doubleIt(n); before printing.",
         "commonMistake": "Calling a return method and ignoring the returned value.",
@@ -1523,7 +1523,7 @@
         "actualBehavior": "default state",
         "expectedBehavior": "initialized state",
         "task": "Make the constructor name match the class exactly. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2024 { static class Robot { String id; public void robot(String id){ this.id=id; } } public static void main(String[] args){ Robot r=new Robot(); r.robot(\"R2\"); System.out.println(r.id); } }\n",
+        "code": "public class BugFixLevel2024 {\n    static class Robot {\n        String id;\n        public void robot(String id) {\n            this.id=id;\n        }\n    }\n    public static void main(String[] args) {\n        Robot r=new Robot();\n        r.robot(\"R2\");\n        System.out.println(r.id);\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Rename the method-like member to the class name and remove return type if needed.",
         "commonMistake": "Changing capitalization and accidentally making a method.",
@@ -1542,7 +1542,7 @@
         "actualBehavior": "false",
         "expectedBehavior": "true",
         "task": "Use the correct equals(Object other) signature. Work without a clue first, then compare after you attempt it.",
-        "code": "public class BugFixLevel2025 { static class Book { String title; Book(String title){this.title=title;} public boolean equals(Book other){ return title.equals(other.title); } } public static void main(String[] args){ Object a=new Book(\"Java\"); Object b=new Book(\"Java\"); System.out.println(a.equals(b)); } }\n",
+        "code": "public class BugFixLevel2025 {\n    static class Book {\n        String title;\n        Book(String title) {\n            this.title=title;\n        }\n        public boolean equals(Book other) {\n            return title.equals(other.title);\n        }\n    }\n    public static void main(String[] args) {\n        Object a=new Book(\"Java\");\n        Object b=new Book(\"Java\");\n        System.out.println(a.equals(b));\n    }\n}\n",
         "clues": [],
         "officialReview": "Solo review: Change equals(Book other) to equals(Object other), check type, then compare fields.",
         "commonMistake": "Overloading equals instead of overriding it.",
@@ -1563,7 +1563,7 @@
         "actualBehavior": "public mutable fields",
         "expectedBehavior": "private fields with controlled access",
         "task": "Refactor the class so it protects its own data.",
-        "code": "public class BugFixLevel3001 { static class Item { public String name; public int quantity; } public static void main(String[] args){ Item item=new Item(); item.name=\"Plate\"; item.quantity=-99; System.out.println(item.quantity); } }\n",
+        "code": "public class BugFixLevel3001 {\n    static class Item {\n        public String name;\n        public int quantity;\n    }\n    public static void main(String[] args) {\n        Item item=new Item();\n        item.name=\"Plate\";\n        item.quantity=-99;\n        System.out.println(item.quantity);\n    }\n}\n",
         "clues": [],
         "officialReview": "Make fields private, add a constructor/getters, and only expose safe behavior.",
         "commonMistake": "Thinking working code is automatically well-designed.",
@@ -1582,7 +1582,7 @@
         "actualBehavior": "Printer extends Document",
         "expectedBehavior": "Printer uses Document instead of extending it",
         "task": "Review the design and refactor away from bad inheritance.",
-        "code": "public class BugFixLevel3002 { static class Document { String text; } static class Printer extends Document { void print(){ System.out.println(text); } } }\n",
+        "code": "public class BugFixLevel3002 {\n    static class Document {\n        String text;\n    }\n    static class Printer extends Document {\n        void print() {\n            System.out.println(text);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "A Printer is not a kind of Document. Prefer composition: Printer has/uses a Document.",
         "commonMistake": "Using inheritance only to reuse code.",
@@ -1601,7 +1601,7 @@
         "actualBehavior": "unsafe equals",
         "expectedBehavior": "safe equals(Object other)",
         "task": "Review and improve the equals implementation.",
-        "code": "public class BugFixLevel3003 { static class ID { int value; ID(int value){this.value=value;} public boolean equals(Object other){ ID id=(ID) other; return value==id.value; } } }\n",
+        "code": "public class BugFixLevel3003 {\n    static class ID {\n        int value;\n        ID(int value) {\n            this.value=value;\n        }\n        public boolean equals(Object other) {\n            ID id=(ID) other;\n            return value==id.value;\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Check this == other, null/type, then cast and compare meaningful fields.",
         "commonMistake": "Assuming equals will only receive the same class.",
@@ -1620,7 +1620,7 @@
         "actualBehavior": "method mutates input",
         "expectedBehavior": "method either checks or clearly mutates",
         "task": "Decide whether to rename, copy, or remove the side effect.",
-        "code": "import java.util.*; public class BugFixLevel3004 { static boolean hasPassed(ArrayList<Integer> scores){ scores.removeIf(s -> s < 60); return !scores.isEmpty(); } }\n",
+        "code": "import java.util.*;\npublic class BugFixLevel3004 {\n    static boolean hasPassed(ArrayList<Integer> scores) {\n        scores.removeIf(s -> s < 60);\n        return !scores.isEmpty();\n    }\n}\n",
         "clues": [],
         "officialReview": "A method named hasPassed should not secretly remove data. Separate command and query behavior.",
         "commonMistake": "Hiding mutation inside a method that sounds harmless.",
@@ -1639,7 +1639,7 @@
         "actualBehavior": "shared balance",
         "expectedBehavior": "each account has its own balance",
         "task": "Review whether balance should be static.",
-        "code": "public class BugFixLevel3005 { static class Account { static double balance; Account(double balance){ Account.balance=balance; } } public static void main(String[] args){ new Account(10); new Account(99); System.out.println(Account.balance); } }\n",
+        "code": "public class BugFixLevel3005 {\n    static class Account {\n        static double balance;\n        Account(double balance) {\n            Account.balance=balance;\n        }\n    }\n    public static void main(String[] args) {\n        new Account(10);\n        new Account(99);\n        System.out.println(Account.balance);\n    }\n}\n",
         "clues": [],
         "officialReview": "balance should be an instance field because each account has its own balance.",
         "commonMistake": "Making fields static because the compiler allows it.",
@@ -1658,7 +1658,7 @@
         "actualBehavior": "awkward mutable design",
         "expectedBehavior": "use class if state must change",
         "task": "Decide whether a record is appropriate.",
-        "code": "public class BugFixLevel3006 { record Player(String name, int health) {} public static void main(String[] args){ Player p = new Player(\"Kai\", 100); p = new Player(p.name(), p.health()-10); } }\n",
+        "code": "public class BugFixLevel3006 {\n    record Player(String name, int health) {\n    }\n    public static void main(String[] args) {\n        Player p = new Player(\"Kai\", 100);\n        p = new Player(p.name(), p.health()-10);\n    }\n}\n",
         "clues": [],
         "officialReview": "Records are best for simple immutable data carriers. A mutable game character should usually be a class.",
         "commonMistake": "Using records for everything because they are shorter.",
@@ -1677,7 +1677,7 @@
         "actualBehavior": "x changes every repaint",
         "expectedBehavior": "paintComponent only draws current state",
         "task": "Move state updates out of paintComponent.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel3007 extends JPanel { int x=0; protected void paintComponent(Graphics g){ super.paintComponent(g); x += 5; g.fillRect(x,10,20,20); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel3007 extends JPanel {\n    int x=0;\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        x += 5;\n        g.fillRect(x,10,20,20);\n    }\n}\n",
         "clues": [],
         "officialReview": "paintComponent may run many times. It should draw state, not secretly advance game state.",
         "commonMistake": "Changing game state inside painting code.",
@@ -1696,7 +1696,7 @@
         "actualBehavior": "key presses ignored",
         "expectedBehavior": "component focusable and listening",
         "task": "Review what is missing for key events to reach the component.",
-        "code": "import javax.swing.*; import java.awt.event.*; public class BugFixLevel3008 extends JPanel implements KeyListener { public void keyPressed(KeyEvent e){ System.out.println(\"pressed\"); } public void keyReleased(KeyEvent e){} public void keyTyped(KeyEvent e){} }\n",
+        "code": "import javax.swing.*;\nimport java.awt.event.*;\npublic class BugFixLevel3008 extends JPanel implements KeyListener {\n    public void keyPressed(KeyEvent e) {\n        System.out.println(\"pressed\");\n    }\n    public void keyReleased(KeyEvent e) {\n    }\n    public void keyTyped(KeyEvent e) {\n    }\n}\n",
         "clues": [],
         "officialReview": "A component needs a listener registered and often setFocusable(true)/requestFocusInWindow for key events.",
         "commonMistake": "Writing keyPressed but forgetting focus/listener setup.",
@@ -1715,7 +1715,7 @@
         "actualBehavior": "hard to read",
         "expectedBehavior": "clear row/col names",
         "task": "Refactor variable names to make the loop purpose clear.",
-        "code": "public class BugFixLevel3009 { public static void main(String[] args){ int[][] a={{1,2},{3,4}}; for(int i=0;i<a.length;i++){ for(int j=0;j<a[i].length;j++){ System.out.println(a[i][j]); } } } }\n",
+        "code": "public class BugFixLevel3009 {\n    public static void main(String[] args) {\n        int[][] a= {\n            {\n                1,2\n            }\n            , {\n                3,4\n            }\n        };\n        for(int i=0;i<a.length;i++) {\n            for(int j=0;j<a[i].length;j++) {\n                System.out.println(a[i][j]);\n            }\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Use row and col for 2D traversal instead of i and j when it improves clarity.",
         "commonMistake": "Ignoring readability because output is correct.",
@@ -1734,7 +1734,7 @@
         "actualBehavior": "large main method",
         "expectedBehavior": "helper methods with clear purposes",
         "task": "Extract helper methods for calculation and printing.",
-        "code": "public class BugFixLevel3010 { public static void main(String[] args){ int[] scores={90,80,70}; int total=0; for(int s:scores) total+=s; double avg=total/(double)scores.length; System.out.println(\"Average: \"+avg); } }\n",
+        "code": "public class BugFixLevel3010 {\n    public static void main(String[] args) {\n        int[] scores= {\n            90,80,70\n        };\n        int total=0;\n        for(int s:scores) total+=s;\n        double avg=total/(double)scores.length;\n        System.out.println(\"Average: \"+avg);\n    }\n}\n",
         "clues": [],
         "officialReview": "Move repeated or focused logic into named methods.",
         "commonMistake": "Leaving all logic in main until it becomes hard to test.",
@@ -1753,7 +1753,7 @@
         "actualBehavior": "public mutable fields",
         "expectedBehavior": "private fields with controlled access",
         "task": "Refactor the class so it protects its own data.",
-        "code": "public class BugFixLevel3011 { static class Item { public String name; public int quantity; } public static void main(String[] args){ Item item=new Item(); item.name=\"Plate\"; item.quantity=-99; System.out.println(item.quantity); } }\n",
+        "code": "public class BugFixLevel3011 {\n    static class Item {\n        public String name;\n        public int quantity;\n    }\n    public static void main(String[] args) {\n        Item item=new Item();\n        item.name=\"Plate\";\n        item.quantity=-99;\n        System.out.println(item.quantity);\n    }\n}\n",
         "clues": [],
         "officialReview": "Make fields private, add a constructor/getters, and only expose safe behavior.",
         "commonMistake": "Thinking working code is automatically well-designed.",
@@ -1772,7 +1772,7 @@
         "actualBehavior": "Printer extends Document",
         "expectedBehavior": "Printer uses Document instead of extending it",
         "task": "Review the design and refactor away from bad inheritance.",
-        "code": "public class BugFixLevel3012 { static class Document { String text; } static class Printer extends Document { void print(){ System.out.println(text); } } }\n",
+        "code": "public class BugFixLevel3012 {\n    static class Document {\n        String text;\n    }\n    static class Printer extends Document {\n        void print() {\n            System.out.println(text);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "A Printer is not a kind of Document. Prefer composition: Printer has/uses a Document.",
         "commonMistake": "Using inheritance only to reuse code.",
@@ -1791,7 +1791,7 @@
         "actualBehavior": "unsafe equals",
         "expectedBehavior": "safe equals(Object other)",
         "task": "Review and improve the equals implementation.",
-        "code": "public class BugFixLevel3013 { static class ID { int value; ID(int value){this.value=value;} public boolean equals(Object other){ ID id=(ID) other; return value==id.value; } } }\n",
+        "code": "public class BugFixLevel3013 {\n    static class ID {\n        int value;\n        ID(int value) {\n            this.value=value;\n        }\n        public boolean equals(Object other) {\n            ID id=(ID) other;\n            return value==id.value;\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Check this == other, null/type, then cast and compare meaningful fields.",
         "commonMistake": "Assuming equals will only receive the same class.",
@@ -1810,7 +1810,7 @@
         "actualBehavior": "method mutates input",
         "expectedBehavior": "method either checks or clearly mutates",
         "task": "Decide whether to rename, copy, or remove the side effect.",
-        "code": "import java.util.*; public class BugFixLevel3014 { static boolean hasPassed(ArrayList<Integer> scores){ scores.removeIf(s -> s < 60); return !scores.isEmpty(); } }\n",
+        "code": "import java.util.*;\npublic class BugFixLevel3014 {\n    static boolean hasPassed(ArrayList<Integer> scores) {\n        scores.removeIf(s -> s < 60);\n        return !scores.isEmpty();\n    }\n}\n",
         "clues": [],
         "officialReview": "A method named hasPassed should not secretly remove data. Separate command and query behavior.",
         "commonMistake": "Hiding mutation inside a method that sounds harmless.",
@@ -1829,7 +1829,7 @@
         "actualBehavior": "shared balance",
         "expectedBehavior": "each account has its own balance",
         "task": "Review whether balance should be static.",
-        "code": "public class BugFixLevel3015 { static class Account { static double balance; Account(double balance){ Account.balance=balance; } } public static void main(String[] args){ new Account(10); new Account(99); System.out.println(Account.balance); } }\n",
+        "code": "public class BugFixLevel3015 {\n    static class Account {\n        static double balance;\n        Account(double balance) {\n            Account.balance=balance;\n        }\n    }\n    public static void main(String[] args) {\n        new Account(10);\n        new Account(99);\n        System.out.println(Account.balance);\n    }\n}\n",
         "clues": [],
         "officialReview": "balance should be an instance field because each account has its own balance.",
         "commonMistake": "Making fields static because the compiler allows it.",
@@ -1848,7 +1848,7 @@
         "actualBehavior": "awkward mutable design",
         "expectedBehavior": "use class if state must change",
         "task": "Decide whether a record is appropriate.",
-        "code": "public class BugFixLevel3016 { record Player(String name, int health) {} public static void main(String[] args){ Player p = new Player(\"Kai\", 100); p = new Player(p.name(), p.health()-10); } }\n",
+        "code": "public class BugFixLevel3016 {\n    record Player(String name, int health) {\n    }\n    public static void main(String[] args) {\n        Player p = new Player(\"Kai\", 100);\n        p = new Player(p.name(), p.health()-10);\n    }\n}\n",
         "clues": [],
         "officialReview": "Records are best for simple immutable data carriers. A mutable game character should usually be a class.",
         "commonMistake": "Using records for everything because they are shorter.",
@@ -1867,7 +1867,7 @@
         "actualBehavior": "x changes every repaint",
         "expectedBehavior": "paintComponent only draws current state",
         "task": "Move state updates out of paintComponent.",
-        "code": "import javax.swing.*; import java.awt.*; public class BugFixLevel3017 extends JPanel { int x=0; protected void paintComponent(Graphics g){ super.paintComponent(g); x += 5; g.fillRect(x,10,20,20); } }\n",
+        "code": "import javax.swing.*;\nimport java.awt.*;\npublic class BugFixLevel3017 extends JPanel {\n    int x=0;\n    protected void paintComponent(Graphics g) {\n        super.paintComponent(g);\n        x += 5;\n        g.fillRect(x,10,20,20);\n    }\n}\n",
         "clues": [],
         "officialReview": "paintComponent may run many times. It should draw state, not secretly advance game state.",
         "commonMistake": "Changing game state inside painting code.",
@@ -1886,7 +1886,7 @@
         "actualBehavior": "key presses ignored",
         "expectedBehavior": "component focusable and listening",
         "task": "Review what is missing for key events to reach the component.",
-        "code": "import javax.swing.*; import java.awt.event.*; public class BugFixLevel3018 extends JPanel implements KeyListener { public void keyPressed(KeyEvent e){ System.out.println(\"pressed\"); } public void keyReleased(KeyEvent e){} public void keyTyped(KeyEvent e){} }\n",
+        "code": "import javax.swing.*;\nimport java.awt.event.*;\npublic class BugFixLevel3018 extends JPanel implements KeyListener {\n    public void keyPressed(KeyEvent e) {\n        System.out.println(\"pressed\");\n    }\n    public void keyReleased(KeyEvent e) {\n    }\n    public void keyTyped(KeyEvent e) {\n    }\n}\n",
         "clues": [],
         "officialReview": "A component needs a listener registered and often setFocusable(true)/requestFocusInWindow for key events.",
         "commonMistake": "Writing keyPressed but forgetting focus/listener setup.",
@@ -1905,7 +1905,7 @@
         "actualBehavior": "hard to read",
         "expectedBehavior": "clear row/col names",
         "task": "Refactor variable names to make the loop purpose clear.",
-        "code": "public class BugFixLevel3019 { public static void main(String[] args){ int[][] a={{1,2},{3,4}}; for(int i=0;i<a.length;i++){ for(int j=0;j<a[i].length;j++){ System.out.println(a[i][j]); } } } }\n",
+        "code": "public class BugFixLevel3019 {\n    public static void main(String[] args) {\n        int[][] a= {\n            {\n                1,2\n            }\n            , {\n                3,4\n            }\n        };\n        for(int i=0;i<a.length;i++) {\n            for(int j=0;j<a[i].length;j++) {\n                System.out.println(a[i][j]);\n            }\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Use row and col for 2D traversal instead of i and j when it improves clarity.",
         "commonMistake": "Ignoring readability because output is correct.",
@@ -1924,7 +1924,7 @@
         "actualBehavior": "large main method",
         "expectedBehavior": "helper methods with clear purposes",
         "task": "Extract helper methods for calculation and printing.",
-        "code": "public class BugFixLevel3020 { public static void main(String[] args){ int[] scores={90,80,70}; int total=0; for(int s:scores) total+=s; double avg=total/(double)scores.length; System.out.println(\"Average: \"+avg); } }\n",
+        "code": "public class BugFixLevel3020 {\n    public static void main(String[] args) {\n        int[] scores= {\n            90,80,70\n        };\n        int total=0;\n        for(int s:scores) total+=s;\n        double avg=total/(double)scores.length;\n        System.out.println(\"Average: \"+avg);\n    }\n}\n",
         "clues": [],
         "officialReview": "Move repeated or focused logic into named methods.",
         "commonMistake": "Leaving all logic in main until it becomes hard to test.",
@@ -1943,7 +1943,7 @@
         "actualBehavior": "public mutable fields",
         "expectedBehavior": "private fields with controlled access",
         "task": "Refactor the class so it protects its own data.",
-        "code": "public class BugFixLevel3021 { static class Item { public String name; public int quantity; } public static void main(String[] args){ Item item=new Item(); item.name=\"Plate\"; item.quantity=-99; System.out.println(item.quantity); } }\n",
+        "code": "public class BugFixLevel3021 {\n    static class Item {\n        public String name;\n        public int quantity;\n    }\n    public static void main(String[] args) {\n        Item item=new Item();\n        item.name=\"Plate\";\n        item.quantity=-99;\n        System.out.println(item.quantity);\n    }\n}\n",
         "clues": [],
         "officialReview": "Make fields private, add a constructor/getters, and only expose safe behavior.",
         "commonMistake": "Thinking working code is automatically well-designed.",
@@ -1962,7 +1962,7 @@
         "actualBehavior": "Printer extends Document",
         "expectedBehavior": "Printer uses Document instead of extending it",
         "task": "Review the design and refactor away from bad inheritance.",
-        "code": "public class BugFixLevel3022 { static class Document { String text; } static class Printer extends Document { void print(){ System.out.println(text); } } }\n",
+        "code": "public class BugFixLevel3022 {\n    static class Document {\n        String text;\n    }\n    static class Printer extends Document {\n        void print() {\n            System.out.println(text);\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "A Printer is not a kind of Document. Prefer composition: Printer has/uses a Document.",
         "commonMistake": "Using inheritance only to reuse code.",
@@ -1981,7 +1981,7 @@
         "actualBehavior": "unsafe equals",
         "expectedBehavior": "safe equals(Object other)",
         "task": "Review and improve the equals implementation.",
-        "code": "public class BugFixLevel3023 { static class ID { int value; ID(int value){this.value=value;} public boolean equals(Object other){ ID id=(ID) other; return value==id.value; } } }\n",
+        "code": "public class BugFixLevel3023 {\n    static class ID {\n        int value;\n        ID(int value) {\n            this.value=value;\n        }\n        public boolean equals(Object other) {\n            ID id=(ID) other;\n            return value==id.value;\n        }\n    }\n}\n",
         "clues": [],
         "officialReview": "Check this == other, null/type, then cast and compare meaningful fields.",
         "commonMistake": "Assuming equals will only receive the same class.",
@@ -2000,7 +2000,7 @@
         "actualBehavior": "method mutates input",
         "expectedBehavior": "method either checks or clearly mutates",
         "task": "Decide whether to rename, copy, or remove the side effect.",
-        "code": "import java.util.*; public class BugFixLevel3024 { static boolean hasPassed(ArrayList<Integer> scores){ scores.removeIf(s -> s < 60); return !scores.isEmpty(); } }\n",
+        "code": "import java.util.*;\npublic class BugFixLevel3024 {\n    static boolean hasPassed(ArrayList<Integer> scores) {\n        scores.removeIf(s -> s < 60);\n        return !scores.isEmpty();\n    }\n}\n",
         "clues": [],
         "officialReview": "A method named hasPassed should not secretly remove data. Separate command and query behavior.",
         "commonMistake": "Hiding mutation inside a method that sounds harmless.",
@@ -2019,7 +2019,7 @@
         "actualBehavior": "shared balance",
         "expectedBehavior": "each account has its own balance",
         "task": "Review whether balance should be static.",
-        "code": "public class BugFixLevel3025 { static class Account { static double balance; Account(double balance){ Account.balance=balance; } } public static void main(String[] args){ new Account(10); new Account(99); System.out.println(Account.balance); } }\n",
+        "code": "public class BugFixLevel3025 {\n    static class Account {\n        static double balance;\n        Account(double balance) {\n            Account.balance=balance;\n        }\n    }\n    public static void main(String[] args) {\n        new Account(10);\n        new Account(99);\n        System.out.println(Account.balance);\n    }\n}\n",
         "clues": [],
         "officialReview": "balance should be an instance field because each account has its own balance.",
         "commonMistake": "Making fields static because the compiler allows it.",
