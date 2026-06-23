@@ -1,0 +1,25 @@
+Tracing Game Quality Upgrade
+
+Changes made:
+- Replaced the Level 3 solo tracing set with stronger final-style problems.
+- Added more object-state tracing, array/2D-array state tracing, aliasing, polymorphism, static/instance state, exceptions, records, graphics state, and KeyListener-style coordinate tracing.
+- Improved Level 2 Graphics and KeyListener items so they focus on actual state/coordinate tracing.
+- Added a small assumption note in the tracing UI when code snippets use library classes such as ArrayList, Graphics, etc.
+- Updated the tracing validator so Level 3 solo problems are allowed to have no clues, matching the actual design.
+
+Design preserved:
+- 25 base problems
+- 25 Level 1 extra problems
+- 25 Level 2 extra problems
+- 25 Level 3 extra problems
+- Clues stay hidden until requested.
+- Explanations stay hidden until after submission.
+- Level 3 remains solo/no-clue mode.
+
+Checks run:
+- node --check scripts/app.js
+- node --check scripts/tracing-game-data.js
+- node tests/validate-question-data.js
+- node tests/audit-question-quality.js
+- node tests/validate-tracing-game.js
+- bash tests/sample-checks/check-structure.sh

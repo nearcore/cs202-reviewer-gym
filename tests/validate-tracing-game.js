@@ -10,7 +10,7 @@ vm.runInContext(fs.readFileSync(path.join(root, 'scripts/tracing-game-data.js'),
 
 const data = context.window.TRACING_GAME_DATA;
 const errors = [];
-const required = ['id', 'title', 'topic', 'skill', 'code', 'question', 'answer', 'explanation', 'commonMistake', 'clues', 'examTags'];
+const required = ['id', 'title', 'topic', 'skill', 'code', 'question', 'answer', 'explanation', 'commonMistake', 'examTags'];
 const groups = {
   base: data?.base || [],
   level1: data?.extras?.level1 || [],
@@ -34,9 +34,10 @@ for (const [group, items] of Object.entries(groups)) {
         errors.push(`${key} is missing ${field}.`);
       }
     }
+    if (!Array.isArray(item.clues)) errors.push(`${key} clues must be an array.`);
     if ((group === 'base' || group === 'level1') && (!Array.isArray(item.clues) || item.clues.length < 2)) errors.push(`${key} needs at least two clues.`);
     if (group === 'level2' && (!Array.isArray(item.clues) || item.clues.length < 1)) errors.push(`${key} needs one clue.`);
-    if (group === 'level3' && item.clues.length > 1) errors.push(`${key} should not rely on multiple clues because Level 3 is solo.`);
+    if (group === 'level3' && item.clues.length > 0) errors.push(`${key} should not include clues because Level 3 is solo.`);
   }
 }
 

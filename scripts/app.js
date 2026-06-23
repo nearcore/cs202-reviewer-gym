@@ -1060,6 +1060,15 @@
     return `<option value="all">All tracing topics</option>${tracingTopicNames().map(name => `<option value="${escapeHtml(name)}" ${tracingGameState.topic === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}`;
   }
 
+  function renderTracingAssumptionNote(problem) {
+    const assumptions = tracingData().assumptions || [];
+    const needsImportNote = /(ArrayList|List\.|Arrays\.|Graphics|KeyEvent|Scanner|File)/.test(problem.code || '');
+    const notes = needsImportNote ? assumptions.slice(0, 1) : [];
+    if (problem.topic === 'Graphics' && assumptions[1]) notes.push(assumptions[1]);
+    if (!notes.length) return '';
+    return `<div class="trace-assumption-note"><strong>Note:</strong> ${notes.map(escapeHtml).join(' ')}</div>`;
+  }
+
   function renderClueControls(problem) {
     const clueLimit = tracingModeMeta().clues || 0;
     if (!clueLimit) return `<div class="trace-clue-panel solo"><strong>Solo mode:</strong> no clues available. Predict first, then submit.</div>`;
@@ -1107,7 +1116,7 @@
         </div>
         <div class="form-grid trace-filter-grid">
           <label>Topic<select id="tracing-topic">${tracingTopicOptions()}</select></label>
-          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · 25 base problems can appear in all levels · ${modeCounts.level3} solo-only problems</div>
+          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · base problems repeat with less support · Level 3 adds final-style state tracing</div>
         </div>
       </section>
       ${problem ? `<section class="card trace-game-card">
@@ -1116,6 +1125,7 @@
           <span class="pill ${problem.level === 'base' ? 'strong' : ''}">${problem.level === 'base' ? 'Base problem' : titleCase(problem.level)}</span>
         </div>
         ${codeBlock(problem.code)}
+        ${renderTracingAssumptionNote(problem)}
         <div class="trace-question"><strong>${escapeHtml(problem.question)}</strong></div>
         ${renderClueControls(problem)}
         <label class="trace-answer-box">Your answer<textarea id="trace-answer" rows="4" placeholder="Type the exact output, value, or error here..." ${tracingGameState.answered ? 'disabled' : ''}>${escapeHtml(tracingGameState.answer)}</textarea></label>

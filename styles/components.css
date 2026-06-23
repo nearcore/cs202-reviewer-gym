@@ -1468,6 +1468,23 @@ html[data-theme="night"] .path-practice {
   z-index: 1;
 }
 
+
+.trace-assumption-note {
+  position: relative;
+  z-index: 1;
+  margin: .75rem 0 0;
+  padding: .8rem .95rem;
+  border-radius: .85rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent) 7%);
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.trace-assumption-note strong {
+  color: var(--text);
+}
+
 .trace-question {
   margin: 1rem 0;
   padding: 1rem;

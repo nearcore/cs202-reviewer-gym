@@ -1396,17 +1396,18 @@
       },
       {
         "id": "l2-019",
-        "title": "Key movement state",
+        "title": "Key press state trace",
         "topic": "Interfaces and KeyListener",
-        "skill": "event-driven state change",
-        "code": "int x = 10;\nString key = \"RIGHT\";\nif (key.equals(\"RIGHT\")) {\n    x += 5;\n}\nSystem.out.println(x);",
-        "question": "What prints?",
-        "answer": "15",
+        "skill": "event-driven state changes",
+        "code": "int x = 0;\nint y = 0;\nString[] keys = {\"RIGHT\", \"RIGHT\", \"UP\"};\nfor (String key : keys) {\n    if (key.equals(\"RIGHT\")) {\n        x += 10;\n    } else if (key.equals(\"UP\")) {\n        y -= 5;\n    }\n}\nSystem.out.println(x + \",\" + y);",
+        "question": "After these key events, what prints?",
+        "answer": "20,-5",
         "answerAliases": [],
-        "explanation": "The key equals RIGHT, so x increases from 10 to 15.",
-        "commonMistake": "Using == instead of equals when thinking about String comparison.",
+        "explanation": "The first RIGHT makes x 10. The second RIGHT makes x 20. UP subtracts 5 from y, so the final state is 20,-5.",
+        "commonMistake": "Adding to y for UP. In many simple Java graphics coordinate systems, moving up usually means y decreases.",
         "clues": [
-          "The condition uses equals and is true."
+          "Trace x and y separately.",
+          "Each key changes only one coordinate."
         ],
         "examTags": [
           "final"
@@ -1415,20 +1416,20 @@
       },
       {
         "id": "l2-020",
-        "title": "Graphics coordinate idea",
+        "title": "Graphics coordinate trace",
         "topic": "Graphics",
-        "skill": "coordinate tracing",
-        "code": "int x = 20;\nint width = 30;\nSystem.out.println(x + width);",
+        "skill": "coordinate and size tracing",
+        "code": "int x = 20;\nint y = 30;\nint size = 40;\nSystem.out.println(\"rect \" + x + \",\" + y + \",\" + size + \",\" + (size / 2));\nx += 10;\ny += 5;\nSystem.out.println(\"oval \" + x + \",\" + y + \",10,10\");",
         "question": "What prints?",
-        "answer": "50",
+        "answer": "rect 20,30,40,20\noval 30,35,10,10",
         "answerAliases": [],
-        "explanation": "The right edge would be x + width, which is 20 + 30.",
-        "commonMistake": "Thinking width replaces x instead of adding to it.",
+        "explanation": "The rectangle uses the original x, y, and size values. Then x becomes 30 and y becomes 35 before the oval line prints.",
+        "commonMistake": "Updating x and y before tracing the rectangle. The first print happens before the changes.",
         "clues": [
-          "For drawing, x is the start position."
+          "The rectangle line happens before x and y change.",
+          "size / 2 uses integer division but 40 divides evenly."
         ],
         "examTags": [
-          "midterm1",
           "final"
         ],
         "level": "level2"
@@ -1533,170 +1534,160 @@
     "level3": [
       {
         "id": "l3-001",
-        "title": "Mixed loop and method",
+        "title": "Loop, method, and return trace",
         "topic": "Methods",
-        "skill": "method plus loop trace",
-        "code": "static int mystery(int n) {\n    int total = 1;\n    for (int i = 2; i <= n; i++) {\n        total *= i;\n    }\n    return total;\n}\nSystem.out.println(mystery(4));",
+        "skill": "method return with loop state",
+        "code": "public static int score(int n) {\n    int total = 1;\n    for (int i = 2; i <= n; i++) {\n        total += i * 2;\n    }\n    return total - n;\n}\nSystem.out.println(score(4));",
         "question": "What prints?",
-        "answer": "24",
+        "answer": "15",
         "answerAliases": [],
-        "explanation": "total starts at 1, then multiplies by 2, 3, and 4. The result is 24.",
-        "commonMistake": "Adding instead of multiplying, or starting total at 0.",
-        "clues": [
-          "Trace total after every multiplication."
-        ],
+        "explanation": "total starts at 1. The loop adds 4, 6, and 8: total becomes 5, then 11, then 19. The method returns 19 - 4, so the output is 15.",
+        "commonMistake": "Forgetting that the loop starts at i = 2, or forgetting the final subtraction before the return.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-002",
-        "title": "Array and condition",
+        "title": "2D array state after updates",
         "topic": "Arrays and ArrayLists",
-        "skill": "array filter trace",
-        "code": "int[] nums = {2, 5, 8, 11};\nint count = 0;\nfor (int n : nums) {\n    if (n % 2 == 1) count++;\n}\nSystem.out.println(count);",
+        "skill": "2D array mutation and state tracing",
+        "code": "int[][] grid = {\n    {1, 2, 3},\n    {4, 5, 6}\n};\ngrid[0][2] += grid[1][0];\ngrid[1][1] = grid[0][2] - grid[0][0];\nSystem.out.println(grid[0][2]);\nSystem.out.println(grid[1][1]);",
         "question": "What prints?",
-        "answer": "2",
+        "answer": "7\n6",
         "answerAliases": [],
-        "explanation": "The odd values are 5 and 11, so count becomes 2.",
-        "commonMistake": "Counting even values because n % 2 is misread.",
-        "clues": [
-          "n % 2 == 1 means odd."
-        ],
+        "explanation": "grid[0][2] starts as 3 and becomes 3 + 4 = 7. Then grid[1][1] becomes 7 - 1 = 6.",
+        "commonMistake": "Mixing up row and column order. In Java, grid[row][column] uses the row first.",
+        "clues": [],
         "examTags": [
+          "midterm1",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-003",
-        "title": "Reference reassignment",
+        "title": "Object alias and reassignment",
         "topic": "Classes and Objects",
-        "skill": "reference reassignment",
-        "code": "class Bag { int n; }\nBag a = new Bag();\nBag b = a;\nb.n = 3;\nb = new Bag();\nb.n = 8;\nSystem.out.println(a.n);",
+        "skill": "object reference aliasing and reassignment",
+        "code": "class Box {\n    int value;\n    Box(int value) { this.value = value; }\n}\nBox a = new Box(3);\nBox b = a;\nb.value += 4;\na = new Box(10);\nSystem.out.println(b.value);\nSystem.out.println(a.value);",
         "question": "What prints?",
-        "answer": "3",
+        "answer": "7\n10",
         "answerAliases": [],
-        "explanation": "a and b first point to the same object, so b.n = 3 affects a. Then b points to a new object, so b.n = 8 does not affect a.",
-        "commonMistake": "Thinking b always stays connected to a after reassignment.",
-        "clues": [
-          "Watch when new Bag() creates a second object."
-        ],
+        "explanation": "a and b first point to the same Box, so b.value += 4 changes that shared object from 3 to 7. Then a is reassigned to a new Box with value 10, but b still points to the old Box.",
+        "commonMistake": "Thinking a = new Box(10) also changes b. Reassignment changes only the variable, not every reference.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-004",
-        "title": "Copy constructor trace",
+        "title": "Copy constructor with separate state",
         "topic": "Constructors",
-        "skill": "copy constructor",
-        "code": "class Score {\n    int value;\n    Score(int value) { this.value = value; }\n    Score(Score other) { value = other.value; }\n}\nScore a = new Score(6);\nScore b = new Score(a);\nb.value = 9;\nSystem.out.println(a.value);",
+        "skill": "copy constructor and object independence",
+        "code": "class Counter {\n    int count;\n    Counter(int count) { this.count = count; }\n    Counter(Counter other) { this.count = other.count; }\n}\nCounter first = new Counter(5);\nCounter second = new Counter(first);\nfirst.count += 2;\nsecond.count += 10;\nSystem.out.println(first.count);\nSystem.out.println(second.count);",
         "question": "What prints?",
-        "answer": "6",
+        "answer": "7\n15",
         "answerAliases": [],
-        "explanation": "The copy constructor copies the value into a separate Score object. Changing b.value later does not change a.value.",
-        "commonMistake": "Thinking a and b are aliases because b was built from a.",
-        "clues": [
-          "new Score(a) creates a new object."
-        ],
+        "explanation": "The copy constructor copies the value 5 into a separate object. Changing first later does not change second, and changing second does not change first.",
+        "commonMistake": "Treating the copy as another alias. This constructor creates a new object with copied state.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-005",
-        "title": "Polymorphic array",
+        "title": "Polymorphic array dispatch",
         "topic": "Inheritance and Polymorphism",
-        "skill": "polymorphism in arrays",
-        "code": "class Tool { String use() { return \"tool\"; } }\nclass Pen extends Tool { String use() { return \"write\"; } }\nTool[] tools = { new Tool(), new Pen() };\nfor (Tool t : tools) {\n    System.out.print(t.use() + \" \");\n}",
+        "skill": "dynamic dispatch through superclass references",
+        "code": "class Shape {\n    String name() { return \"shape\"; }\n}\nclass Circle extends Shape {\n    String name() { return \"circle\"; }\n}\nclass Square extends Shape {\n    String name() { return \"square\"; }\n}\nShape[] shapes = {new Shape(), new Circle(), new Square()};\nfor (Shape s : shapes) {\n    System.out.print(s.name() + \" \");\n}",
         "question": "What prints?",
-        "answer": "tool write",
+        "answer": "shape circle square",
         "answerAliases": [],
-        "explanation": "The first object is Tool, so it returns tool. The second actual object is Pen, so the overridden use() returns write.",
-        "commonMistake": "Using the array type Tool[] to decide all method calls.",
-        "clues": [
-          "Each element has its own actual object type."
-        ],
+        "explanation": "Even though the array type is Shape[], Java uses the actual object type at runtime for overridden methods.",
+        "commonMistake": "Using the reference type only and printing shape shape shape.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-006",
-        "title": "Equals with cast",
+        "title": "equals with type check",
         "topic": "equals(), ==, =, and toString()",
-        "skill": "equals override logic",
-        "code": "class Id {\n    int n;\n    Id(int n) { this.n = n; }\n    public boolean equals(Object o) {\n        if (!(o instanceof Id other)) return false;\n        return n == other.n;\n    }\n}\nSystem.out.println(new Id(4).equals(new Id(4)));",
+        "skill": "equals override logic and object comparison",
+        "code": "class Badge {\n    int id;\n    Badge(int id) { this.id = id; }\n    public boolean equals(Object other) {\n        if (!(other instanceof Badge b)) return false;\n        return id == b.id;\n    }\n}\nBadge a = new Badge(7);\nBadge b = new Badge(7);\nObject c = \"7\";\nSystem.out.println(a == b);\nSystem.out.println(a.equals(b));\nSystem.out.println(a.equals(c));",
         "question": "What prints?",
-        "answer": "true",
+        "answer": "false\ntrue\nfalse",
         "answerAliases": [],
-        "explanation": "The other object is an Id and has the same n value, so equals returns true.",
-        "commonMistake": "Thinking two new objects can never be equal. They can be logically equal if equals is overridden.",
-        "clues": [
-          "Look at the equals method body."
-        ],
+        "explanation": "a and b are different objects, so == is false. equals returns true for another Badge with the same id. A String is not a Badge, so the instanceof check makes the last line false.",
+        "commonMistake": "Thinking == calls equals, or forgetting that equals receives Object and must check the type.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-007",
-        "title": "Static and instance mix",
+        "title": "Static and instance field mix",
         "topic": "Static, Final, Memory, and Garbage Collection",
-        "skill": "static vs instance fields",
-        "code": "class Player {\n    static int players = 0;\n    int score = 0;\n    Player() { players++; score++; }\n}\nPlayer a = new Player();\nPlayer b = new Player();\nSystem.out.println(Player.players + \":\" + a.score + \":\" + b.score);",
+        "skill": "static shared state vs instance state",
+        "code": "class Player {\n    static int created = 0;\n    int score = 0;\n    Player(int score) {\n        created++;\n        this.score = score;\n    }\n}\nPlayer a = new Player(5);\nPlayer b = new Player(8);\na.score += 2;\nSystem.out.println(Player.created);\nSystem.out.println(a.score);\nSystem.out.println(b.score);",
         "question": "What prints?",
-        "answer": "2:1:1",
+        "answer": "2\n7\n8",
         "answerAliases": [],
-        "explanation": "players is static and shared, so it becomes 2. Each object has its own score initialized to 0 and incremented once.",
-        "commonMistake": "Thinking score is also shared.",
-        "clues": [
-          "Separate static fields from instance fields."
-        ],
+        "explanation": "created is static, so it is shared by all Player objects and becomes 2 after two constructor calls. score belongs to each object, so only a.score changes to 7.",
+        "commonMistake": "Treating static fields like each object has its own copy.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-008",
-        "title": "Exception skip line",
+        "title": "Exception skips the rest of try",
         "topic": "Exceptions, Files, and Null Pointers",
-        "skill": "exception flow",
-        "code": "try {\n    System.out.print(\"A\");\n    int[] a = {1};\n    System.out.print(a[2]);\n    System.out.print(\"B\");\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.print(\"C\");\n}\nSystem.out.print(\"D\");",
+        "skill": "try/catch/finally control flow",
+        "code": "try {\n    System.out.println(\"start\");\n    int x = 4 / 0;\n    System.out.println(\"after\");\n} catch (ArithmeticException ex) {\n    System.out.println(\"caught\");\n} finally {\n    System.out.println(\"done\");\n}",
         "question": "What prints?",
-        "answer": "ACD",
+        "answer": "start\ncaught\ndone",
         "answerAliases": [],
-        "explanation": "A prints first. Accessing a[2] throws an exception, so B is skipped. The catch prints C, then execution continues after the try/catch and prints D.",
-        "commonMistake": "Printing ABCD because you assume the failed line still finishes.",
-        "clues": [
-          "The exception happens before B."
-        ],
+        "explanation": "The division by zero throws an ArithmeticException. The rest of the try block is skipped, the catch runs, and finally still runs.",
+        "commonMistake": "Printing after because it appears after the bad line. Once the exception happens, Java jumps out of the try block.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-009",
-        "title": "Classic switch trap",
+        "title": "Classic switch fall-through trap",
         "topic": "Switch Statements and Expressions",
-        "skill": "switch fall-through plus default",
-        "code": "int x = 2;\nswitch (x) {\n    case 1: System.out.print(\"A\");\n    case 2: System.out.print(\"B\");\n    default: System.out.print(\"C\");\n}\nSystem.out.print(\"D\");",
+        "skill": "colon switch fall-through",
+        "code": "int code = 2;\nswitch (code) {\n    case 1:\n        System.out.print(\"A\");\n    case 2:\n        System.out.print(\"B\");\n    case 3:\n        System.out.print(\"C\");\n        break;\n    default:\n        System.out.print(\"D\");\n}",
         "question": "What prints?",
-        "answer": "BCD",
+        "answer": "BC",
         "answerAliases": [],
-        "explanation": "case 2 matches and prints B. There is no break, so default prints C. Then D prints after the switch.",
-        "commonMistake": "Assuming default only runs when no case matches. With fall-through, it can still run.",
-        "clues": [
-          "No break after case 2."
-        ],
+        "explanation": "The matching case is 2, so Java starts at case 2. Because there is no break before case 3, it also prints C, then the break stops the switch.",
+        "commonMistake": "Thinking classic colon cases stop automatically. They do not stop unless break or another control transfer occurs.",
+        "clues": [],
         "examTags": [
           "final"
         ],
@@ -1706,16 +1697,14 @@
         "id": "l3-010",
         "title": "Record equality and output",
         "topic": "Records vs Classes",
-        "skill": "record equals and toString",
-        "code": "record Card(String suit, int value) {}\nCard a = new Card(\"H\", 7);\nCard b = new Card(\"H\", 7);\nSystem.out.println(a.equals(b));\nSystem.out.println(a);",
+        "skill": "record equals and toString behavior",
+        "code": "record Course(String code, int credits) {}\nCourse a = new Course(\"CS202\", 3);\nCourse b = new Course(\"CS202\", 3);\nSystem.out.println(a == b);\nSystem.out.println(a.equals(b));\nSystem.out.println(a);",
         "question": "What prints?",
-        "answer": "true\nCard[suit=H, value=7]",
+        "answer": "false\ntrue\nCourse[code=CS202, credits=3]",
         "answerAliases": [],
-        "explanation": "Records generate component-based equals() and a standard toString().",
-        "commonMistake": "Thinking records still use Object equals by default.",
-        "clues": [
-          "Records generate equals and toString."
-        ],
+        "explanation": "a and b are two different record objects, so == is false. Records generate equals based on component values, so equals is true. The generated toString shows the record name and components.",
+        "commonMistake": "Thinking records make == compare values. They do not; == still checks whether references are the same.",
+        "clues": [],
         "examTags": [
           "final"
         ],
@@ -1723,75 +1712,70 @@
       },
       {
         "id": "l3-011",
-        "title": "Overload with double",
+        "title": "Overload choice with int and double",
         "topic": "Methods",
-        "skill": "overload resolution",
-        "code": "static void pick(int x) { System.out.println(\"int\"); }\nstatic void pick(double x) { System.out.println(\"double\"); }\npick(3.0);",
+        "skill": "method overload resolution",
+        "code": "public static void show(int x) {\n    System.out.println(\"int \" + x);\n}\npublic static void show(double x) {\n    System.out.println(\"double \" + x);\n}\nshow(4);\nshow(4.0);\nshow(4 + 0.5);",
         "question": "What prints?",
-        "answer": "double",
+        "answer": "int 4\ndouble 4.0\ndouble 4.5",
         "answerAliases": [],
-        "explanation": "3.0 is a double literal, so Java chooses pick(double).",
-        "commonMistake": "Thinking 3.0 is an int because it looks whole.",
-        "clues": [
-          "The decimal point matters."
-        ],
+        "explanation": "4 is an int literal, so show(int) is chosen. 4.0 is double. 4 + 0.5 becomes a double expression, so show(double) is chosen.",
+        "commonMistake": "Assuming Java always picks the first method with the right name. Overload choice depends on argument types.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-012",
-        "title": "Overriding annotation idea",
+        "title": "Overload instead of override",
         "topic": "Inheritance and Polymorphism",
-        "skill": "override signature",
-        "code": "class Parent { String name() { return \"parent\"; } }\nclass Child extends Parent { String name(int x) { return \"child\"; } }\nParent p = new Child();\nSystem.out.println(p.name());",
+        "skill": "overloading vs overriding with superclass reference",
+        "code": "class Parent {\n    void talk(Object value) { System.out.println(\"parent object\"); }\n}\nclass Child extends Parent {\n    void talk(String value) { System.out.println(\"child string\"); }\n}\nParent p = new Child();\np.talk(\"hello\");",
         "question": "What prints?",
-        "answer": "parent",
+        "answer": "parent object",
         "answerAliases": [],
-        "explanation": "Child does not override name() because it has a different parameter list. p.name() calls the inherited no-argument Parent method.",
-        "commonMistake": "Thinking same name alone means override.",
-        "clues": [
-          "Check the parameter list."
-        ],
+        "explanation": "The variable type is Parent, so compile-time overload selection looks at Parent methods. Parent has talk(Object), so that method is selected. Child did not override talk(Object); it overloaded talk(String).",
+        "commonMistake": "Thinking Child.talk(String) overrides Parent.talk(Object). The parameter types are different, so it is overload, not override.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-013",
-        "title": "2D nested indexes",
+        "title": "2D nested indexes with changing total",
         "topic": "Arrays and ArrayLists",
-        "skill": "2D array nested loops",
-        "code": "int[][] grid = {{1, 2}, {3, 4}, {5, 6}};\nint result = 0;\nfor (int r = 0; r < grid.length; r++) {\n    result += grid[r][1];\n}\nSystem.out.println(result);",
+        "skill": "nested loops over 2D arrays",
+        "code": "int[][] nums = {\n    {2, 4},\n    {1, 3},\n    {5, 7}\n};\nint total = 0;\nfor (int row = 0; row < nums.length; row++) {\n    total += nums[row][row % 2];\n}\nSystem.out.println(total);",
         "question": "What prints?",
-        "answer": "12",
+        "answer": "10",
         "answerAliases": [],
-        "explanation": "The loop adds column 1 from each row: 2 + 4 + 6 = 12.",
-        "commonMistake": "Adding the diagonal or all values instead of column 1.",
-        "clues": [
-          "The second index is always 1."
-        ],
+        "explanation": "For row 0, row % 2 is 0, so add nums[0][0] = 2. For row 1, row % 2 is 1, so add nums[1][1] = 3. For row 2, row % 2 is 0, so add nums[2][0] = 5. The total is 10.",
+        "commonMistake": "Forgetting that row % 2 alternates between 0 and 1.",
+        "clues": [],
         "examTags": [
+          "midterm1",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-014",
-        "title": "String and int plus",
+        "title": "String and int plus order",
         "topic": "Java Basics",
-        "skill": "operator order with String",
-        "code": "System.out.println(\"sum=\" + 2 + 3);\nSystem.out.println(2 + 3 + \"=sum\");",
+        "skill": "operator order with String concatenation",
+        "code": "int a = 2;\nint b = 3;\nSystem.out.println(\"sum=\" + a + b);\nSystem.out.println(a + b + \"=sum\");",
         "question": "What prints?",
         "answer": "sum=23\n5=sum",
         "answerAliases": [],
-        "explanation": "The first line starts with a String, so + concatenates left to right: sum=23. The second line adds 2 + 3 first, then concatenates.",
-        "commonMistake": "Assuming both lines do arithmetic first.",
-        "clues": [
-          "+ works left to right."
-        ],
+        "explanation": "Java evaluates left to right. In the first line, \"sum=\" + a makes a String, then b is concatenated. In the second line, a + b happens first because both are ints, producing 5 before concatenation.",
+        "commonMistake": "Assuming both lines add 2 + 3 before making a String.",
+        "clues": [],
         "examTags": [
           "midterm1",
           "final"
@@ -1800,75 +1784,70 @@
       },
       {
         "id": "l3-015",
-        "title": "ArrayList loop remove skip",
+        "title": "ArrayList remove while looping",
         "topic": "Arrays and ArrayLists",
-        "skill": "remove while iterating",
-        "code": "ArrayList<Integer> nums = new ArrayList<>(List.of(1, 2, 3, 4));\nfor (int i = 0; i < nums.size(); i++) {\n    if (nums.get(i) % 2 == 0) nums.remove(i);\n}\nSystem.out.println(nums);",
+        "skill": "removing while iterating by index",
+        "code": "ArrayList<String> items = new ArrayList<>();\nitems.add(\"red\");\nitems.add(\"blue\");\nitems.add(\"green\");\nitems.add(\"gold\");\nfor (int i = 0; i < items.size(); i++) {\n    if (items.get(i).length() == 4) {\n        items.remove(i);\n    }\n}\nSystem.out.println(items);",
         "question": "What prints?",
-        "answer": "[1, 3]",
+        "answer": "[blue, green]",
         "answerAliases": [],
-        "explanation": "At i=1, 2 is removed and 3 shifts left. The loop then increments to i=2, where 4 is removed. The final list is [1, 3].",
-        "commonMistake": "Assuming indexes never shift after remove.",
-        "clues": [
-          "After remove, list size and indexes change."
-        ],
+        "explanation": "At i = 0, red is removed and everything shifts left, so blue moves to index 0. Then i becomes 1, so blue is skipped. At i = 1, green stays. At i = 2, gold is removed. The list ends as [blue, green].",
+        "commonMistake": "Expecting both red and blue to be checked after red is removed. Index shifting can skip the next element.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-016",
-        "title": "Method side effect and return",
+        "title": "Side effect and return value",
         "topic": "Methods",
-        "skill": "side effect plus return",
-        "code": "static int update(int[] a) {\n    a[0] += 2;\n    return a[0] * 3;\n}\nint[] nums = {4};\nSystem.out.println(update(nums));\nSystem.out.println(nums[0]);",
+        "skill": "object side effect plus return",
+        "code": "class Score {\n    int value;\n    Score(int value) { this.value = value; }\n}\npublic static int boost(Score s) {\n    s.value += 5;\n    return s.value * 2;\n}\nScore quiz = new Score(4);\nint result = boost(quiz);\nSystem.out.println(result);\nSystem.out.println(quiz.value);",
         "question": "What prints?",
-        "answer": "18\n6",
+        "answer": "18\n9",
         "answerAliases": [],
-        "explanation": "a[0] changes from 4 to 6, then the method returns 18. The array still has 6 after the call.",
-        "commonMistake": "Returning 18 but forgetting the array also changed.",
-        "clues": [
-          "Arrays are mutable objects."
-        ],
+        "explanation": "The object starts with value 4. boost changes the same object to 9, then returns 9 * 2 = 18. After the method, quiz.value is still 9.",
+        "commonMistake": "Thinking object parameters are copied like primitives. The reference is copied, but both references point to the same object.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-017",
-        "title": "Nested constructor call",
+        "title": "Constructor chaining trace",
         "topic": "Constructors",
-        "skill": "constructor chaining",
-        "code": "class Box {\n    int size;\n    Box() { this(3); size++; }\n    Box(int size) { this.size = size; }\n}\nSystem.out.println(new Box().size);",
+        "skill": "this constructor call order",
+        "code": "class Level {\n    int value;\n    Level() {\n        this(3);\n        value += 2;\n    }\n    Level(int value) {\n        this.value = value;\n    }\n}\nLevel level = new Level();\nSystem.out.println(level.value);",
         "question": "What prints?",
-        "answer": "4",
+        "answer": "5",
         "answerAliases": [],
-        "explanation": "The no-argument constructor calls Box(3), setting size to 3, then increments it to 4.",
-        "commonMistake": "Stopping after this(3) and forgetting the next line runs too.",
-        "clues": [
-          "After this(3), control returns to the no-arg constructor body."
-        ],
+        "explanation": "The no-argument constructor first calls this(3), so the int constructor sets value to 3. Then the no-argument constructor continues and adds 2, making value 5.",
+        "commonMistake": "Ignoring the this(3) constructor call or thinking it happens after value += 2.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-018",
-        "title": "Interface polymorphism",
+        "title": "Interface polymorphism trace",
         "topic": "Interfaces and KeyListener",
-        "skill": "interface polymorphism",
-        "code": "interface Move { int step(); }\nclass Slow implements Move { public int step() { return 1; } }\nclass Fast implements Move { public int step() { return 3; } }\nMove m = new Fast();\nSystem.out.println(m.step());",
+        "skill": "interface reference and implementation dispatch",
+        "code": "interface Drivable {\n    String move();\n}\nclass Bike implements Drivable {\n    public String move() { return \"pedal\"; }\n}\nclass Cart implements Drivable {\n    public String move() { return \"roll\"; }\n}\nDrivable[] rides = {new Bike(), new Cart(), new Bike()};\nfor (Drivable ride : rides) {\n    System.out.print(ride.move() + \" \");\n}",
         "question": "What prints?",
-        "answer": "3",
+        "answer": "pedal roll pedal",
         "answerAliases": [],
-        "explanation": "The interface reference points to a Fast object, so Fast.step() runs.",
-        "commonMistake": "Thinking interface type prevents the implementation method from running.",
-        "clues": [
-          "The actual object is Fast."
-        ],
+        "explanation": "The array stores Drivable references, but each object uses its own move implementation at runtime.",
+        "commonMistake": "Thinking an interface reference cannot call methods. It can call methods declared by the interface.",
+        "clues": [],
         "examTags": [
           "final"
         ],
@@ -1876,37 +1855,34 @@
       },
       {
         "id": "l3-019",
-        "title": "Null check prevents crash",
+        "title": "Null guard prevents crash",
         "topic": "Exceptions, Files, and Null Pointers",
-        "skill": "null guard",
-        "code": "String s = null;\nif (s != null && s.length() > 0) {\n    System.out.println(\"yes\");\n} else {\n    System.out.println(\"no\");\n}",
+        "skill": "null check before method call",
+        "code": "String name = null;\nif (name != null && name.length() > 3) {\n    System.out.println(\"long\");\n} else {\n    System.out.println(\"safe\");\n}",
         "question": "What prints?",
-        "answer": "no",
+        "answer": "safe",
         "answerAliases": [],
-        "explanation": "s != null is false, so Java short-circuits the && and does not call s.length(). The else branch prints no.",
-        "commonMistake": "Thinking s.length() always runs and causes NullPointerException.",
-        "clues": [
-          "&& short-circuits when the first part is false."
-        ],
+        "explanation": "The first part of the && expression is false, so Java does not evaluate name.length(). The else branch runs.",
+        "commonMistake": "Thinking name.length() always runs. && short-circuits when the left side is false.",
+        "clues": [],
         "examTags": [
+          "midterm2",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-020",
-        "title": "Instanceof pattern",
+        "title": "instanceof pattern variable",
         "topic": "Inheritance and Polymorphism",
-        "skill": "instanceof pattern variable",
-        "code": "Object obj = \"java\";\nif (obj instanceof String text) {\n    System.out.println(text.toUpperCase());\n}",
+        "skill": "instanceof pattern matching and casting",
+        "code": "Object item = \"seasider\";\nif (item instanceof String word && word.length() > 5) {\n    System.out.println(word.substring(0, 3));\n} else {\n    System.out.println(\"nope\");\n}",
         "question": "What prints?",
-        "answer": "JAVA",
+        "answer": "sea",
         "answerAliases": [],
-        "explanation": "obj is a String, so the pattern variable text is available and toUpperCase() returns JAVA.",
-        "commonMistake": "Thinking obj cannot be used as a String even after instanceof.",
-        "clues": [
-          "instanceof confirms the type and creates text."
-        ],
+        "explanation": "item refers to a String, so the pattern variable word is available. \"seasider\" has length greater than 5, and substring(0, 3) returns characters at indexes 0, 1, and 2.",
+        "commonMistake": "Thinking substring(0, 3) includes index 3. The ending index is excluded.",
+        "clues": [],
         "examTags": [
           "final"
         ],
@@ -1914,38 +1890,33 @@
       },
       {
         "id": "l3-021",
-        "title": "Graphics repaint idea",
+        "title": "Graphics state before repaint",
         "topic": "Graphics",
-        "skill": "state change before repaint",
-        "code": "int x = 10;\nint dx = 4;\nx += dx;\nx += dx;\nSystem.out.println(x);",
+        "skill": "state change before paintComponent uses coordinates",
+        "code": "class Panel {\n    int x = 30;\n    int y = 40;\n    void repaint() { }\n    void moveRight() {\n        x += 15;\n        repaint();\n    }\n    void paintComponent(Graphics g) {\n        System.out.println(\"draw at \" + x + \",\" + y);\n    }\n}\nPanel panel = new Panel();\npanel.moveRight();\npanel.paintComponent(null);",
         "question": "What prints?",
-        "answer": "18",
+        "answer": "draw at 45,40",
         "answerAliases": [],
-        "explanation": "x starts at 10 and increases by 4 twice: 14, then 18.",
-        "commonMistake": "Only applying dx once.",
-        "clues": [
-          "This mimics two animation ticks."
-        ],
+        "explanation": "The panel starts at x = 30 and y = 40. moveRight changes x to 45 before paintComponent runs. repaint() is only a redraw request here; the printed drawing state uses the current field values.",
+        "commonMistake": "Tracing paintComponent with the old x value. Drawing uses the object state at the time paintComponent runs.",
+        "clues": [],
         "examTags": [
-          "midterm1",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-022",
-        "title": "Key listener methods count",
+        "title": "KeyListener movement sequence",
         "topic": "Interfaces and KeyListener",
-        "skill": "required interface methods",
-        "code": "String[] methods = {\"keyPressed\", \"keyReleased\", \"keyTyped\"};\nSystem.out.println(methods.length);",
+        "skill": "key event sequence and coordinate state",
+        "code": "int x = 50;\nint y = 50;\nvoid press(String key) {\n    if (key.equals(\"LEFT\")) x -= 10;\n    if (key.equals(\"RIGHT\")) x += 10;\n    if (key.equals(\"DOWN\")) y += 10;\n}\npress(\"RIGHT\");\npress(\"DOWN\");\npress(\"LEFT\");\nSystem.out.println(x + \",\" + y);",
         "question": "What prints?",
-        "answer": "3",
+        "answer": "50,60",
         "answerAliases": [],
-        "explanation": "KeyListener requires three methods, represented by the three names in the array.",
-        "commonMistake": "Forgetting one method because it often has an empty body.",
-        "clues": [
-          "Count the method names."
-        ],
+        "explanation": "RIGHT changes x to 60, DOWN changes y to 60, and LEFT changes x back to 50. Final state is 50,60.",
+        "commonMistake": "Forgetting that each key press changes the stored state for the next event.",
+        "clues": [],
         "examTags": [
           "final"
         ],
@@ -1953,62 +1924,66 @@
       },
       {
         "id": "l3-023",
-        "title": "Var inferred type",
+        "title": "var inferred type trap",
         "topic": "Java Basics",
-        "skill": "var inference",
-        "code": "var number = 5;\nnumber += 2;\nSystem.out.println(number);",
+        "skill": "var inference and integer division",
+        "code": "var total = 7;\nvar average = total / 2;\nSystem.out.println(average);",
         "question": "What prints?",
-        "answer": "7",
+        "answer": "3",
         "answerAliases": [],
-        "explanation": "var is inferred as int from 5. Adding 2 changes number to 7.",
-        "commonMistake": "Thinking var means the type can change later.",
-        "clues": [
-          "var still has one inferred type."
-        ],
+        "explanation": "var does not mean dynamic type. total is inferred as int, so total / 2 uses integer division and gives 3.",
+        "commonMistake": "Thinking var makes average a double automatically.",
+        "clues": [],
         "examTags": [
-          "midterm1"
+          "midterm1",
+          "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-024",
-        "title": "Memory alias with array",
+        "title": "Array aliasing state",
         "topic": "Arrays and ArrayLists",
         "skill": "array reference aliasing",
-        "code": "int[] a = {1, 2};\nint[] b = a;\nb[1] = 9;\nSystem.out.println(a[1]);",
+        "code": "int[] first = {1, 2, 3};\nint[] second = first;\nsecond[0] = 9;\nfirst[2] = second[0] + first[1];\nSystem.out.println(first[0]);\nSystem.out.println(second[2]);",
         "question": "What prints?",
-        "answer": "9",
+        "answer": "9\n11",
         "answerAliases": [],
-        "explanation": "a and b refer to the same array, so changing b[1] changes what a[1] sees.",
-        "commonMistake": "Thinking b is a copy of the array.",
-        "clues": [
-          "b = a copies the reference."
-        ],
+        "explanation": "first and second refer to the same array. second[0] = 9 changes first[0]. Then first[2] becomes 9 + 2 = 11, so second[2] also sees 11.",
+        "commonMistake": "Thinking first and second are separate arrays because they have different variable names.",
+        "clues": [],
         "examTags": [
+          "midterm1",
           "final"
         ],
         "level": "level3"
       },
       {
         "id": "l3-025",
-        "title": "Abstract hook call",
+        "title": "Abstract hook dispatch from superclass",
         "topic": "Inheritance and Polymorphism",
-        "skill": "abstract method dispatch",
-        "code": "abstract class Screen {\n    void render() { System.out.print(\"start-\"); draw(); }\n    abstract void draw();\n}\nclass Menu extends Screen { void draw() { System.out.print(\"menu\"); } }\nnew Menu().render();",
+        "skill": "abstract method dispatch from superclass method",
+        "code": "abstract class Lesson {\n    void start() {\n        System.out.println(label());\n    }\n    abstract String label();\n}\nclass JavaLesson extends Lesson {\n    String label() { return \"trace first\"; }\n}\nLesson lesson = new JavaLesson();\nlesson.start();",
         "question": "What prints?",
-        "answer": "start-menu",
+        "answer": "trace first",
         "answerAliases": [],
-        "explanation": "render() is inherited from Screen and calls draw(). The actual object is Menu, so Menu.draw() runs.",
-        "commonMistake": "Thinking an abstract method cannot be called through a concrete subclass.",
-        "clues": [
-          "The object is Menu, and Menu implements draw()."
-        ],
+        "explanation": "start is defined in the abstract superclass, but it calls label. The actual object is JavaLesson, so Java dispatches to JavaLesson.label().",
+        "commonMistake": "Thinking abstract classes cannot have normal methods, or that start calls a missing abstract method instead of the subclass version.",
+        "clues": [],
         "examTags": [
           "final"
         ],
         "level": "level3"
       }
     ]
+  },
+  "assumptions": [
+    "Assume required imports are already included when a snippet uses ArrayList, List, Arrays, Graphics, KeyEvent, or other library classes.",
+    "For graphics-style snippets, trace the coordinates and state changes rather than trying to draw a perfect picture."
+  ],
+  "qualityNotes": {
+    "version": 2,
+    "focus": "More final-style state tracing, object references, Graphics/KeyListener state changes, and combined concepts."
   }
 };
 })();
