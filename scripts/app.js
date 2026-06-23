@@ -38,6 +38,157 @@
   }
 
 
+
+  const thoughtStorageKey = 'cs202-reviewer-hero-thought-index';
+  const javaThoughts = [
+    {
+      icon: '🧠',
+      label: 'OOP Tip',
+      headline: 'Objects should do something, not just hold things.',
+      body: 'Fields describe state. Methods describe behavior. A class starts to make sense when those two belong together.',
+      exam: 'Exam connection: identify attributes vs behaviors before writing a class.',
+      topic: 'Classes and Objects'
+    },
+    {
+      icon: '⚠️',
+      label: 'Common Trap',
+      headline: '=, ==, and equals() are three different conversations.',
+      body: '= assigns. == compares primitive values or object references. equals() checks logical equality when the class defines it properly.',
+      exam: 'Exam connection: String and object comparison questions love this trap.',
+      topic: 'equals(), ==, =, and toString()'
+    },
+    {
+      icon: '😂',
+      label: 'Java Joke',
+      headline: 'I asked my object to explain itself.',
+      body: 'It said, “Call toString() first.”',
+      exam: 'Exam connection: toString() returns a readable String version of an object’s state.',
+      topic: 'equals(), ==, =, and toString()'
+    },
+    {
+      icon: '💡',
+      label: 'Java Fact',
+      headline: 'A constructor is not a method wearing a disguise.',
+      body: 'It has the same name as the class and no return type, not even void.',
+      exam: 'Exam connection: constructor headers are easy points if you remember the no-return-type rule.',
+      topic: 'Constructors'
+    },
+    {
+      icon: '🎯',
+      label: 'Exam Reminder',
+      headline: 'Trace slowly. Java does exactly what the code says, not what the variable name suggests.',
+      body: 'When a question asks for output, track each assignment and loop update before choosing an answer.',
+      exam: 'Exam connection: trace questions reward patience more than guessing.',
+      topic: 'Conditions, Loops, and Operators'
+    },
+    {
+      icon: '🧬',
+      label: 'OOP Tip',
+      headline: 'Inheritance should pass the “is-a” test.',
+      body: 'A Dog is an Animal makes sense. A Dog is a Collar does not. extends should model a real subtype relationship.',
+      exam: 'Exam connection: use the is-a rule before choosing inheritance.',
+      topic: 'Inheritance and Polymorphism'
+    },
+    {
+      icon: '🔌',
+      label: 'Interface Tip',
+      headline: 'An interface is a promise: “I know how to do this behavior.”',
+      body: 'When a class implements an interface, it agrees to provide the required methods.',
+      exam: 'Exam connection: KeyListener questions usually test required method headers.',
+      topic: 'Interfaces and KeyListener'
+    },
+    {
+      icon: '🧯',
+      label: 'Bug Radar',
+      headline: 'NullPointerException is Java saying, “There is no object there.”',
+      body: 'You tried to call a method or access a field through a reference that points to null.',
+      exam: 'Exam connection: look for variables declared but never assigned an object.',
+      topic: 'Static, Final, Memory, and Garbage Collection'
+    },
+    {
+      icon: '📦',
+      label: 'Array Tip',
+      headline: 'Arrays start at 0 because Java likes humbling people early.',
+      body: 'The first item is index 0, and the last item is length - 1.',
+      exam: 'Exam connection: off-by-one loop errors are classic final material.',
+      topic: 'Arrays and ArrayLists'
+    },
+    {
+      icon: '🪞',
+      label: 'Record Note',
+      headline: 'A record is for simple data that already knows how to describe itself.',
+      body: 'Records automatically provide useful basics like accessors, equals(), hashCode(), and toString().',
+      exam: 'Exam connection: know when a record is simpler than a full class.',
+      topic: 'Records vs Classes'
+    },
+    {
+      icon: '🛠️',
+      label: 'Debug Tip',
+      headline: 'The compiler is not being mean. It is being specific.',
+      body: 'Read the first error carefully. Later errors are sometimes just consequences of the first one.',
+      exam: 'Exam connection: fix-code questions often have one real cause and several symptoms.',
+      topic: 'Java Basics'
+    },
+    {
+      icon: '🔁',
+      label: 'Loop Reminder',
+      headline: 'A loop needs three things: start, stop, and change.',
+      body: 'Initialize the variable, write the condition, then update the variable so the loop can eventually finish.',
+      exam: 'Exam connection: infinite loops usually forget the change part.',
+      topic: 'Conditions, Loops, and Operators'
+    }
+  ];
+
+  function defaultThoughtIndex() {
+    const dayKey = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+    return Number(dayKey) % javaThoughts.length;
+  }
+
+  function getThoughtIndex() {
+    const saved = Number(localStorage.getItem(thoughtStorageKey));
+    if (Number.isInteger(saved) && saved >= 0 && saved < javaThoughts.length) return saved;
+    const daily = defaultThoughtIndex();
+    localStorage.setItem(thoughtStorageKey, String(daily));
+    return daily;
+  }
+
+  function renderHeroThought() {
+    const thought = javaThoughts[getThoughtIndex()];
+    const relatedTopic = topicByName(thought.topic) || topics[0];
+    return `<section class="hero gym-hero thought-hero">
+      <div class="thought-board">
+        <div class="thought-heading">
+          <div>
+            <h1>CS202 Reviewer Gym</h1>
+            <p class="thought-kicker">OOP + Java facts, traps, jokes, and reminders that rotate while you review.</p>
+          </div>
+          <span class="thought-count">${getThoughtIndex() + 1}/${javaThoughts.length}</span>
+        </div>
+        <article class="thought-card" aria-live="polite">
+          <div class="thought-type"><span class="thought-icon">${escapeHtml(thought.icon)}</span><span>${escapeHtml(thought.label)}</span></div>
+          <h2>${escapeHtml(thought.headline)}</h2>
+          <p class="thought-body">${escapeHtml(thought.body)}</p>
+          <p class="thought-exam">${escapeHtml(thought.exam)}</p>
+        </article>
+        <div class="hero-actions thought-actions">
+          <button id="new-thought" class="primary-cta" type="button">New thought</button>
+          <a class="button secondary" href="#topic/${relatedTopic.id}">Review related topic</a>
+          <a class="button secondary" href="#practice">Start practice</a>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  function setupHeroThoughtControls() {
+    const button = document.querySelector('#new-thought');
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const next = (getThoughtIndex() + 1) % javaThoughts.length;
+      localStorage.setItem(thoughtStorageKey, String(next));
+      renderDashboard();
+    });
+  }
+
   function topicStats(topic, state = ProgressStore.get()) {
     const topicQuestions = questions.filter(question => question.topic === topic.name);
     const answers = topicQuestions.map(question => state.answers[question.id]).filter(Boolean);
@@ -118,30 +269,7 @@
     const recommendation = ReviewScheduler.recommendation();
     const history = summary.state.history.slice(0, 5);
     main.innerHTML = `
-      <section class="hero gym-hero">
-        <div class="hero-copy">
-          <p class="eyebrow">CS202 Java practice environment</p>
-          <h1>Train for the final like it is a coding gym.</h1>
-          <p class="lede">Pick a mission, answer active Java questions, and let missed topics come back for review.</p>
-          <div class="hero-actions">
-            <a class="button primary-cta" href="#practice">Start today's mission</a>
-            <a class="button secondary" href="#exam">Take exam mode</a>
-            <a class="button secondary" href="java-practice/README.md">Open Java practice</a>
-          </div>
-        </div>
-        <aside class="mission-card" aria-label="Today's mission">
-          <p class="eyebrow">Today's mission</p>
-          <h2>${escapeHtml(recommendation.topic.name)}</h2>
-          <ol class="mission-steps">
-            <li>Study the idea</li>
-            <li>Trace one example</li>
-            <li>Fix one bug</li>
-            <li>Answer 5 questions</li>
-          </ol>
-          <div class="mission-meter"><span style="width:${summary.readiness}%"></span></div>
-          <small class="muted">Readiness meter: ${summary.readiness}%</small>
-        </aside>
-      </section>
+      ${renderHeroThought()}
       <section class="stat-grid" aria-label="Study summary">
         <article class="stat stat-card"><span class="stat-icon">🎯</span><span class="number">${summary.readiness}%</span><span class="label">Final exam readiness</span><div class="progress-track"><div class="progress-bar ${summary.readiness >= 70 ? 'good' : 'warn'}" style="width:${summary.readiness}%"></div></div></article>
         <article class="stat stat-card"><span class="stat-icon">🧭</span><span class="number">${summary.completed}/${topics.length}</span><span class="label">Topics reviewed</span></article>
@@ -171,6 +299,7 @@
           ${renderRecentActivity(history)}
         </article>
       </section>`;
+    setupHeroThoughtControls();
   }
 
   function renderTopics() {

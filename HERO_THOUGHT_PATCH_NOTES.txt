@@ -1,0 +1,18 @@
+Hero thought deck patch
+
+Changed:
+- Removed the dashboard hero wording: "CS202 Java practice environment", "Train for the final like it is a coding gym", and the mission-card copy.
+- Replaced the top hero box with a dynamic OOP/Java thought deck.
+- Added rotating items for Java facts, OOP tips, common traps, exam reminders, and original Java jokes.
+- Added a New thought button that cycles through the deck and remembers the selected thought in localStorage.
+- Added Review related topic and Start practice buttons.
+
+Files changed:
+- scripts/app.js
+- styles/components.css
+
+Validation passed:
+- node --check scripts/app.js
+- node tests/validate-question-data.js
+- node tests/audit-question-quality.js
+- bash tests/sample-checks/check-structure.sh
