@@ -1628,3 +1628,19 @@ html[data-theme="night"] .path-practice {
 .coding-solution pre { margin-top: 1rem; }
 .coding-solution .reflection-summary pre { margin: .35rem 0 .5rem; max-height: 16rem; overflow: auto; }
 @media (max-width: 850px) { .coding-check-grid { grid-template-columns: 1fr; } }
+
+
+/* Build Challenge */
+.build-mode-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.build-control-panel, .build-card, .build-review { position: relative; overflow: hidden; }
+.build-card::before, .build-review::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at bottom right, rgba(245,158,11,.15), transparent 38%); }
+.build-assumption ul { margin: .5rem 0 0 1.1rem; color: var(--muted); }
+.build-deliverable-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.build-milestone-box { margin-top: 1rem; border: 1px solid color-mix(in srgb, var(--amber, #f59e0b) 40%, var(--border)); border-radius: 1rem; padding: 1rem; background: color-mix(in srgb, var(--surface) 84%, #f59e0b 8%); position: relative; z-index: 1; }
+.build-hint-box { margin-top: 1rem; }
+.build-workspace textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 500; line-height: 1.55; }
+.build-workspace textarea#build-plan-note, .build-workspace textarea#build-test-note { font-family: inherit; }
+.build-review pre { margin-top: 1rem; }
+.build-review .reflection-summary pre { margin: .35rem 0 .5rem; max-height: 16rem; overflow: auto; }
+@media (max-width: 1050px) { .build-mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 850px) { .build-mode-grid, .build-deliverable-grid { grid-template-columns: 1fr; } }

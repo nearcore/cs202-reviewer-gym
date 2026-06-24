@@ -6,6 +6,7 @@
   let tracingGameState = { mode: 'level1', topic: 'all', currentId: null, answered: false, answer: '', correct: false, usedClues: [] };
   let bugFixLabState = { mode: 'level1', topic: 'all', currentId: null, reviewShown: false, usedClues: [], fixNote: '', reasonNote: '', conceptNote: '', selfRated: null };
   let codingQuestState = { mode: 'level1', topic: 'all', currentId: null, solutionShown: false, usedHints: [], codeAttempt: '', explanationNote: '', selfRated: null };
+  let buildChallengeState = { mode: 'level1', topic: 'all', currentId: null, reviewShown: false, usedHints: [], planNote: '', codeNote: '', testNote: '', selfRated: null };
 
   const route = () => (location.hash.replace(/^#/, '') || 'dashboard').split('/');
   const go = value => { location.hash = value; };
@@ -971,7 +972,7 @@
         <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
         <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Inspect broken code, explain the fix, then compare with the official review.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Coding Quest</h3><p class="muted">Write small Java snippets in the website, then compare with the official solution.</p><a class="button secondary" href="#coding">Open Coding Quest</a></article></section>`;
+      <section class="three-col mode-grid build-mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Inspect broken code, explain the fix, then compare with the official review.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Coding Quest</h3><p class="muted">Write small Java snippets in the website, then compare with the official solution.</p><a class="button secondary" href="#coding">Open Coding Quest</a></article><article class="card mode-card"><span class="mode-icon">🏗️</span><h3>Build Challenge</h3><p class="muted">Plan and write mini-project solutions that combine several CS202 ideas.</p><a class="button secondary" href="#build">Open Build Challenge</a></article></section>`;
     const updatePracticePreview = () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -1473,6 +1474,164 @@
   }
 
 
+  function buildChallengeData() {
+    return window.BUILD_CHALLENGE_DATA || { modes: {}, base: [], extras: {}, assumptions: [] };
+  }
+
+  function buildModeMeta(mode = buildChallengeState.mode) {
+    return buildChallengeData().modes?.[mode] || { label: 'Guided Build', support: 'Milestones', description: '' };
+  }
+
+  function allBuildChallengeItems() {
+    const data = buildChallengeData();
+    return [...(data.base || []), ...(data.extras?.level1 || []), ...(data.extras?.level2 || []), ...(data.extras?.level3 || [])];
+  }
+
+  function availableBuildChallengeItems() {
+    const data = buildChallengeData();
+    const extras = data.extras?.[buildChallengeState.mode] || [];
+    const base = data.base || [];
+    const pool = buildChallengeState.mode === 'level3' ? extras : [...base, ...extras];
+    return pool.filter(item => buildChallengeState.topic === 'all' || item.topic === buildChallengeState.topic);
+  }
+
+  function buildChallengeTopicNames() {
+    return [...new Set(allBuildChallengeItems().map(item => item.topic))].sort();
+  }
+
+  function buildChallengeItemKey(item) {
+    return `${item.level || 'build'}:${item.id}`;
+  }
+
+  function findBuildChallengeItem(key = buildChallengeState.currentId) {
+    return allBuildChallengeItems().find(item => buildChallengeItemKey(item) === key) || null;
+  }
+
+  function pickBuildChallengeItem(avoidKey = buildChallengeState.currentId) {
+    const pool = availableBuildChallengeItems();
+    if (!pool.length) return null;
+    let item = pool[Math.floor(Math.random() * pool.length)];
+    let guard = 0;
+    while (buildChallengeItemKey(item) === avoidKey && pool.length > 1 && guard < 10) {
+      item = pool[Math.floor(Math.random() * pool.length)];
+      guard++;
+    }
+    buildChallengeState.currentId = buildChallengeItemKey(item);
+    buildChallengeState.reviewShown = false;
+    buildChallengeState.usedHints = [];
+    buildChallengeState.planNote = '';
+    buildChallengeState.codeNote = '';
+    buildChallengeState.testNote = '';
+    buildChallengeState.selfRated = null;
+    return item;
+  }
+
+  function buildChallengeTopicOptions() {
+    return `<option value="all">All build topics</option>${buildChallengeTopicNames().map(name => `<option value="${escapeHtml(name)}" ${buildChallengeState.topic === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}`;
+  }
+
+  function renderBuildAssumptions() {
+    const assumptions = buildChallengeData().assumptions || [];
+    if (!assumptions.length) return '';
+    return `<aside class="trace-assumption-note build-assumption"><strong>Before you build:</strong><ul>${assumptions.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul></aside>`;
+  }
+
+  function renderBuildMilestones(item) {
+    const milestones = item.milestones || [];
+    if (buildChallengeState.mode !== 'level1' || !milestones.length) return '';
+    return `<section class="build-milestone-box"><div class="trace-clue-title"><strong>Build milestones</strong><span>Level 1 support</span></div><ol class="trace-clue-list">${milestones.map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol></section>`;
+  }
+
+  function renderBuildHints(item) {
+    const hints = (item.hints || []).filter(Boolean);
+    const allowHints = buildChallengeState.mode !== 'level3' && hints.length;
+    if (!allowHints) return `<div class="trace-clue-box no-clues"><strong>No hints for this mode.</strong><p class="muted">Make your plan and attempt first, then compare with the official build review.</p></div>`;
+    return `<div class="trace-clue-box build-hint-box">
+      <div class="trace-clue-title"><strong>Optional build hints</strong><span>${buildChallengeState.usedHints.length}/${hints.length} used</span></div>
+      <div class="trace-clue-actions">${hints.map((hint, index) => `<button type="button" class="button quiet build-hint-button" data-hint-index="${index}" ${buildChallengeState.usedHints.includes(index) ? 'disabled' : ''}>Use hint ${index + 1}</button>`).join('')}</div>
+      ${buildChallengeState.usedHints.length ? `<ol class="trace-clue-list">${buildChallengeState.usedHints.map(index => `<li>${escapeHtml(hints[index])}</li>`).join('')}</ol>` : `<p class="muted">Hints stay hidden unless you choose to use them.</p>`}
+    </div>`;
+  }
+
+  function renderBuildReview(item) {
+    if (!buildChallengeState.reviewShown) return '';
+    const rating = buildChallengeState.selfRated ? `<span class="pill ${buildChallengeState.selfRated === 'built' ? 'strong' : 'weak'}">${buildChallengeState.selfRated === 'built' ? 'Marked built' : 'Needs review'}</span>` : '';
+    return `<section class="card build-review">
+      <div class="trace-result-top"><span class="result-badge">Official build review</span>${rating}</div>
+      <h2>${escapeHtml(item.title)}</h2>
+      <article class="task-callout"><p class="eyebrow">Model plan</p><p>${escapeHtml(item.modelPlan)}</p></article>
+      ${codeBlock(item.modelAnswer)}
+      <div class="review-grid">
+        <article><p class="eyebrow">Why it works</p><p>${escapeHtml(item.explanation)}</p></article>
+        <article><p class="eyebrow">Common mistake</p><p>${escapeHtml(item.commonMistake)}</p></article>
+        <article><p class="eyebrow">Extension</p><p>${escapeHtml(item.extension)}</p></article>
+      </div>
+      <div class="reflection-summary"><p><strong>Your plan:</strong> ${escapeHtml(buildChallengeState.planNote || 'No plan entered.')}</p><p><strong>Your code sketch:</strong></p><pre><code>${escapeHtml(buildChallengeState.codeNote || 'No code sketch entered.')}</code></pre><p><strong>Your test case:</strong> ${escapeHtml(buildChallengeState.testNote || 'No test case entered.')}</p></div>
+      <div class="button-row"><button id="build-built" class="success">I built/understood it</button><button id="build-review" class="secondary">Keep in review</button><button id="build-next" class="button quiet">Next build →</button></div>
+    </section>`;
+  }
+
+  function renderBuildChallenge() {
+    setNav('build');
+    let item = findBuildChallengeItem();
+    if (!item || !availableBuildChallengeItems().some(entry => buildChallengeItemKey(entry) === buildChallengeState.currentId)) item = pickBuildChallengeItem();
+    const pool = availableBuildChallengeItems();
+    const modeMeta = buildModeMeta();
+    main.innerHTML = `${pageHead('Build Challenge', 'Put several CS202 ideas together', 'Mini-project style practice done directly in the website. Plan it, sketch the Java, then compare with the official build review.')}
+      <section class="card build-control-panel">
+        <div class="trace-mode-tabs" role="tablist" aria-label="Build Challenge mode">
+          <button class="trace-mode ${buildChallengeState.mode === 'level1' ? 'active' : ''}" data-build-mode="level1"><strong>Level 1</strong><span>Guided · milestones + hints</span></button>
+          <button class="trace-mode ${buildChallengeState.mode === 'level2' ? 'active' : ''}" data-build-mode="level2"><strong>Level 2</strong><span>Hinted · fewer directions</span></button>
+          <button class="trace-mode ${buildChallengeState.mode === 'level3' ? 'active' : ''}" data-build-mode="level3"><strong>Level 3</strong><span>Solo · mini-project style</span></button>
+        </div>
+        <div class="trace-toolbar">
+          <label>Topic<select id="build-topic">${buildChallengeTopicOptions()}</select></label>
+          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · ${escapeHtml(modeMeta.description || '')}</div>
+        </div>
+      </section>
+      ${item ? `<section class="card build-card">
+        <div class="quest-title-row"><div><p class="eyebrow">${escapeHtml(modeMeta.label)} · ${escapeHtml(item.topic)}</p><h2>${escapeHtml(item.title)}</h2><p class="muted">Skill focus: ${escapeHtml(item.skill)}</p></div><span class="pill">${escapeHtml(item.id)}</span></div>
+        ${renderBuildAssumptions()}
+        <p class="task-callout"><strong>Scenario:</strong> ${escapeHtml(item.scenario)}</p>
+        <p class="task-callout"><strong>Goal:</strong> ${escapeHtml(item.goal)}</p>
+        <div class="bugfix-brief-grid build-deliverable-grid">
+          ${(item.deliverables || []).map(deliverable => `<article><p class="eyebrow">Deliverable</p><p>${escapeHtml(deliverable)}</p></article>`).join('')}
+        </div>
+        <h3>Starter</h3>
+        ${codeBlock(item.starter)}
+        ${renderBuildMilestones(item)}
+        ${renderBuildHints(item)}
+        <section class="bugfix-reflection build-workspace">
+          <h3>Your build attempt</h3>
+          <label>Plan the structure<textarea id="build-plan-note" rows="3" placeholder="Classes, fields, methods, and the order you will build them..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.planNote)}</textarea></label>
+          <label>Write your Java sketch<textarea id="build-code-note" rows="12" spellcheck="false" placeholder="Write your class, method, or mini-project code sketch here..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.codeNote)}</textarea></label>
+          <label>Test case or edge case<textarea id="build-test-note" rows="3" placeholder="Example: input, expected output, or boundary case..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.testNote)}</textarea></label>
+          <div class="button-row"><button id="show-build-review" class="primary-cta" ${buildChallengeState.reviewShown ? 'disabled' : ''}>I attempted it — show build review</button><button id="new-build" class="button secondary">New random build</button></div>
+        </section>
+      </section>${renderBuildReview(item)}` : `<section class="card"><h2>No build challenges found</h2><p>Try choosing all topics or another support mode.</p></section>`}`;
+
+    document.querySelectorAll('[data-build-mode]').forEach(button => button.addEventListener('click', () => { buildChallengeState.mode = button.dataset.buildMode; pickBuildChallengeItem(null); renderBuildChallenge(); }));
+    const topicSelect = document.querySelector('#build-topic');
+    if (topicSelect) topicSelect.addEventListener('change', event => { buildChallengeState.topic = event.target.value; pickBuildChallengeItem(null); renderBuildChallenge(); });
+    document.querySelectorAll('.build-hint-button').forEach(button => button.addEventListener('click', () => { saveBuildAttempt(); const index = Number(button.dataset.hintIndex); if (!buildChallengeState.usedHints.includes(index)) buildChallengeState.usedHints.push(index); renderBuildChallenge(); }));
+    function saveBuildAttempt() {
+      buildChallengeState.planNote = document.querySelector('#build-plan-note')?.value.trim() || '';
+      buildChallengeState.codeNote = document.querySelector('#build-code-note')?.value.trim() || '';
+      buildChallengeState.testNote = document.querySelector('#build-test-note')?.value.trim() || '';
+    }
+    const showReview = document.querySelector('#show-build-review');
+    if (showReview) showReview.addEventListener('click', () => { saveBuildAttempt(); buildChallengeState.reviewShown = true; renderBuildChallenge(); });
+    const newBuild = document.querySelector('#new-build');
+    if (newBuild) newBuild.addEventListener('click', () => { pickBuildChallengeItem(); renderBuildChallenge(); });
+    const nextBuild = document.querySelector('#build-next');
+    if (nextBuild) nextBuild.addEventListener('click', () => { pickBuildChallengeItem(); renderBuildChallenge(); });
+    const built = document.querySelector('#build-built');
+    if (built) built.addEventListener('click', () => { const current = findBuildChallengeItem(); buildChallengeState.selfRated = 'built'; if (current) ProgressStore.recordAnswer({ id: `build-${buildChallengeState.mode}-${current.id}`, topic: current.topic }, true, `Build Challenge ${modeMeta.label}${buildChallengeState.usedHints.length ? ` · ${buildChallengeState.usedHints.length} hint(s)` : ''}`); renderBuildChallenge(); });
+    const review = document.querySelector('#build-review');
+    if (review) review.addEventListener('click', () => { const current = findBuildChallengeItem(); buildChallengeState.selfRated = 'review'; if (current) ProgressStore.recordAnswer({ id: `build-${buildChallengeState.mode}-${current.id}`, topic: current.topic }, false, `Build Challenge ${modeMeta.label}`); renderBuildChallenge(); });
+  }
+
+
   function renderFlashcards() {
     setNav('flashcards');
     const cards = currentCards();
@@ -1533,6 +1692,7 @@
     else if (section === 'tracing') renderTracingGame();
     else if (section === 'bugfix') renderBugFixLab();
     else if (section === 'coding') renderCodingQuest();
+    else if (section === 'build') renderBuildChallenge();
     else if (section === 'flashcards') renderFlashcards();
     else if (section === 'exam') renderExam();
     else if (section === 'progress') renderProgress();

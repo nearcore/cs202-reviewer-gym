@@ -1,0 +1,14 @@
+Build Challenge website-only patch
+
+Added:
+- Build Challenge route and navigation tab (#build)
+- 60 mini-project style CS202 build tasks
+- Level 1 Guided Build: milestones + optional hints
+- Level 2 Hinted Build: fewer directions + optional hints
+- Level 3 Solo Build: final-style mini-project prompts with no hints
+- Plan/code/test reflection boxes
+- Official build review hidden until after attempt
+- ProgressStore recording for built/review choices
+- Validator: tests/validate-build-challenge.js
+
+No IntelliJ dependency and no generated Java practice files.

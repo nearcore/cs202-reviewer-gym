@@ -27,6 +27,7 @@ No npm install or framework setup is required.
 - **Flashcards** flips vocabulary cards and records whether a card is known or still learning.
 - **Exam Mode** selects random questions, hides explanations while active, and reports missed topics afterward.
 - **Coding Quest** is a website-only code-writing mode with Guided, Hinted, and Solo tasks.
+- **Build Challenge** is website-only mini-project practice with Guided, Hinted, and Solo builds.
 - **Progress** shows accuracy, completion, weak/strong topics, history, and a reset control.
 
 Progress uses browser `localStorage`. It stays on this browser until you reset it.
@@ -70,7 +71,7 @@ Use Java 21 or newer. The included examples were checked with a newer JDK and st
 
 ## Content Status
 
-The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, and 100 Coding Quest tasks.
+The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, and 100 Coding Quest tasks and 60 Build Challenge tasks.
 
 The reviewer has three related question-data sources:
 
@@ -117,4 +118,21 @@ Run the Coding Quest validator after changing the quest data:
 
 ```bash
 node tests/validate-coding-quest.js
+```
+
+## Build Challenge
+
+Build Challenge adds website-only mini-project practice after Coding Quest. It includes:
+
+- 15 base build challenges
+- 15 extra Level 1 guided builds
+- 15 extra Level 2 hinted builds
+- 15 extra Level 3 solo builds
+
+Students plan the structure, write a Java sketch, name a test case, and reveal the official build review only after attempting.
+
+Run the Build Challenge validator after changing the build data:
+
+```bash
+node tests/validate-build-challenge.js
 ```
