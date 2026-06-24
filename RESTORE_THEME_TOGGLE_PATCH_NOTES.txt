@@ -1,0 +1,13 @@
+# Restore Theme Toggle Patch
+
+Restores the visible Day/Night theme toggle button in the site header.
+
+The theme JavaScript and CSS were still present; the header button was missing from index.html after newer quest patches.
+
+Files changed:
+- index.html
+- RESTORE_THEME_TOGGLE_PATCH_NOTES.txt
+
+Validation:
+- The header now contains #theme-toggle with .theme-toggle-icon and .theme-toggle-text.
+- Existing scripts/app.js theme logic can find the button again.
