@@ -24,7 +24,7 @@ No npm install or framework setup is required.
 - **Dashboard** shows progress, readiness, weak topics, a recommendation, and study history.
 - **Topics** has all 15 major topic groups. Each page has an explanation, example, trace task, bug fix, build prompt, vocabulary, and related Java file.
 - **Practice** builds a question set by topic, type, difficulty, and question count.
-- **Flashcards** flips vocabulary cards and records whether a card is known or still learning.
+- **Flashcards** has study-set filters, topic filters, shuffle, previous/next navigation, study prompts, code connections, and known/still-learning tracking.
 - **Exam Mode** selects random questions, hides explanations while active, and reports missed topics afterward.
 - **Coding Quest** is a website-only code-writing mode with Guided, Hinted, and Solo tasks.
 - **Build Challenge** is website-only mini-project practice with Guided, Hinted, and Solo builds.
@@ -71,7 +71,7 @@ Use Java 21 or newer. The included examples were checked with a newer JDK and st
 
 ## Content Status
 
-The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, 100 Coding Quest tasks, and 60 Build Challenge tasks. Coding Quest and Build Challenge have a quality-pass layer with study-guide focus notes, edge/acceptance checks, rubrics, and reflection prompts.
+The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, 100 Coding Quest tasks, and 60 Build Challenge tasks. The flashcard bank now has 80 study cards with Midterm 1, Midterm 2/OOP, and Final focus decks. Coding Quest and Build Challenge have a quality-pass layer with study-guide focus notes, edge/acceptance checks, rubrics, and reflection prompts.
 
 The reviewer has three related question-data sources:
 
@@ -102,6 +102,24 @@ node scripts/export-expanded-questions.js /tmp/cs202-expanded-questions.json
 
 The Bug Fix Lab is a website-only quest mode for reading broken or weak Java snippets, identifying the issue, writing a short explanation, and comparing with the official review after attempting. It includes hidden clues for guided practice, no-clue solo practice, and Level 3 code review/refactor challenges.
 
+
+
+## Flashcards
+
+Flashcards now use a stronger deck system instead of only cycling through one fixed list. The flashcard page includes:
+
+- All vocabulary, Midterm 1 focus, Midterm 2/OOP focus, and Final focus study sets
+- a topic filter inside each study set
+- shuffle, previous, next, known, and still-learning controls
+- front-side recall prompts before flipping
+- back-side study focus notes and common traps
+- code connections that show where the vocabulary appears in Java
+
+Run the flashcard validator after changing flashcard data or UI behavior:
+
+```bash
+node tests/validate-flashcards.js
+```
 
 ## Coding Quest
 

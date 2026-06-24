@@ -2,7 +2,7 @@
   const { topics, questions, vocabulary, examPools, studyPaths } = window.REVIEWER_DATA;
   const main = document.querySelector('#main');
   const { escapeHtml, codeBlock } = QuizEngine;
-  let flashcardState = { filter: 'all', index: 0, flipped: false };
+  let flashcardState = { filter: 'all', topic: 'all', index: 0, flipped: false, order: [], deckKey: '' };
   let tracingGameState = { mode: 'level1', topic: 'all', currentId: null, answered: false, answer: '', correct: false, usedClues: [] };
   let bugFixLabState = { mode: 'level1', topic: 'all', currentId: null, reviewShown: false, usedClues: [], fixNote: '', reasonNote: '', conceptNote: '', selfRated: null };
   let codingQuestState = { mode: 'level1', topic: 'all', currentId: null, solutionShown: false, usedHints: [], codeAttempt: '', explanationNote: '', selfRated: null };
@@ -995,10 +995,84 @@
     });
   }
 
+  const midterm1FlashcardTopics = new Set(['Java Basics', 'Conditions, Loops, and Operators', 'Arrays and ArrayLists', 'Graphics', 'Vocabulary Bank']);
+  const midterm2FlashcardTopics = new Set(['Methods', 'Classes and Objects', 'Constructors', 'Inheritance and Polymorphism', 'equals(), ==, =, and toString()', 'Exceptions, Files, and Null Pointers', 'Vocabulary Bank']);
+  const finalFlashcardTopics = new Set(['Methods', 'Classes and Objects', 'Constructors', 'Inheritance and Polymorphism', 'Interfaces and KeyListener', 'equals(), ==, =, and toString()', 'Exceptions, Files, and Null Pointers', 'Static, Final, Memory, and Garbage Collection', 'Graphics', 'Records vs Classes', 'Final Exam Mixed Practice', 'Vocabulary Bank']);
+
+  function flashcardId(card) {
+    return `${card.topic}::${card.term}`;
+  }
+
+  function flashcardStudyLabel(filter = flashcardState.filter) {
+    if (filter === 'midterm1') return 'Midterm 1 focus';
+    if (filter === 'midterm2') return 'Midterm 2 / OOP focus';
+    if (filter === 'final') return 'Final focus';
+    return 'All vocabulary';
+  }
+
+  function flashcardMatchesStudySet(card) {
+    const tags = Array.isArray(card.examTags) ? card.examTags : [];
+    if (flashcardState.filter === 'midterm1') return tags.includes('midterm1') && midterm1FlashcardTopics.has(card.topic);
+    if (flashcardState.filter === 'midterm2') return tags.includes('midterm2') && midterm2FlashcardTopics.has(card.topic);
+    if (flashcardState.filter === 'final') return tags.includes('final') && finalFlashcardTopics.has(card.topic);
+    return true;
+  }
+
+  function flashcardFilteredCards() {
+    return vocabulary
+      .filter(card => flashcardMatchesStudySet(card))
+      .filter(card => flashcardState.topic === 'all' || card.topic === flashcardState.topic)
+      .sort((a, b) => `${a.topic} ${a.term}`.localeCompare(`${b.topic} ${b.term}`));
+  }
+
+  function flashcardDeckKey(cards) {
+    return `${flashcardState.filter}|${flashcardState.topic}|${cards.map(flashcardId).join('|')}`;
+  }
+
+  function rebuildFlashcardDeck({ shuffleDeck = false } = {}) {
+    const filtered = flashcardFilteredCards();
+    const ids = filtered.map(flashcardId);
+    flashcardState.order = shuffleDeck ? shuffle(ids) : ids;
+    flashcardState.deckKey = flashcardDeckKey(filtered);
+    flashcardState.index = 0;
+    flashcardState.flipped = false;
+  }
+
   function currentCards() {
-    const filtered = flashcardState.filter === 'all' ? vocabulary : vocabulary.filter(item => item.examTags.includes(flashcardState.filter));
-    if (flashcardState.index >= filtered.length) flashcardState.index = 0;
-    return filtered;
+    const filtered = flashcardFilteredCards();
+    const nextKey = flashcardDeckKey(filtered);
+    if (flashcardState.deckKey !== nextKey || !Array.isArray(flashcardState.order) || !flashcardState.order.length) {
+      rebuildFlashcardDeck();
+    }
+    const cardMap = new Map(filtered.map(card => [flashcardId(card), card]));
+    const deck = (flashcardState.order || []).map(id => cardMap.get(id)).filter(Boolean);
+    if (flashcardState.index >= deck.length) flashcardState.index = 0;
+    return deck;
+  }
+
+  function flashcardTopicOptions() {
+    const topicsInSet = [...new Set(vocabulary.filter(card => flashcardMatchesStudySet(card)).map(card => card.topic))].sort();
+    return ['all', ...topicsInSet];
+  }
+
+  function flashcardStudyTip(card) {
+    if (card.examFocus) return card.examFocus;
+    if (card.topic === 'Java Basics') return 'Midterm 1: know the word and recognize it in short Java code.';
+    if (card.topic === 'Conditions, Loops, and Operators') return 'Midterm 1: connect the term to tracing loop output and boolean conditions.';
+    if (card.topic === 'Arrays and ArrayLists') return 'Midterm 1/final: connect the term to indexing, traversal, and off-by-one errors.';
+    if (card.topic === 'Methods') return 'Final: connect the term to method headers, return values, and calls.';
+    if (card.topic === 'Classes and Objects') return 'Midterm 2/final: connect the term to object state and behavior.';
+    if (card.topic === 'Constructors') return 'Midterm 2/final: connect the term to initialization and this.';
+    if (card.topic === 'Inheritance and Polymorphism') return 'Final: connect the term to is-a relationships and dynamic dispatch.';
+    if (card.topic === 'Interfaces and KeyListener') return 'Final: connect the term to contracts and event methods.';
+    if (card.topic === 'Exceptions, Files, and Null Pointers') return 'Final: connect the term to try/catch, file reading, and safe references.';
+    if (card.topic === 'Static, Final, Memory, and Garbage Collection') return 'Final: connect the term to shared class members and memory behavior.';
+    if (card.topic === 'Records vs Classes') return 'Final: connect the term to compact data carriers and generated methods.';
+    return 'Final mixed practice: explain the term, then identify where it appears in code.';
+  }
+
+  function flashcardPrompt(card) {
+    return card.checkQuestion || `Before flipping: explain “${card.term}” in your own words, then name one Java example.`;
   }
 
 
@@ -1665,21 +1739,39 @@
   function renderFlashcards() {
     setNav('flashcards');
     const cards = currentCards();
-    const card = cards[flashcardState.index];
-    main.innerHTML = `${pageHead('Vocabulary bank', 'Recall the word, then connect it to code', 'Flip the card only after you try to explain the term. Mark it known or keep it in the review loop.')}
-      <section class="card flashcard-toolbar"><div class="form-grid" style="grid-template-columns:1fr auto"><label>Exam filter<select id="flashcard-filter"><option value="all" ${flashcardState.filter === 'all' ? 'selected' : ''}>All vocabulary</option><option value="midterm1" ${flashcardState.filter === 'midterm1' ? 'selected' : ''}>Midterm 1</option><option value="midterm2" ${flashcardState.filter === 'midterm2' ? 'selected' : ''}>Midterm 2</option><option value="final" ${flashcardState.filter === 'final' ? 'selected' : ''}>Final</option></select></label><p class="muted"><strong>Card ${flashcardState.index + 1}</strong> of ${cards.length}</p></div><div class="progress-track"><div class="progress-bar" style="width:${Math.round(((flashcardState.index + 1) / cards.length) * 100)}%"></div></div></section>
-      <section class="flashcard ${flashcardState.flipped ? 'flipped' : ''}" id="flashcard" role="button" tabindex="0" aria-label="Flip flashcard" style="margin-top:1rem"><div class="flashcard-inner"><article class="flashcard-face"><p class="eyebrow">${escapeHtml(card.topic)}</p><div class="flashcard-word">${escapeHtml(card.term)}</div><p class="flip-hint">Click, tap, or press Enter to flip</p></article><article class="flashcard-face flashcard-back"><p class="eyebrow">Definition</p><p>${escapeHtml(card.definition)}</p><p class="flip-hint">Click again to hide the answer</p></article></div></section>
-      <div class="button-row flashcard-actions"><button id="known" class="success">I know this</button><button id="learning" class="secondary">Still learning</button><button id="next-card" class="quiet">Next card →</button></div>
-      <section class="card code-connection" style="margin-top:1rem"><p class="eyebrow">Code connection</p><h2>Where this shows up</h2>${codeBlock(card.example)}</section>`;
+    const topicOptions = flashcardTopicOptions();
+    const topicSelect = `<select id="flashcard-topic"><option value="all" ${flashcardState.topic === 'all' ? 'selected' : ''}>All topics in this set</option>${topicOptions.filter(topic => topic !== 'all').map(topic => `<option value="${escapeHtml(topic)}" ${flashcardState.topic === topic ? 'selected' : ''}>${escapeHtml(topic)}</option>`).join('')}</select>`;
+    if (!cards.length) {
+      main.innerHTML = `${pageHead('Flashcards', 'Recall the word, then connect it to code', 'Use flashcards as quick review before tracing, fixing, coding, or building.')}<section class="card flashcard-toolbar"><div class="form-grid flashcard-filter-grid"><label>Study set<select id="flashcard-filter"><option value="all" ${flashcardState.filter === 'all' ? 'selected' : ''}>All vocabulary</option><option value="midterm1" ${flashcardState.filter === 'midterm1' ? 'selected' : ''}>Midterm 1 focus</option><option value="midterm2" ${flashcardState.filter === 'midterm2' ? 'selected' : ''}>Midterm 2 / OOP focus</option><option value="final" ${flashcardState.filter === 'final' ? 'selected' : ''}>Final focus</option></select></label><label>Topic${topicSelect}</label></div><div class="empty">No cards match this combination. Choose a broader topic or study set.</div></section>`;
+      document.querySelector('#flashcard-filter').addEventListener('change', event => { flashcardState.filter = event.target.value; flashcardState.topic = 'all'; rebuildFlashcardDeck(); renderFlashcards(); });
+      document.querySelector('#flashcard-topic').addEventListener('change', event => { flashcardState.topic = event.target.value; rebuildFlashcardDeck(); renderFlashcards(); });
+      return;
+    }
+    const card = cards[flashcardState.index] || cards[0];
+    const percentDone = Math.round(((flashcardState.index + 1) / cards.length) * 100);
+    const knownRecord = ProgressStore.summary(topics).state.flashcards[card.term];
+    const knownLabel = knownRecord ? (knownRecord.known ? 'Last marked known' : 'Still learning') : 'Not marked yet';
+    const tags = Array.isArray(card.examTags) ? card.examTags.map(tag => tag.replace('midterm', 'Midterm ').replace('final', 'Final')).join(' · ') : '';
+    const tip = flashcardStudyTip(card);
+    const trap = card.commonTrap || 'Common trap: memorizing the word but not recognizing it in Java code.';
+    main.innerHTML = `${pageHead('Flashcards', 'Recall the word, then connect it to code', 'Changing the study set now rebuilds the deck, so Final focus actually shows final-heavy terms instead of silently reusing the same first card.')}
+      <section class="card flashcard-toolbar"><div class="form-grid flashcard-filter-grid"><label>Study set<select id="flashcard-filter"><option value="all" ${flashcardState.filter === 'all' ? 'selected' : ''}>All vocabulary</option><option value="midterm1" ${flashcardState.filter === 'midterm1' ? 'selected' : ''}>Midterm 1 focus</option><option value="midterm2" ${flashcardState.filter === 'midterm2' ? 'selected' : ''}>Midterm 2 / OOP focus</option><option value="final" ${flashcardState.filter === 'final' ? 'selected' : ''}>Final focus</option></select></label><label>Topic${topicSelect}</label><div class="flashcard-count"><strong>Card ${flashcardState.index + 1}</strong> of ${cards.length}<br><small class="muted">${escapeHtml(flashcardStudyLabel())} · ${escapeHtml(knownLabel)}</small></div></div><div class="progress-track"><div class="progress-bar" style="width:${percentDone}%"></div></div></section>
+      <section class="flashcard ${flashcardState.flipped ? 'flipped' : ''}" id="flashcard" role="button" tabindex="0" aria-label="Flip flashcard" style="margin-top:1rem"><div class="flashcard-inner"><article class="flashcard-face"><p class="eyebrow">${escapeHtml(card.topic)}${tags ? ` · ${escapeHtml(tags)}` : ''}</p><div class="flashcard-word">${escapeHtml(card.term)}</div><p class="flashcard-prompt">${escapeHtml(flashcardPrompt(card))}</p><p class="flip-hint">Click, tap, or press Enter to flip</p></article><article class="flashcard-face flashcard-back"><p class="eyebrow">Definition</p><p>${escapeHtml(card.definition)}</p><p class="flashcard-prompt"><strong>Study focus:</strong> ${escapeHtml(tip)}</p><p class="flip-hint">Click again to hide the answer</p></article></div></section>
+      <div class="button-row flashcard-actions"><button id="previous-card" class="quiet">← Previous</button><button id="known" class="success">I know this</button><button id="learning" class="secondary">Still learning</button><button id="next-card" class="quiet">Next card →</button><button id="shuffle-cards" class="secondary">Shuffle deck</button></div>
+      <section class="flashcard-meta-grid" style="margin-top:1rem"><article class="card"><p class="eyebrow">Code connection</p><h2>Where this shows up</h2>${card.example ? codeBlock(card.example) : '<p class="muted">Explain it with a simple Java example from memory.</p>'}</article><article class="card"><p class="eyebrow">Quality check</p><ul class="details-list"><li>${escapeHtml(tip)}</li><li>${escapeHtml(trap)}</li><li>After flipping, say one code example out loud before moving on.</li></ul></article></section>`;
     const flip = () => { flashcardState.flipped = !flashcardState.flipped; renderFlashcards(); };
     document.querySelector('#flashcard').addEventListener('click', flip);
     document.querySelector('#flashcard').addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); flip(); } });
-    document.querySelector('#flashcard-filter').addEventListener('change', event => { flashcardState = { filter: event.target.value, index: 0, flipped: false }; renderFlashcards(); });
+    document.querySelector('#flashcard-filter').addEventListener('change', event => { flashcardState.filter = event.target.value; flashcardState.topic = 'all'; rebuildFlashcardDeck(); renderFlashcards(); });
+    document.querySelector('#flashcard-topic').addEventListener('change', event => { flashcardState.topic = event.target.value; rebuildFlashcardDeck(); renderFlashcards(); });
     const move = known => { ProgressStore.recordFlashcard(card.term, known); flashcardState.index = (flashcardState.index + 1) % cards.length; flashcardState.flipped = false; renderFlashcards(); };
     document.querySelector('#known').addEventListener('click', () => move(true));
     document.querySelector('#learning').addEventListener('click', () => move(false));
     document.querySelector('#next-card').addEventListener('click', () => move(false));
+    document.querySelector('#previous-card').addEventListener('click', () => { flashcardState.index = (flashcardState.index - 1 + cards.length) % cards.length; flashcardState.flipped = false; renderFlashcards(); });
+    document.querySelector('#shuffle-cards').addEventListener('click', () => { rebuildFlashcardDeck({ shuffleDeck: true }); renderFlashcards(); });
   }
+
 
   function renderExam() {
     setNav('exam');

@@ -1,0 +1,14 @@
+Flashcard improvement patch
+===========================
+
+This patch fixes the flashcard filter issue where choosing Final could appear to keep the same card because nearly every vocabulary item carried the final exam tag.
+
+Changes:
+- Rebuilt Flashcards into real study decks: All, Midterm 1 focus, Midterm 2/OOP focus, and Final focus.
+- Added a topic filter inside each deck.
+- Added shuffle and previous-card controls.
+- Added recall prompts, study focus notes, common traps, and quality-check text.
+- Expanded the vocabulary bank from 45 to 80 flashcards.
+- Added tests/validate-flashcards.js so the flashcard deck cannot regress into shallow or broken filtering.
+
+No quest modes were removed or changed.

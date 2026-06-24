@@ -1,49 +1,815 @@
 {
   "terms": [
-    {"term":"variable","definition":"A named storage location with a type and a value.","topic":"Java Basics","examTags":["midterm1","midterm2","final"]},
-    {"term":"bytecode","definition":"The compiled form of Java source code that the JVM runs.","topic":"Java Basics","examTags":["midterm1","midterm2","final"]},
-    {"term":"typecasting","definition":"Explicitly converting a value to another compatible type.","topic":"Java Basics","examTags":["midterm1","midterm2","final"]},
-    {"term":"modulo","definition":"The remainder left after integer division, written with %.","topic":"Conditions, Loops, and Operators","examTags":["midterm1","midterm2","final"]},
-    {"term":"nesting","definition":"Putting one control structure inside another.","topic":"Conditions, Loops, and Operators","examTags":["midterm1","midterm2","final"]},
-    {"term":"short-circuit","definition":"&& or || stopping as soon as the result is already known.","topic":"Conditions, Loops, and Operators","examTags":["midterm1","midterm2","final"]},
-    {"term":"index","definition":"The numeric position of an item in an array or list.","topic":"Arrays and ArrayLists","examTags":["midterm1","midterm2","final"]},
-    {"term":"parallel arrays","definition":"Arrays whose same indexes describe related information.","topic":"Arrays and ArrayLists","examTags":["midterm1","midterm2","final"]},
-    {"term":"diamond operator","definition":"The <> in new ArrayList<>() that lets Java infer the generic type.","topic":"Arrays and ArrayLists","examTags":["midterm1","midterm2","final"]},
-    {"term":"formal parameter","definition":"A variable in a method header that receives a value.","topic":"Methods","examTags":["midterm2","final"]},
-    {"term":"actual parameter","definition":"A value or expression supplied when calling a method.","topic":"Methods","examTags":["midterm2","final"]},
-    {"term":"overloading","definition":"Using the same method name with different parameter lists.","topic":"Methods","examTags":["midterm2","final"]},
-    {"term":"class","definition":"A blueprint that defines fields and methods.","topic":"Classes and Objects","examTags":["midterm2","final"]},
-    {"term":"object","definition":"An instance created from a class.","topic":"Classes and Objects","examTags":["midterm2","final"]},
-    {"term":"field","definition":"A variable that belongs to an object or class.","topic":"Classes and Objects","examTags":["midterm2","final"]},
-    {"term":"default constructor","definition":"A no-argument constructor; Java can supply one only when none is declared.","topic":"Constructors","examTags":["midterm2","final"]},
-    {"term":"copy constructor","definition":"A constructor that receives another object of the same type and copies its state.","topic":"Constructors","examTags":["midterm2","final"]},
-    {"term":"canonical constructor","definition":"A record constructor that accepts one value for each record component.","topic":"Constructors","examTags":["midterm2","final"]},
-    {"term":"polymorphism","definition":"One parent or interface reference using behavior from different object types.","topic":"Inheritance and Polymorphism","examTags":["midterm2","final"]},
-    {"term":"overriding","definition":"A subclass supplying its own version of an inherited method.","topic":"Inheritance and Polymorphism","examTags":["midterm2","final"]},
-    {"term":"abstract method","definition":"A method with no body that a concrete subclass must implement.","topic":"Inheritance and Polymorphism","examTags":["midterm2","final"]},
-    {"term":"interface","definition":"A contract listing behavior a class must provide.","topic":"Interfaces and KeyListener","examTags":["final"]},
-    {"term":"implements","definition":"The keyword used when a class agrees to an interface contract.","topic":"Interfaces and KeyListener","examTags":["final"]},
-    {"term":"KeyListener","definition":"A Java interface for keyboard pressed, released, and typed events.","topic":"Interfaces and KeyListener","examTags":["final"]},
-    {"term":"assignment","definition":"Putting a value into a variable using =.","topic":"equals(), ==, =, and toString()","examTags":["midterm2","final"]},
-    {"term":"reference equality","definition":"Two references pointing to the same object, tested with ==.","topic":"equals(), ==, =, and toString()","examTags":["midterm2","final"]},
-    {"term":"toString","definition":"A method that returns a String representation of an object.","topic":"equals(), ==, =, and toString()","examTags":["midterm2","final"]},
-    {"term":"exception","definition":"An object representing a problem during program execution.","topic":"Exceptions, Files, and Null Pointers","examTags":["midterm2","final"]},
-    {"term":"NullPointerException","definition":"An exception from using a null reference as if it were an object.","topic":"Exceptions, Files, and Null Pointers","examTags":["midterm2","final"]},
-    {"term":"try-with-resources","definition":"A try form that closes a resource such as Scanner automatically.","topic":"Exceptions, Files, and Null Pointers","examTags":["midterm2","final"]},
-    {"term":"static field","definition":"One shared field that belongs to the class.","topic":"Static, Final, Memory, and Garbage Collection","examTags":["final"]},
-    {"term":"final method","definition":"A method that subclasses cannot override.","topic":"Static, Final, Memory, and Garbage Collection","examTags":["final"]},
-    {"term":"memory leak","definition":"Unused objects kept reachable by references, preventing cleanup.","topic":"Static, Final, Memory, and Garbage Collection","examTags":["final"]},
-    {"term":"Graphics","definition":"The object that provides drawing methods in Swing.","topic":"Graphics","examTags":["midterm1","final"]},
-    {"term":"repaint","definition":"A request for Swing to redraw a component later.","topic":"Graphics","examTags":["midterm1","final"]},
-    {"term":"coordinate","definition":"A position, usually x then y, in the drawing area.","topic":"Graphics","examTags":["midterm1","final"]},
-    {"term":"record","definition":"A compact declaration for an immutable-style data carrier.","topic":"Records vs Classes","examTags":["final"]},
-    {"term":"accessor","definition":"A method that returns a record component, such as name().","topic":"Records vs Classes","examTags":["final"]},
-    {"term":"data carrier","definition":"An object mainly used to hold related data.","topic":"Records vs Classes","examTags":["final"]},
-    {"term":"dynamic dispatch","definition":"Choosing an overridden instance method based on the actual object at runtime.","topic":"Final Exam Mixed Practice","examTags":["final"]},
-    {"term":"side effect","definition":"A method changing outside state, printing, or doing I/O.","topic":"Final Exam Mixed Practice","examTags":["final"]},
-    {"term":"stub","definition":"An unfinished method kept in place while a program is being built.","topic":"Final Exam Mixed Practice","examTags":["final"]},
-    {"term":"keyword","definition":"A reserved Java word such as class, public, or return.","topic":"Vocabulary Bank","examTags":["midterm1","midterm2","final"]},
-    {"term":"block","definition":"Statements enclosed by braces { }.","topic":"Vocabulary Bank","examTags":["midterm1","midterm2","final"]},
-    {"term":"concatenation","definition":"Joining Strings with +.","topic":"Vocabulary Bank","examTags":["midterm1","midterm2","final"]}
+    {
+      "term": "variable",
+      "definition": "A named storage location with a type and a value.",
+      "topic": "Java Basics",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "bytecode",
+      "definition": "The compiled form of Java source code that the JVM runs.",
+      "topic": "Java Basics",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "typecasting",
+      "definition": "Explicitly converting a value to another compatible type.",
+      "topic": "Java Basics",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "modulo",
+      "definition": "The remainder left after integer division, written with %.",
+      "topic": "Conditions, Loops, and Operators",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "nesting",
+      "definition": "Putting one control structure inside another.",
+      "topic": "Conditions, Loops, and Operators",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "short-circuit",
+      "definition": "&& or || stopping as soon as the result is already known.",
+      "topic": "Conditions, Loops, and Operators",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "index",
+      "definition": "The numeric position of an item in an array or list.",
+      "topic": "Arrays and ArrayLists",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "parallel arrays",
+      "definition": "Arrays whose same indexes describe related information.",
+      "topic": "Arrays and ArrayLists",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "diamond operator",
+      "definition": "The <> in new ArrayList<>() that lets Java infer the generic type.",
+      "topic": "Arrays and ArrayLists",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "formal parameter",
+      "definition": "A variable in a method header that receives a value.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "actual parameter",
+      "definition": "A value or expression supplied when calling a method.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "overloading",
+      "definition": "Using the same method name with different parameter lists.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "class",
+      "definition": "A blueprint that defines fields and methods.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "object",
+      "definition": "An instance created from a class.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "field",
+      "definition": "A variable that belongs to an object or class.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "default constructor",
+      "definition": "A no-argument constructor; Java can supply one only when none is declared.",
+      "topic": "Constructors",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "copy constructor",
+      "definition": "A constructor that receives another object of the same type and copies its state.",
+      "topic": "Constructors",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "canonical constructor",
+      "definition": "A record constructor that accepts one value for each record component.",
+      "topic": "Constructors",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "polymorphism",
+      "definition": "One parent or interface reference using behavior from different object types.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "overriding",
+      "definition": "A subclass supplying its own version of an inherited method.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "abstract method",
+      "definition": "A method with no body that a concrete subclass must implement.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "interface",
+      "definition": "A contract listing behavior a class must provide.",
+      "topic": "Interfaces and KeyListener",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "implements",
+      "definition": "The keyword used when a class agrees to an interface contract.",
+      "topic": "Interfaces and KeyListener",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "KeyListener",
+      "definition": "A Java interface for keyboard pressed, released, and typed events.",
+      "topic": "Interfaces and KeyListener",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "assignment",
+      "definition": "Putting a value into a variable using =.",
+      "topic": "equals(), ==, =, and toString()",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "reference equality",
+      "definition": "Two references pointing to the same object, tested with ==.",
+      "topic": "equals(), ==, =, and toString()",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "toString",
+      "definition": "A method that returns a String representation of an object.",
+      "topic": "equals(), ==, =, and toString()",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "exception",
+      "definition": "An object representing a problem during program execution.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "NullPointerException",
+      "definition": "An exception from using a null reference as if it were an object.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "try-with-resources",
+      "definition": "A try form that closes a resource such as Scanner automatically.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "static field",
+      "definition": "One shared field that belongs to the class.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "final method",
+      "definition": "A method that subclasses cannot override.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "memory leak",
+      "definition": "Unused objects kept reachable by references, preventing cleanup.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "Graphics",
+      "definition": "The object that provides drawing methods in Swing.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ]
+    },
+    {
+      "term": "repaint",
+      "definition": "A request for Swing to redraw a component later.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ]
+    },
+    {
+      "term": "coordinate",
+      "definition": "A position, usually x then y, in the drawing area.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ]
+    },
+    {
+      "term": "record",
+      "definition": "A compact declaration for an immutable-style data carrier.",
+      "topic": "Records vs Classes",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "accessor",
+      "definition": "A method that returns a record component, such as name().",
+      "topic": "Records vs Classes",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "data carrier",
+      "definition": "An object mainly used to hold related data.",
+      "topic": "Records vs Classes",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "dynamic dispatch",
+      "definition": "Choosing an overridden instance method based on the actual object at runtime.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "side effect",
+      "definition": "A method changing outside state, printing, or doing I/O.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "stub",
+      "definition": "An unfinished method kept in place while a program is being built.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "final"
+      ]
+    },
+    {
+      "term": "keyword",
+      "definition": "A reserved Java word such as class, public, or return.",
+      "topic": "Vocabulary Bank",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "block",
+      "definition": "Statements enclosed by braces { }.",
+      "topic": "Vocabulary Bank",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "concatenation",
+      "definition": "Joining Strings with +.",
+      "topic": "Vocabulary Bank",
+      "examTags": [
+        "midterm1",
+        "midterm2",
+        "final"
+      ]
+    },
+    {
+      "term": "method header",
+      "definition": "The first line of a method that includes access, return type, name, and parameters.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: be able to write and read method headers without mixing up return type and parameters.",
+      "commonTrap": "Common trap: putting the return type inside the parameter list or forgetting it completely.",
+      "checkQuestion": "Before flipping: name the parts of a Java method header."
+    },
+    {
+      "term": "return type",
+      "definition": "The type of value a method promises to send back, such as int, String, or void.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: decide whether a method should return a value or just print/do an action.",
+      "commonTrap": "Common trap: printing a value when the method was supposed to return it.",
+      "checkQuestion": "Before flipping: what does void mean as a return type?"
+    },
+    {
+      "term": "void",
+      "definition": "A return type meaning the method does not return a value.",
+      "topic": "Methods",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: use void for actions like printing or changing object state.",
+      "commonTrap": "Common trap: trying to use the result of a void method in an expression.",
+      "checkQuestion": "Before flipping: give one example of a void method."
+    },
+    {
+      "term": "helper method",
+      "definition": "A smaller method used by another method to keep code organized.",
+      "topic": "Methods",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final/build focus: break a larger task into smaller testable pieces.",
+      "commonTrap": "Common trap: writing all logic in main instead of using helper methods.",
+      "checkQuestion": "Before flipping: why are helper methods useful?"
+    },
+    {
+      "term": "access modifier",
+      "definition": "A keyword such as public, private, or protected that controls visibility.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: know why fields are often private and methods are often public.",
+      "commonTrap": "Common trap: making every field public and losing encapsulation.",
+      "checkQuestion": "Before flipping: which access modifier protects a field from outside classes?"
+    },
+    {
+      "term": "encapsulation",
+      "definition": "Keeping object data protected and exposing controlled behavior through methods.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: connect private fields with getters, setters, and object responsibility.",
+      "commonTrap": "Common trap: thinking encapsulation only means hiding code, not controlling access to state.",
+      "checkQuestion": "Before flipping: why should fields often be private?"
+    },
+    {
+      "term": "getter",
+      "definition": "A method that returns the value of a field.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: recognize simple accessor methods in class code and UML.",
+      "commonTrap": "Common trap: changing the field inside a getter.",
+      "checkQuestion": "Before flipping: what does a getter usually return?"
+    },
+    {
+      "term": "setter",
+      "definition": "A method that updates the value of a field, usually with validation if needed.",
+      "topic": "Classes and Objects",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: know when a setter changes object state and when validation matters.",
+      "commonTrap": "Common trap: shadowing the field with a parameter and forgetting this.field.",
+      "checkQuestion": "Before flipping: what does a setter usually do?"
+    },
+    {
+      "term": "this",
+      "definition": "A reference to the current object inside an instance method or constructor.",
+      "topic": "Constructors",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: use this to separate fields from parameters and call overloaded constructors.",
+      "commonTrap": "Common trap: writing name = name; instead of this.name = name;.",
+      "checkQuestion": "Before flipping: why do constructors often use this?"
+    },
+    {
+      "term": "constructor overloading",
+      "definition": "Creating more than one constructor with different parameter lists.",
+      "topic": "Constructors",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: recognize multiple ways to initialize the same class.",
+      "commonTrap": "Common trap: giving overloaded constructors the same parameter list.",
+      "checkQuestion": "Before flipping: how can two constructors have the same name?"
+    },
+    {
+      "term": "super",
+      "definition": "A keyword used to refer to the superclass, often to call a superclass constructor or method.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: connect super() to constructor chaining in inheritance.",
+      "commonTrap": "Common trap: forgetting that super(...) must be first in a constructor when used.",
+      "checkQuestion": "Before flipping: what does super() call?"
+    },
+    {
+      "term": "is-a relationship",
+      "definition": "An inheritance relationship where a subclass is a specialized kind of superclass.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: use the is-a test to decide whether inheritance makes sense.",
+      "commonTrap": "Common trap: using inheritance for has-a relationships that should use fields instead.",
+      "checkQuestion": "Before flipping: is a Dog an Animal, or does a Dog have an Animal?"
+    },
+    {
+      "term": "dynamic dispatch",
+      "definition": "Java choosing the overridden instance method based on the actual object type at runtime.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final tracing: predict which overridden method runs through a parent reference.",
+      "commonTrap": "Common trap: choosing the method only from the reference type instead of the actual object.",
+      "checkQuestion": "Before flipping: what matters more for overridden methods, reference type or actual object type?"
+    },
+    {
+      "term": "instanceof",
+      "definition": "An operator that tests whether an object is an instance of a class or interface.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: recognize safe type checks before casting objects.",
+      "commonTrap": "Common trap: using instanceof instead of good polymorphic design when overriding would be cleaner.",
+      "checkQuestion": "Before flipping: what question does instanceof answer?"
+    },
+    {
+      "term": "abstract class",
+      "definition": "A class that cannot be directly instantiated and may contain abstract methods.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: know the difference between abstract class, concrete class, and interface.",
+      "commonTrap": "Common trap: trying to create an object directly from an abstract class.",
+      "checkQuestion": "Before flipping: can you write new AbstractClass()?"
+    },
+    {
+      "term": "concrete class",
+      "definition": "A class that can be instantiated because it implements all required abstract methods.",
+      "topic": "Inheritance and Polymorphism",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: know when a subclass becomes usable as an object.",
+      "commonTrap": "Common trap: leaving an abstract method unimplemented but expecting the class to compile.",
+      "checkQuestion": "Before flipping: what must a concrete subclass do with abstract methods?"
+    },
+    {
+      "term": "keyPressed",
+      "definition": "A KeyListener method called when a keyboard key is pressed down.",
+      "topic": "Interfaces and KeyListener",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final/KeyListener: connect keyboard events to movement and repaint logic.",
+      "commonTrap": "Common trap: updating position but forgetting repaint().",
+      "checkQuestion": "Before flipping: which KeyListener method reacts when the key goes down?"
+    },
+    {
+      "term": "keyReleased",
+      "definition": "A KeyListener method called when a keyboard key is released.",
+      "topic": "Interfaces and KeyListener",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final/KeyListener: know the three required methods even if some are empty.",
+      "commonTrap": "Common trap: not implementing all methods required by the interface.",
+      "checkQuestion": "Before flipping: why can a KeyListener method body be empty?"
+    },
+    {
+      "term": "equals method",
+      "definition": "A method used to compare meaningful object equality instead of just reference equality.",
+      "topic": "equals(), ==, =, and toString()",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Midterm 2/final: decide when to use == and when to use equals().",
+      "commonTrap": "Common trap: using == to compare two different String objects by content.",
+      "checkQuestion": "Before flipping: when should you use equals() instead of ==?"
+    },
+    {
+      "term": "null reference",
+      "definition": "A reference variable that points to no object.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: trace code carefully before calling methods on a reference.",
+      "commonTrap": "Common trap: checking that a variable exists but not that it refers to an object.",
+      "checkQuestion": "Before flipping: what happens if you call a method on null?"
+    },
+    {
+      "term": "try/catch",
+      "definition": "A structure for handling exceptions so the program can respond to errors.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: understand which code goes in try and what catch handles.",
+      "commonTrap": "Common trap: catching an exception but not fixing or reporting the problem.",
+      "checkQuestion": "Before flipping: what is the purpose of catch?"
+    },
+    {
+      "term": "FileNotFoundException",
+      "definition": "An exception that can happen when Java cannot find or open a requested file.",
+      "topic": "Exceptions, Files, and Null Pointers",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final/files: recognize why file reading code often needs exception handling.",
+      "commonTrap": "Common trap: assuming the file path is always correct.",
+      "checkQuestion": "Before flipping: why can file reading fail even if the code is written correctly?"
+    },
+    {
+      "term": "static method",
+      "definition": "A method that belongs to the class and can be called without creating an object.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: distinguish class-level behavior from object-level behavior.",
+      "commonTrap": "Common trap: trying to directly use instance fields inside a static method.",
+      "checkQuestion": "Before flipping: why is main static?"
+    },
+    {
+      "term": "instance field",
+      "definition": "A field where each object has its own separate copy.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: compare instance fields with static fields when tracing object state.",
+      "commonTrap": "Common trap: thinking all objects share every field.",
+      "checkQuestion": "Before flipping: does an instance field belong to the class or each object?"
+    },
+    {
+      "term": "garbage collection",
+      "definition": "Java automatically reclaiming memory from objects that are no longer reachable.",
+      "topic": "Static, Final, Memory, and Garbage Collection",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: understand reachability and why references matter.",
+      "commonTrap": "Common trap: thinking garbage collection means variables disappear immediately.",
+      "checkQuestion": "Before flipping: what makes an object eligible for garbage collection?"
+    },
+    {
+      "term": "paintComponent",
+      "definition": "A Swing method where custom drawing code is placed for a component.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ],
+      "examFocus": "Midterm 1/final: know the correct signature and why drawing belongs here.",
+      "commonTrap": "Common trap: calling paintComponent directly instead of calling repaint().",
+      "checkQuestion": "Before flipping: where should Swing drawing code usually go?"
+    },
+    {
+      "term": "drawString",
+      "definition": "A Graphics method that draws text at an x, y coordinate.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ],
+      "examFocus": "Midterm 1/final: recognize common Graphics drawing methods and coordinate arguments.",
+      "commonTrap": "Common trap: forgetting that y grows downward in many drawing coordinate systems.",
+      "checkQuestion": "Before flipping: what does drawString need besides the text?"
+    },
+    {
+      "term": "fillRect",
+      "definition": "A Graphics method that draws a filled rectangle using x, y, width, and height.",
+      "topic": "Graphics",
+      "examTags": [
+        "midterm1",
+        "final"
+      ],
+      "examFocus": "Midterm 1/final: trace coordinates and dimensions in drawing code.",
+      "commonTrap": "Common trap: mixing up x/y position with width/height size.",
+      "checkQuestion": "Before flipping: what are the four main numbers for fillRect?"
+    },
+    {
+      "term": "record component",
+      "definition": "A value listed in a record header that becomes part of the record state.",
+      "topic": "Records vs Classes",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: know how record components create accessors and stored values.",
+      "commonTrap": "Common trap: expecting record accessors to use getName() instead of name().",
+      "checkQuestion": "Before flipping: how do you access a record component called name?"
+    },
+    {
+      "term": "immutable-style object",
+      "definition": "An object designed so its stored data is not normally changed after creation.",
+      "topic": "Records vs Classes",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final: connect records to data carrier objects and limited mutation.",
+      "commonTrap": "Common trap: assuming a record means every referenced object inside it is deeply immutable.",
+      "checkQuestion": "Before flipping: why are records often called immutable-style?"
+    },
+    {
+      "term": "UML class diagram",
+      "definition": "A diagram showing classes, fields, methods, and relationships.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: read attributes, behaviors, visibility, and inheritance arrows.",
+      "commonTrap": "Common trap: confusing a class diagram with an object diagram or flowchart.",
+      "checkQuestion": "Before flipping: what does a UML class box usually contain?"
+    },
+    {
+      "term": "method overloading vs overriding",
+      "definition": "Overloading changes the parameter list; overriding replaces inherited behavior in a subclass.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: compare these two terms because exams often place them side by side.",
+      "commonTrap": "Common trap: saying overriding happens in the same class with different parameters.",
+      "checkQuestion": "Before flipping: which one needs inheritance?"
+    },
+    {
+      "term": "field vs local variable",
+      "definition": "A field belongs to an object or class; a local variable exists only inside a method or block.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "midterm2",
+        "final"
+      ],
+      "examFocus": "Final: trace scope and lifetime when the same name appears in two places.",
+      "commonTrap": "Common trap: thinking a local variable can be used anywhere in the class.",
+      "checkQuestion": "Before flipping: where does a local variable live?"
+    },
+    {
+      "term": "return vs print",
+      "definition": "Returning sends a value back to the caller; printing only displays output.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final/coding: choose return when another method needs the value.",
+      "commonTrap": "Common trap: passing tests by printing when the method should return.",
+      "checkQuestion": "Before flipping: can printed output be used in an expression?"
+    },
+    {
+      "term": "object aliasing",
+      "definition": "Two or more references pointing to the same object.",
+      "topic": "Final Exam Mixed Practice",
+      "examTags": [
+        "final"
+      ],
+      "examFocus": "Final tracing: know when changing one reference changes the shared object seen by another reference.",
+      "commonTrap": "Common trap: assuming assignment copies the object instead of the reference.",
+      "checkQuestion": "Before flipping: what happens after b = a for object references?"
+    }
   ]
 }
