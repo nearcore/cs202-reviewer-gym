@@ -26,6 +26,7 @@ No npm install or framework setup is required.
 - **Practice** builds a question set by topic, type, difficulty, and question count.
 - **Flashcards** flips vocabulary cards and records whether a card is known or still learning.
 - **Exam Mode** selects random questions, hides explanations while active, and reports missed topics afterward.
+- **Coding Quest** is a website-only code-writing mode with Guided, Hinted, and Solo tasks.
 - **Progress** shows accuracy, completion, weak/strong topics, history, and a reset control.
 
 Progress uses browser `localStorage`. It stays on this browser until you reset it.
@@ -69,7 +70,7 @@ Use Java 21 or newer. The included examples were checked with a newer JDK and st
 
 ## Content Status
 
-The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts.
+The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, and 100 Coding Quest tasks.
 
 The reviewer has three related question-data sources:
 
@@ -99,3 +100,21 @@ node scripts/export-expanded-questions.js /tmp/cs202-expanded-questions.json
 ## Bug Fix Lab
 
 The Bug Fix Lab is a website-only quest mode for reading broken or weak Java snippets, identifying the issue, writing a short explanation, and comparing with the official review after attempting. It includes hidden clues for guided practice, no-clue solo practice, and Level 3 code review/refactor challenges.
+
+
+## Coding Quest
+
+Coding Quest is a website-only quest mode for writing small Java methods, classes, loops, constructors, records, interface implementations, and final-style mixed snippets directly inside the app. It includes:
+
+- 25 base coding quests
+- 25 extra Level 1 guided quests
+- 25 extra Level 2 hinted quests
+- 25 extra Level 3 solo quests
+
+The app shows the starter/task first. The official solution, explanation, common mistake, and self-check stay hidden until after the student attempts the answer.
+
+Run the Coding Quest validator after changing the quest data:
+
+```bash
+node tests/validate-coding-quest.js
+```

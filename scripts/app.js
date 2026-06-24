@@ -5,6 +5,7 @@
   let flashcardState = { filter: 'all', index: 0, flipped: false };
   let tracingGameState = { mode: 'level1', topic: 'all', currentId: null, answered: false, answer: '', correct: false, usedClues: [] };
   let bugFixLabState = { mode: 'level1', topic: 'all', currentId: null, reviewShown: false, usedClues: [], fixNote: '', reasonNote: '', conceptNote: '', selfRated: null };
+  let codingQuestState = { mode: 'level1', topic: 'all', currentId: null, solutionShown: false, usedHints: [], codeAttempt: '', explanationNote: '', selfRated: null };
 
   const route = () => (location.hash.replace(/^#/, '') || 'dashboard').split('/');
   const go = value => { location.hash = value; };
@@ -970,7 +971,7 @@
         <div class="mission-preview" id="practice-preview">Mixed Java sprint · 5 questions · answers shuffle every run</div>
         <div class="button-row"><button id="start-practice" class="primary-cta">Start practice sprint</button><a class="button secondary" href="#flashcards">Review flashcards</a></div>
       </section>
-      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Inspect broken code, explain the fix, then compare with the official review.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Build</h3><p class="muted">Write a small method or class. Self-score honestly and redo weak areas.</p></article></section>`;
+      <section class="three-col mode-grid" style="margin-top:1rem"><article class="card mode-card featured-mode"><span class="mode-icon">🔎</span><h3>Tracing Game</h3><p class="muted">Predict output first. Reveal clues only when you choose to use them.</p><a class="button secondary" href="#tracing">Open Tracing Game</a></article><article class="card mode-card"><span class="mode-icon">🛠️</span><h3>Bug Fix Lab</h3><p class="muted">Inspect broken code, explain the fix, then compare with the official review.</p><a class="button secondary" href="#bugfix">Open Bug Fix Lab</a></article><article class="card mode-card"><span class="mode-icon">⌨️</span><h3>Coding Quest</h3><p class="muted">Write small Java snippets in the website, then compare with the official solution.</p><a class="button secondary" href="#coding">Open Coding Quest</a></article></section>`;
     const updatePracticePreview = () => {
       const selectedTopic = document.querySelector('#practice-topic').value;
       const type = document.querySelector('#practice-type').value;
@@ -1317,6 +1318,161 @@
   }
 
 
+  function codingQuestData() {
+    return window.CODING_QUEST_DATA || { modes: {}, base: [], extras: {}, assumptions: [] };
+  }
+
+  function codingModeMeta(mode = codingQuestState.mode) {
+    return codingQuestData().modes?.[mode] || { label: 'Guided Quest', support: 'Full steps', description: '' };
+  }
+
+  function allCodingQuestItems() {
+    const data = codingQuestData();
+    return [...(data.base || []), ...(data.extras?.level1 || []), ...(data.extras?.level2 || []), ...(data.extras?.level3 || [])];
+  }
+
+  function availableCodingQuestItems() {
+    const data = codingQuestData();
+    const extras = data.extras?.[codingQuestState.mode] || [];
+    const base = data.base || [];
+    const pool = codingQuestState.mode === 'level3' ? extras : [...base, ...extras];
+    return pool.filter(item => codingQuestState.topic === 'all' || item.topic === codingQuestState.topic);
+  }
+
+  function codingQuestTopicNames() {
+    return [...new Set(allCodingQuestItems().map(item => item.topic))].sort();
+  }
+
+  function codingQuestItemKey(item) {
+    return `${item.level || 'coding'}:${item.id}`;
+  }
+
+  function findCodingQuestItem(key = codingQuestState.currentId) {
+    return allCodingQuestItems().find(item => codingQuestItemKey(item) === key) || null;
+  }
+
+  function pickCodingQuestItem(avoidKey = codingQuestState.currentId) {
+    const pool = availableCodingQuestItems();
+    if (!pool.length) return null;
+    let item = pool[Math.floor(Math.random() * pool.length)];
+    let guard = 0;
+    while (codingQuestItemKey(item) === avoidKey && pool.length > 1 && guard < 10) {
+      item = pool[Math.floor(Math.random() * pool.length)];
+      guard++;
+    }
+    codingQuestState.currentId = codingQuestItemKey(item);
+    codingQuestState.solutionShown = false;
+    codingQuestState.usedHints = [];
+    codingQuestState.codeAttempt = '';
+    codingQuestState.explanationNote = '';
+    codingQuestState.selfRated = null;
+    return item;
+  }
+
+  function codingQuestTopicOptions() {
+    return `<option value="all">All coding topics</option>${codingQuestTopicNames().map(name => `<option value="${escapeHtml(name)}" ${codingQuestState.topic === name ? 'selected' : ''}>${escapeHtml(name)}</option>`).join('')}`;
+  }
+
+  function renderCodingAssumptions() {
+    const assumptions = codingQuestData().assumptions || [];
+    if (!assumptions.length) return '';
+    return `<aside class="trace-assumption-note coding-assumption"><strong>Before you code:</strong><ul>${assumptions.map(note => `<li>${escapeHtml(note)}</li>`).join('')}</ul></aside>`;
+  }
+
+  function renderCodingGuidelines(item) {
+    if (codingQuestState.mode !== 'level1') return '';
+    const guidelines = item.guidelines || [];
+    if (!guidelines.length) return '';
+    return `<section class="coding-support-box"><div class="trace-clue-title"><strong>Guided steps</strong><span>Level 1 support</span></div><ol class="trace-clue-list">${guidelines.map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol></section>`;
+  }
+
+  function renderCodingHints(item) {
+    const hints = (item.hints || []).filter(Boolean);
+    const allowHints = codingQuestState.mode !== 'level3' && hints.length;
+    if (!allowHints) return `<div class="trace-clue-box no-clues"><strong>No hints for this mode.</strong><p class="muted">Write your attempt first, then compare with the official solution.</p></div>`;
+    return `<div class="trace-clue-box coding-hint-box">
+      <div class="trace-clue-title"><strong>Optional hints</strong><span>${codingQuestState.usedHints.length}/${hints.length} used</span></div>
+      <div class="trace-clue-actions">${hints.map((hint, index) => `<button type="button" class="button quiet coding-hint-button" data-hint-index="${index}" ${codingQuestState.usedHints.includes(index) ? 'disabled' : ''}>Use hint ${index + 1}</button>`).join('')}</div>
+      ${codingQuestState.usedHints.length ? `<ol class="trace-clue-list">${codingQuestState.usedHints.map(index => `<li>${escapeHtml(hints[index])}</li>`).join('')}</ol>` : `<p class="muted">Hints stay hidden unless you choose to use them.</p>`}
+    </div>`;
+  }
+
+  function renderCodingSolution(item) {
+    if (!codingQuestState.solutionShown) return '';
+    const rating = codingQuestState.selfRated ? `<span class="pill ${codingQuestState.selfRated === 'solved' ? 'strong' : 'weak'}">${codingQuestState.selfRated === 'solved' ? 'Marked solved' : 'Needs review'}</span>` : '';
+    return `<section class="card coding-solution">
+      <div class="trace-result-top"><span class="result-badge">Official solution</span>${rating}</div>
+      <h2>${escapeHtml(item.title)}</h2>
+      ${codeBlock(item.modelAnswer)}
+      <div class="review-grid">
+        <article><p class="eyebrow">Why it works</p><p>${escapeHtml(item.explanation)}</p></article>
+        <article><p class="eyebrow">Common mistake</p><p>${escapeHtml(item.commonMistake)}</p></article>
+        <article><p class="eyebrow">Self-check</p><p>${escapeHtml(item.selfCheck)}</p></article>
+      </div>
+      <div class="reflection-summary"><p><strong>Your attempt:</strong></p><pre><code>${escapeHtml(codingQuestState.codeAttempt || 'No code entered.')}</code></pre><p><strong>Your explanation:</strong> ${escapeHtml(codingQuestState.explanationNote || 'No explanation entered.')}</p></div>
+      <div class="button-row"><button id="coding-solved" class="success">I solved/understood it</button><button id="coding-review" class="secondary">Keep in review</button><button id="coding-next" class="button quiet">Next quest →</button></div>
+    </section>`;
+  }
+
+  function renderCodingQuest() {
+    setNav('coding');
+    let item = findCodingQuestItem();
+    if (!item || !availableCodingQuestItems().some(entry => codingQuestItemKey(entry) === codingQuestState.currentId)) item = pickCodingQuestItem();
+    const pool = availableCodingQuestItems();
+    const modeMeta = codingModeMeta();
+    main.innerHTML = `${pageHead('Coding Quest', 'Write the Java yourself, then compare', 'Small CS202 coding tasks done directly in the website. Guidance depends on the level you choose.')}
+      <section class="card coding-control-panel">
+        <div class="trace-mode-tabs" role="tablist" aria-label="Coding Quest mode">
+          <button class="trace-mode ${codingQuestState.mode === 'level1' ? 'active' : ''}" data-coding-mode="level1"><strong>Level 1</strong><span>Guided · steps + hints</span></button>
+          <button class="trace-mode ${codingQuestState.mode === 'level2' ? 'active' : ''}" data-coding-mode="level2"><strong>Level 2</strong><span>Hinted · no walkthrough</span></button>
+          <button class="trace-mode ${codingQuestState.mode === 'level3' ? 'active' : ''}" data-coding-mode="level3"><strong>Level 3</strong><span>Solo · final style</span></button>
+        </div>
+        <div class="trace-toolbar">
+          <label>Topic<select id="coding-topic">${codingQuestTopicOptions()}</select></label>
+          <div class="trace-pool-note"><strong>${pool.length}</strong> available now · ${escapeHtml(modeMeta.description || '')}</div>
+        </div>
+      </section>
+      ${item ? `<section class="card coding-card">
+        <div class="quest-title-row"><div><p class="eyebrow">${escapeHtml(modeMeta.label)} · ${escapeHtml(item.topic)}</p><h2>${escapeHtml(item.title)}</h2><p class="muted">Skill focus: ${escapeHtml(item.skill)}</p></div><span class="pill">${escapeHtml(item.id)}</span></div>
+        ${renderCodingAssumptions()}
+        <p class="task-callout"><strong>Prompt:</strong> ${escapeHtml(item.prompt)}</p>
+        <p class="task-callout"><strong>Your task:</strong> ${escapeHtml(item.task)}</p>
+        <div class="bugfix-brief-grid coding-check-grid">
+          ${(item.required || []).map(requirement => `<article><p class="eyebrow">Requirement</p><p>${escapeHtml(requirement)}</p></article>`).join('')}
+        </div>
+        <h3>Starter</h3>
+        ${codeBlock(item.starter)}
+        ${renderCodingGuidelines(item)}
+        ${renderCodingHints(item)}
+        <section class="bugfix-reflection coding-workspace">
+          <h3>Your attempt</h3>
+          <label>Write your Java answer<textarea id="coding-code-attempt" rows="10" spellcheck="false" placeholder="Write your method, class, loop, or snippet here..." ${codingQuestState.solutionShown ? 'disabled' : ''}>${escapeHtml(codingQuestState.codeAttempt)}</textarea></label>
+          <label>Explain your approach<textarea id="coding-explanation-note" rows="3" placeholder="One or two sentences: why should this work?" ${codingQuestState.solutionShown ? 'disabled' : ''}>${escapeHtml(codingQuestState.explanationNote)}</textarea></label>
+          <div class="button-row"><button id="show-coding-solution" class="primary-cta" ${codingQuestState.solutionShown ? 'disabled' : ''}>I attempted it — show official solution</button><button id="new-coding" class="button secondary">New random quest</button></div>
+        </section>
+      </section>${renderCodingSolution(item)}` : `<section class="card"><h2>No coding quests found</h2><p>Try choosing all topics or another support mode.</p></section>`}`;
+
+    document.querySelectorAll('[data-coding-mode]').forEach(button => button.addEventListener('click', () => { codingQuestState.mode = button.dataset.codingMode; pickCodingQuestItem(null); renderCodingQuest(); }));
+    const topicSelect = document.querySelector('#coding-topic');
+    if (topicSelect) topicSelect.addEventListener('change', event => { codingQuestState.topic = event.target.value; pickCodingQuestItem(null); renderCodingQuest(); });
+    document.querySelectorAll('.coding-hint-button').forEach(button => button.addEventListener('click', () => { codingQuestState.codeAttempt = document.querySelector('#coding-code-attempt')?.value.trim() || codingQuestState.codeAttempt; codingQuestState.explanationNote = document.querySelector('#coding-explanation-note')?.value.trim() || codingQuestState.explanationNote; const index = Number(button.dataset.hintIndex); if (!codingQuestState.usedHints.includes(index)) codingQuestState.usedHints.push(index); renderCodingQuest(); }));
+    const saveCodingAttempt = () => {
+      codingQuestState.codeAttempt = document.querySelector('#coding-code-attempt')?.value.trim() || '';
+      codingQuestState.explanationNote = document.querySelector('#coding-explanation-note')?.value.trim() || '';
+    };
+    const showSolution = document.querySelector('#show-coding-solution');
+    if (showSolution) showSolution.addEventListener('click', () => { saveCodingAttempt(); codingQuestState.solutionShown = true; renderCodingQuest(); });
+    const newCoding = document.querySelector('#new-coding');
+    if (newCoding) newCoding.addEventListener('click', () => { pickCodingQuestItem(); renderCodingQuest(); });
+    const nextCoding = document.querySelector('#coding-next');
+    if (nextCoding) nextCoding.addEventListener('click', () => { pickCodingQuestItem(); renderCodingQuest(); });
+    const solved = document.querySelector('#coding-solved');
+    if (solved) solved.addEventListener('click', () => { const current = findCodingQuestItem(); codingQuestState.selfRated = 'solved'; if (current) ProgressStore.recordAnswer({ id: `coding-${codingQuestState.mode}-${current.id}`, topic: current.topic }, true, `Coding Quest ${modeMeta.label}${codingQuestState.usedHints.length ? ` · ${codingQuestState.usedHints.length} hint(s)` : ''}`); renderCodingQuest(); });
+    const review = document.querySelector('#coding-review');
+    if (review) review.addEventListener('click', () => { const current = findCodingQuestItem(); codingQuestState.selfRated = 'review'; if (current) ProgressStore.recordAnswer({ id: `coding-${codingQuestState.mode}-${current.id}`, topic: current.topic }, false, `Coding Quest ${modeMeta.label}`); renderCodingQuest(); });
+  }
+
+
   function renderFlashcards() {
     setNav('flashcards');
     const cards = currentCards();
@@ -1376,6 +1532,7 @@
     else if (section === 'practice') renderPractice(id || 'all');
     else if (section === 'tracing') renderTracingGame();
     else if (section === 'bugfix') renderBugFixLab();
+    else if (section === 'coding') renderCodingQuest();
     else if (section === 'flashcards') renderFlashcards();
     else if (section === 'exam') renderExam();
     else if (section === 'progress') renderProgress();

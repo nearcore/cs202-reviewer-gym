@@ -1,0 +1,12 @@
+Coding Quest website-only patch
+
+Added:
+- Coding Quest route: #coding
+- Navigation link and practice-card link
+- scripts/coding-quest-data.js with 100 unique CS202 coding tasks
+- Guided, Hinted, and Solo modes
+- Starter code, requirements, hidden hints, answer textarea, explanation textarea, official solution reveal, and self-rating progress
+- tests/validate-coding-quest.js
+
+Design choice:
+- This stays website-only. It does not create Java files and does not depend on IntelliJ.
