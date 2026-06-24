@@ -1,7 +1,7 @@
-// Coding Quest data for website-only CS202 practice.
+// Coding Quest data for website-only CS202 practice. Quality pass v2: study-guide focus, edge cases, rubrics, and reflection prompts.
 (function () {
   window.CODING_QUEST_DATA = {
-  "version": 1,
+  "version": 2,
   "modes": {
     "level1": {
       "label": "Guided Quest",
@@ -21,8 +21,9 @@
   },
   "assumptions": [
     "Write answers at a CS202 level. Short, correct code is better than fancy code.",
-    "The website does not compile your answer. You compare your attempt with the official solution after submitting.",
-    "Use the starter code shape unless the task clearly asks for a full class."
+    "Attempt before revealing the official solution; the site is for practice, not just reading answers.",
+    "Use the starter code shape unless the task clearly asks for a full class.",
+    "For every task, check one normal case and one boundary/edge case."
   ],
   "base": [
     {
@@ -35,18 +36,18 @@
       "task": "Complete main so it stores price and quantity, calculates total, and prints Total: 12.5.",
       "starter": "public class PriceTotal {\n    public static void main(String[] args) {\n        double price = 2.5;\n        int quantity = 5;\n        // your code here\n    }\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate variables and output clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: variables and output.",
+        "Write the method/class/loop shape first before filling in details for \u201cPrint a labeled total.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Write the variable declarations first, then the calculation, then the print statement.",
+        "Check whether Java will do numeric math or String concatenation at each step."
       ],
       "modelAnswer": "public class PriceTotal {\n    public static void main(String[] args) {\n        double price = 2.5;\n        int quantity = 5;\n        double total = price * quantity;\n        System.out.println(\"Total: \" + total);\n    }\n}\n",
       "explanation": "Multiplication happens before concatenation because it is stored first in total.",
@@ -56,7 +57,21 @@
         "variables",
         "arithmetic",
         "println"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1 focus: variables, data types, arithmetic, String concatenation, and exact console output.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check integer vs double results.",
+        "Confirm the output label and spacing exactly match the prompt.",
+        "Trace what happens when values are changed before printing."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for variables and output.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for variables and output.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB002",
@@ -68,18 +83,18 @@
       "task": "Complete the method so scores 70 or higher return \"Pass\" and lower scores return \"Retry\".",
       "starter": "public static String result(int score) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate if/else clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: if/else.",
+        "Write the method/class/loop shape first before filling in details for \u201cPass or retry.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+        "Write the first two loop values and the final loop value on paper."
       ],
       "modelAnswer": "public static String result(int score) {\n    if (score >= 70) {\n        return \"Pass\";\n    } else {\n        return \"Retry\";\n    }\n}\n",
       "explanation": "The >= boundary includes exactly 70 as passing.",
@@ -89,7 +104,21 @@
         "if else",
         "comparison",
         "return"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test the exact boundary value.",
+        "Check the first and last loop iteration.",
+        "Confirm the condition eventually becomes false."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for if/else.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for if/else.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB003",
@@ -101,18 +130,18 @@
       "task": "Write a loop that prints 2, 4, 6, 8, and 10, each on its own line.",
       "starter": "public class Evens {\n    public static void main(String[] args) {\n        // your loop here\n    }\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate for loop clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: for loop.",
+        "Write the method/class/loop shape first before filling in details for \u201cPrint even numbers.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+        "Write the first two loop values and the final loop value on paper."
       ],
       "modelAnswer": "public class Evens {\n    public static void main(String[] args) {\n        for (int number = 2; number <= 10; number += 2) {\n            System.out.println(number);\n        }\n    }\n}\n",
       "explanation": "The loop starts at 2, stops at 10, and changes by 2 each time.",
@@ -122,7 +151,21 @@
         "for loop",
         "boundary",
         "update"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test the exact boundary value.",
+        "Check the first and last loop iteration.",
+        "Confirm the condition eventually becomes false."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for for loop.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for for loop.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB004",
@@ -134,18 +177,18 @@
       "task": "Complete the method so it returns the sum of all values in the array.",
       "starter": "public static int sum(int[] values) {\n    int total = 0;\n    // your loop here\n    return total;\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate array traversal clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: array traversal.",
+        "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+        "The last valid array index is length - 1. For ArrayList, it is size() - 1."
       ],
       "modelAnswer": "public static int sum(int[] values) {\n    int total = 0;\n    for (int value : values) {\n        total += value;\n    }\n    return total;\n}\n",
       "explanation": "An enhanced for loop is safe when you only need each value.",
@@ -155,7 +198,21 @@
         "arrays",
         "enhanced for",
         "accumulator"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test an array/list with one item.",
+        "Test the first and last index.",
+        "Check whether an enhanced for loop or index loop is safer for this task."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for array traversal.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for array traversal.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB005",
@@ -167,18 +224,18 @@
       "task": "Complete the method so it returns the last element of a non-empty array.",
       "starter": "public static String last(String[] names) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate index loop clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: index loop.",
+        "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+        "The last valid array index is length - 1. For ArrayList, it is size() - 1."
       ],
       "modelAnswer": "public static String last(String[] names) {\n    return names[names.length - 1];\n}\n",
       "explanation": "The last valid index is length - 1.",
@@ -188,7 +245,21 @@
         "arrays",
         "index",
         "length"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test an array/list with one item.",
+        "Test the first and last index.",
+        "Check whether an enhanced for loop or index loop is safer for this task."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for index loop.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for index loop.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB006",
@@ -200,18 +271,18 @@
       "task": "Write a method named doubleIt that takes an int and returns twice its value.",
       "starter": "// Write this method in a class.\n// Method name: doubleIt\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate method return clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: method return.",
+        "Copy the method header idea first: return type, name, parameters, then body.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Start from the method header: return type, name, and parameters tell you most of the answer.",
+        "A non-void method needs a return statement that gives back the promised type."
       ],
       "modelAnswer": "public static int doubleIt(int number) {\n    return number * 2;\n}\n",
       "explanation": "The return type is int because the method gives back a number.",
@@ -221,7 +292,21 @@
         "methods",
         "return",
         "parameters"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check that the method returns instead of only printing when a return type is required.",
+        "Test one normal value and one boundary value.",
+        "Confirm the parameter names are used correctly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for method return.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for method return.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB007",
@@ -233,18 +318,18 @@
       "task": "Write a method named greet that returns Hello, name! using the parameter.",
       "starter": "// Write this method in a class.\n// Method name: greet\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate parameters clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: parameters.",
+        "Copy the method header idea first: return type, name, parameters, then body.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Start from the method header: return type, name, and parameters tell you most of the answer.",
+        "A non-void method needs a return statement that gives back the promised type."
       ],
       "modelAnswer": "public static String greet(String name) {\n    return \"Hello, \" + name + \"!\";\n}\n",
       "explanation": "The parameter supplies the name each time the method is called.",
@@ -254,7 +339,21 @@
         "methods",
         "String",
         "parameter"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check that the method returns instead of only printing when a return type is required.",
+        "Test one normal value and one boundary value.",
+        "Confirm the parameter names are used correctly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for parameters.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for parameters.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB008",
@@ -266,18 +365,18 @@
       "task": "Write a Book class with title and pages fields, a constructor, and a getPages method.",
       "starter": "// Write the full Book class here.\n// Include fields, constructor, and getPages.\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate class fields clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: class fields.",
+        "Write fields first, then constructor, then one method that uses the fields.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "List the object state first, then write one behavior that uses that state.",
+        "Use this.fieldName when a parameter has the same name as a field."
       ],
       "modelAnswer": "public class Book {\n    private String title;\n    private int pages;\n\n    public Book(String title, int pages) {\n        this.title = title;\n        this.pages = pages;\n    }\n\n    public int getPages() {\n        return pages;\n    }\n}\n",
       "explanation": "The constructor uses this to assign parameter values into fields.",
@@ -287,7 +386,21 @@
         "classes",
         "fields",
         "constructor"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Create two different objects to make sure fields are not accidentally shared.",
+        "Check that fields are initialized through the constructor.",
+        "Confirm public methods use private state correctly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for class fields.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for class fields.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB009",
@@ -299,18 +412,18 @@
       "task": "Write a Student constructor that stores name and id in private fields.",
       "starter": "public class Student {\n    private String name;\n    private int id;\n\n    // constructor here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate constructor syntax clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: constructor syntax.",
+        "Write the fields, then make sure every constructor initializes them consistently.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "The constructor name must match the class name and has no return type.",
+        "Overloaded constructors should initialize the same fields, just from different inputs."
       ],
       "modelAnswer": "public class Student {\n    private String name;\n    private int id;\n\n    public Student(String name, int id) {\n        this.name = name;\n        this.id = id;\n    }\n}\n",
       "explanation": "A constructor has the same name as the class and no return type.",
@@ -320,7 +433,21 @@
         "constructors",
         "this",
         "fields"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test the constructor with normal values.",
+        "Check overloaded constructors use consistent defaults.",
+        "Confirm fields are initialized before methods depend on them."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for constructor syntax.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for constructor syntax.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB010",
@@ -332,18 +459,18 @@
       "task": "Complete Dog so it overrides speak and returns \"woof\".",
       "starter": "class Animal {\n    public String speak() {\n        return \"sound\";\n    }\n}\n\nclass Dog extends Animal {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate override clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: override.",
+        "Write the superclass behavior first, then decide which method the subclass should override.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+        "When a method is overridden, the object type at runtime decides which version runs."
       ],
       "modelAnswer": "class Animal {\n    public String speak() {\n        return \"sound\";\n    }\n}\n\nclass Dog extends Animal {\n    @Override\n    public String speak() {\n        return \"woof\";\n    }\n}\n",
       "explanation": "The subclass method has the same signature, so it overrides the parent method.",
@@ -353,7 +480,21 @@
         "inheritance",
         "override",
         "polymorphism"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Call the method through a superclass reference.",
+        "Check which overridden method runs at runtime.",
+        "Confirm the subclass still satisfies the superclass is-a relationship."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for override.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for override.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB011",
@@ -365,18 +506,18 @@
       "task": "Write a Receipt class that implements Printable and returns \"receipt\" from print().",
       "starter": "interface Printable {\n    String print();\n}\n\n// write Receipt here\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate interface methods clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: interface methods.",
+        "List the required interface methods before writing the behavior inside them.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "An interface tells you which method names/signatures must exist.",
+        "For KeyListener, separate movement logic from drawing logic."
       ],
       "modelAnswer": "interface Printable {\n    String print();\n}\n\nclass Receipt implements Printable {\n    @Override\n    public String print() {\n        return \"receipt\";\n    }\n}\n",
       "explanation": "A class that implements an interface must provide the required method.",
@@ -386,7 +527,21 @@
         "interfaces",
         "implements",
         "override"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Confirm every required interface method is present.",
+        "Check what should happen on keyPressed vs keyReleased.",
+        "Make sure state changes are followed by repaint when drawing is involved."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for interface methods.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for interface methods.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB012",
@@ -398,18 +553,18 @@
       "task": "Complete toString so it returns Item: pencil.",
       "starter": "public class Item {\n    private String name;\n\n    public Item(String name) {\n        this.name = name;\n    }\n\n    // toString here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate toString clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: toString.",
+        "Write the method/class/loop shape first before filling in details for \u201cDescribe an object.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+        "toString should return the useful state of the object as a String."
       ],
       "modelAnswer": "public class Item {\n    private String name;\n\n    public Item(String name) {\n        this.name = name;\n    }\n\n    @Override\n    public String toString() {\n        return \"Item: \" + name;\n    }\n}\n",
       "explanation": "toString returns a String representation of the object state.",
@@ -419,7 +574,21 @@
         "toString",
         "override",
         "object state"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check two different objects with the same data.",
+        "Check assignment, reference comparison, and value comparison separately.",
+        "Confirm toString returns a String and does not print directly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for toString.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for toString.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB013",
@@ -431,18 +600,18 @@
       "task": "Write a method that returns true when two codes have the same text.",
       "starter": "public static boolean sameCode(String a, String b) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate equals vs == clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: equals vs ==.",
+        "Write the method/class/loop shape first before filling in details for \u201cCompare two Strings.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+        "toString should return the useful state of the object as a String."
       ],
       "modelAnswer": "public static boolean sameCode(String a, String b) {\n    return a.equals(b);\n}\n",
       "explanation": "equals compares the String contents.",
@@ -452,7 +621,21 @@
         "equals",
         "String",
         "boolean"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check two different objects with the same data.",
+        "Check assignment, reference comparison, and value comparison separately.",
+        "Confirm toString returns a String and does not print directly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for equals vs ==.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for equals vs ==.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB014",
@@ -464,18 +647,18 @@
       "task": "Complete the method so invalid integers return 0 instead of crashing.",
       "starter": "public static int parseOrZero(String text) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate try/catch clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: try/catch.",
+        "Write the method/class/loop shape first before filling in details for \u201cParse safely.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Put only the risky operation inside try when possible.",
+        "Before using object.method(), ask whether object could be null."
       ],
       "modelAnswer": "public static int parseOrZero(String text) {\n    try {\n        return Integer.parseInt(text);\n    } catch (NumberFormatException error) {\n        return 0;\n    }\n}\n",
       "explanation": "The catch block handles invalid number text.",
@@ -485,7 +668,21 @@
         "exceptions",
         "try catch",
         "parseInt"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test missing or bad input when appropriate.",
+        "Check what happens before and after the catch block.",
+        "Look for null before calling methods on an object."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for try/catch.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for try/catch.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB015",
@@ -497,18 +694,18 @@
       "task": "Write a public static method add that returns the sum of two ints.",
       "starter": "public class MathTools {\n    // method here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate static method clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: static method.",
+        "Write the method/class/loop shape first before filling in details for \u201cUtility add method.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Ask: should this value belong to the class itself or to each object?",
+        "A final variable can be assigned once; a static variable is shared by the class."
       ],
       "modelAnswer": "public class MathTools {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}\n",
       "explanation": "static lets the method be called from the class without creating an object.",
@@ -518,7 +715,21 @@
         "static",
         "methods",
         "return"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Create two objects and check what is shared vs separate.",
+        "Check whether a value belongs to the class or one object.",
+        "Confirm constants are not changed after initialization."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for static method.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for static method.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB016",
@@ -530,18 +741,18 @@
       "task": "Create a final double TAX_RATE of 0.07 and use it to calculate tax.",
       "starter": "public static double tax(double subtotal) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate final clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: final.",
+        "Write the method/class/loop shape first before filling in details for \u201cUse a constant.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Ask: should this value belong to the class itself or to each object?",
+        "A final variable can be assigned once; a static variable is shared by the class."
       ],
       "modelAnswer": "public static double tax(double subtotal) {\n    final double TAX_RATE = 0.07;\n    return subtotal * TAX_RATE;\n}\n",
       "explanation": "final communicates that the rate should not be reassigned.",
@@ -551,7 +762,21 @@
         "final",
         "constant",
         "method"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Create two objects and check what is shared vs separate.",
+        "Check whether a value belongs to the class or one object.",
+        "Confirm constants are not changed after initialization."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for final.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for final.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB017",
@@ -563,18 +788,18 @@
       "task": "Write the basic paintComponent method that calls super and draws a rectangle.",
       "starter": "// Inside a JPanel subclass.\n// Write the paintComponent method here.\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate paintComponent clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: paintComponent.",
+        "Sketch the coordinates before writing the draw calls.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Remember: x increases to the right, y increases downward.",
+        "Call super.paintComponent(g) before custom drawing in Swing."
       ],
       "modelAnswer": "@Override\nprotected void paintComponent(Graphics g) {\n    super.paintComponent(g);\n    g.drawRect(20, 30, 80, 40);\n}\n",
       "explanation": "Custom Swing drawing usually belongs in paintComponent, and super clears the panel first.",
@@ -584,7 +809,21 @@
         "Graphics",
         "paintComponent",
         "Swing"
-      ]
+      ],
+      "studyGuideFocus": "Midterm/final focus: paintComponent, Graphics methods, coordinates, colors, repaint, and drawing order.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check x/y coordinates from the top-left corner.",
+        "Check drawing order when shapes overlap.",
+        "Confirm drawing code belongs in paintComponent."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for paintComponent.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for paintComponent.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB018",
@@ -596,18 +835,18 @@
       "task": "Write a record named Point with int x and int y components.",
       "starter": "// Write the full record declaration.\n// Name: Point\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate record clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: record.",
+        "Write the method/class/loop shape first before filling in details for \u201cCreate a record.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Records are best for simple data carriers.",
+        "Record accessors use the field name, like name(), not getName()."
       ],
       "modelAnswer": "public record Point(int x, int y) {\n}\n",
       "explanation": "A record declares simple data components in its header.",
@@ -617,7 +856,21 @@
         "records",
         "components",
         "data"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: record syntax, generated constructor/accessors, immutability, and when a normal class is better.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check the generated accessor names.",
+        "Confirm record fields are initialized in the header.",
+        "Decide whether you need mutable state; if yes, use a class."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for record.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for record.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB019",
@@ -629,18 +882,18 @@
       "task": "Complete getBalance so outside code can read balance without directly accessing the field.",
       "starter": "public class Account {\n    private double balance;\n\n    public Account(double balance) {\n        this.balance = balance;\n    }\n\n    // getter here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate encapsulation clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: encapsulation.",
+        "Write fields first, then constructor, then one method that uses the fields.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "List the object state first, then write one behavior that uses that state.",
+        "Use this.fieldName when a parameter has the same name as a field."
       ],
       "modelAnswer": "public class Account {\n    private double balance;\n\n    public Account(double balance) {\n        this.balance = balance;\n    }\n\n    public double getBalance() {\n        return balance;\n    }\n}\n",
       "explanation": "The field stays private, but a method gives controlled read access.",
@@ -650,7 +903,21 @@
         "encapsulation",
         "getter",
         "fields"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Create two different objects to make sure fields are not accidentally shared.",
+        "Check that fields are initialized through the constructor.",
+        "Confirm public methods use private state correctly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for encapsulation.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for encapsulation.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB020",
@@ -662,18 +929,18 @@
       "task": "Complete the method so it returns an ArrayList containing \"A\" and \"B\".",
       "starter": "public static ArrayList<String> letters() {\n    ArrayList<String> list = new ArrayList<>();\n    // your code here\n    return list;\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate ArrayList add clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: ArrayList add.",
+        "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+        "The last valid array index is length - 1. For ArrayList, it is size() - 1."
       ],
       "modelAnswer": "public static ArrayList<String> letters() {\n    ArrayList<String> list = new ArrayList<>();\n    list.add(\"A\");\n    list.add(\"B\");\n    return list;\n}\n",
       "explanation": "ArrayList grows as items are added.",
@@ -683,7 +950,21 @@
         "ArrayList",
         "add",
         "return"
-      ]
+      ],
+      "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test an array/list with one item.",
+        "Test the first and last index.",
+        "Check whether an enhanced for loop or index loop is safer for this task."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for ArrayList add.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for ArrayList add.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB021",
@@ -695,18 +976,18 @@
       "task": "Write isAdult so it returns true when age is at least 18.",
       "starter": "public static boolean isAdult(int age) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate boolean method clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: boolean method.",
+        "Copy the method header idea first: return type, name, parameters, then body.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Start from the method header: return type, name, and parameters tell you most of the answer.",
+        "A non-void method needs a return statement that gives back the promised type."
       ],
       "modelAnswer": "public static boolean isAdult(int age) {\n    return age >= 18;\n}\n",
       "explanation": "A boolean method can directly return a comparison.",
@@ -716,7 +997,21 @@
         "boolean",
         "comparison",
         "methods"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Check that the method returns instead of only printing when a return type is required.",
+        "Test one normal value and one boundary value.",
+        "Confirm the parameter names are used correctly."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for boolean method.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for boolean method.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB022",
@@ -728,18 +1023,18 @@
       "task": "Complete OnlineStudent so it passes name to the Student constructor and stores platform.",
       "starter": "class Student {\n    private String name;\n\n    public Student(String name) {\n        this.name = name;\n    }\n}\n\nclass OnlineStudent extends Student {\n    private String platform;\n\n    public OnlineStudent(String name, String platform) {\n        // your code here\n    }\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate super constructor clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: super constructor.",
+        "Write the superclass behavior first, then decide which method the subclass should override.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+        "When a method is overridden, the object type at runtime decides which version runs."
       ],
       "modelAnswer": "class Student {\n    private String name;\n\n    public Student(String name) {\n        this.name = name;\n    }\n}\n\nclass OnlineStudent extends Student {\n    private String platform;\n\n    public OnlineStudent(String name, String platform) {\n        super(name);\n        this.platform = platform;\n    }\n}\n",
       "explanation": "super(name) calls the parent constructor before setting subclass state.",
@@ -749,7 +1044,21 @@
         "super",
         "constructors",
         "inheritance"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Call the method through a superclass reference.",
+        "Check which overridden method runs at runtime.",
+        "Confirm the subclass still satisfies the superclass is-a relationship."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for super constructor.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for super constructor.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB023",
@@ -761,18 +1070,18 @@
       "task": "Complete the method so null returns 0 and non-null text returns its length.",
       "starter": "public static int safeLength(String text) {\n    // your code here\n}\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate null check clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: null check.",
+        "Write the method/class/loop shape first before filling in details for \u201cSafe length.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Put only the risky operation inside try when possible.",
+        "Before using object.method(), ask whether object could be null."
       ],
       "modelAnswer": "public static int safeLength(String text) {\n    if (text == null) {\n        return 0;\n    }\n    return text.length();\n}\n",
       "explanation": "The null check happens before calling a method on the object.",
@@ -782,7 +1091,21 @@
         "null",
         "if",
         "String"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Test missing or bad input when appropriate.",
+        "Check what happens before and after the catch block.",
+        "Look for null before calling methods on an object."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for null check.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for null check.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB024",
@@ -794,18 +1117,18 @@
       "task": "Write a keyPressed method that moves x right by 5 when the right arrow is pressed.",
       "starter": "private int x = 0;\n\n// method here\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate KeyListener method clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: KeyListener method.",
+        "List the required interface methods before writing the behavior inside them.",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "An interface tells you which method names/signatures must exist.",
+        "For KeyListener, separate movement logic from drawing logic."
       ],
       "modelAnswer": "private int x = 0;\n\n@Override\npublic void keyPressed(KeyEvent event) {\n    if (event.getKeyCode() == KeyEvent.VK_RIGHT) {\n        x += 5;\n    }\n}\n",
       "explanation": "keyPressed receives the KeyEvent and checks the key code.",
@@ -815,7 +1138,21 @@
         "KeyListener",
         "keyPressed",
         "events"
-      ]
+      ],
+      "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Confirm every required interface method is present.",
+        "Check what should happen on keyPressed vs keyReleased.",
+        "Make sure state changes are followed by repaint when drawing is involved."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for KeyListener method.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for KeyListener method.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     },
     {
       "id": "CQB025",
@@ -827,18 +1164,18 @@
       "task": "Write a Course class with a title field and a toString that returns Course: CS202.",
       "starter": "// Write the full Course class here.\n// Include a title field and toString.\n",
       "required": [
-        "Keep the answer CS202-level.",
-        "Use clear variable names.",
-        "Return or print exactly what the prompt asks."
+        "Demonstrate mixed method and object clearly.",
+        "Use readable CS202-level Java, not advanced shortcuts.",
+        "Match the required return value, output, or object behavior exactly."
       ],
       "guidelines": [
-        "Identify the return type or output first.",
-        "Write the smallest code that satisfies the prompt.",
-        "Check the boundary case in the self-check."
+        "Read the task and identify the exact CS202 concept: mixed method and object.",
+        "Write the method/class/loop shape first before filling in details for \u201cCourse summary.\u201d",
+        "Trace one small example by hand before showing the official solution."
       ],
       "hints": [
-        "Look at the method header before writing code.",
-        "Trace one sample input after writing your answer."
+        "Separate the task into small CS202 ideas before coding.",
+        "After writing code, trace one complete sample by hand."
       ],
       "modelAnswer": "public class Course {\n    private String title;\n\n    public Course(String title) {\n        this.title = title;\n    }\n\n    @Override\n    public String toString() {\n        return \"Course: \" + title;\n    }\n}\n",
       "explanation": "This combines fields, constructor assignment, and toString.",
@@ -848,7 +1185,21 @@
         "constructor",
         "field",
         "toString"
-      ]
+      ],
+      "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+      "levelReason": "Base practice: reusable in supported levels to strengthen core exam habits.",
+      "edgeCases": [
+        "Trace the sample by hand before writing code.",
+        "Identify which CS202 topics are being combined.",
+        "Test a boundary case and a normal case."
+      ],
+      "rubric": [
+        "Uses the correct Java structure for mixed method and object.",
+        "Produces the exact return value or output required by the task.",
+        "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+      ],
+      "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for mixed method and object.",
+      "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
     }
   ],
   "extras": {
@@ -863,18 +1214,18 @@
         "task": "Complete main so it reads one word and prints Hi, name.",
         "starter": "import java.util.Scanner;\n\npublic class EchoName {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        // your code here\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate Scanner input clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: Scanner input.",
+          "Write the method/class/loop shape first before filling in details for \u201cRead and echo a name.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Write the variable declarations first, then the calculation, then the print statement.",
+          "Check whether Java will do numeric math or String concatenation at each step."
         ],
         "modelAnswer": "import java.util.Scanner;\n\npublic class EchoName {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        String name = input.next();\n        System.out.println(\"Hi, \" + name);\n    }\n}\n",
         "explanation": "Use Scanner to read first, then concatenate the result into the output.",
@@ -884,7 +1235,21 @@
           "Scanner",
           "String",
           "input"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: variables, data types, arithmetic, String concatenation, and exact console output.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check integer vs double results.",
+          "Confirm the output label and spacing exactly match the prompt.",
+          "Trace what happens when values are changed before printing."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for Scanner input.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for Scanner input.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-002",
@@ -896,18 +1261,18 @@
         "task": "Print 3, 2, 1, Go using a while loop.",
         "starter": "public class Countdown {\n    public static void main(String[] args) {\n        int count = 3;\n        // your loop here\n        System.out.println(\"Go\");\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate while loop clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: while loop.",
+          "Write the method/class/loop shape first before filling in details for \u201cCountdown.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+          "Write the first two loop values and the final loop value on paper."
         ],
         "modelAnswer": "public class Countdown {\n    public static void main(String[] args) {\n        int count = 3;\n        while (count >= 1) {\n            System.out.println(count);\n            count--;\n        }\n        System.out.println(\"Go\");\n    }\n}\n",
         "explanation": "The update count-- moves the loop toward stopping.",
@@ -917,7 +1282,21 @@
           "while",
           "decrement",
           "loop"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for while loop.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for while loop.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-003",
@@ -929,18 +1308,18 @@
         "task": "Complete contains using a loop.",
         "starter": "public static boolean contains(int[] values, int target) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate array search clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: array search.",
+          "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+          "The last valid array index is length - 1. For ArrayList, it is size() - 1."
         ],
         "modelAnswer": "public static boolean contains(int[] values, int target) {\n    for (int value : values) {\n        if (value == target) {\n            return true;\n        }\n    }\n    return false;\n}\n",
         "explanation": "Return true as soon as a match is found; return false only after the whole loop.",
@@ -950,7 +1329,21 @@
           "arrays",
           "search",
           "boolean"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for array search.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for array search.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-004",
@@ -962,18 +1355,18 @@
         "task": "Write printLine so it prints five dashes.",
         "starter": "// Write this method in a class.\n// It should print five dashes.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate void method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: void method.",
+          "Copy the method header idea first: return type, name, parameters, then body.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Start from the method header: return type, name, and parameters tell you most of the answer.",
+          "A non-void method needs a return statement that gives back the promised type."
         ],
         "modelAnswer": "public static void printLine() {\n    System.out.println(\"-----\");\n}\n",
         "explanation": "void is correct because the method prints instead of returning a value.",
@@ -983,7 +1376,21 @@
           "void",
           "method",
           "println"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for void method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for void method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-005",
@@ -995,18 +1402,18 @@
         "task": "Complete setScore so negative scores become 0.",
         "starter": "public class Game {\n    private int score;\n\n    public void setScore(int score) {\n        // your code here\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate setter clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: setter.",
+          "Write fields first, then constructor, then one method that uses the fields.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "List the object state first, then write one behavior that uses that state.",
+          "Use this.fieldName when a parameter has the same name as a field."
         ],
         "modelAnswer": "public class Game {\n    private int score;\n\n    public void setScore(int score) {\n        if (score < 0) {\n            this.score = 0;\n        } else {\n            this.score = score;\n        }\n    }\n}\n",
         "explanation": "The setter protects the field from invalid state.",
@@ -1016,7 +1423,21 @@
           "setter",
           "validation",
           "this"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for setter.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for setter.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-006",
@@ -1028,18 +1449,18 @@
         "task": "Add a constructor that accepts only title and sets pages to 1.",
         "starter": "public class Notebook {\n    private String title;\n    private int pages;\n\n    public Notebook(String title, int pages) {\n        this.title = title;\n        this.pages = pages;\n    }\n\n    // overloaded constructor here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate overloaded constructor clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: overloaded constructor.",
+          "Write the fields, then make sure every constructor initializes them consistently.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "The constructor name must match the class name and has no return type.",
+          "Overloaded constructors should initialize the same fields, just from different inputs."
         ],
         "modelAnswer": "public class Notebook {\n    private String title;\n    private int pages;\n\n    public Notebook(String title, int pages) {\n        this.title = title;\n        this.pages = pages;\n    }\n\n    public Notebook(String title) {\n        this.title = title;\n        this.pages = 1;\n    }\n}\n",
         "explanation": "Overloaded constructors share a class name but have different parameter lists.",
@@ -1049,7 +1470,21 @@
           "constructors",
           "overloading",
           "parameters"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for overloaded constructor.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for overloaded constructor.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-007",
@@ -1061,18 +1496,18 @@
         "task": "Write Square so area returns side * side.",
         "starter": "abstract class Shape {\n    public abstract double area();\n}\n\nclass Square extends Shape {\n    private double side;\n\n    public Square(double side) {\n        this.side = side;\n    }\n\n    // area here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate abstract class clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: abstract class.",
+          "Write the superclass behavior first, then decide which method the subclass should override.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+          "When a method is overridden, the object type at runtime decides which version runs."
         ],
         "modelAnswer": "abstract class Shape {\n    public abstract double area();\n}\n\nclass Square extends Shape {\n    private double side;\n\n    public Square(double side) {\n        this.side = side;\n    }\n\n    @Override\n    public double area() {\n        return side * side;\n    }\n}\n",
         "explanation": "A concrete subclass must implement inherited abstract methods.",
@@ -1082,7 +1517,21 @@
           "abstract",
           "override",
           "inheritance"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for abstract class.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for abstract class.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-008",
@@ -1094,18 +1543,18 @@
         "task": "Complete compareTo so higher points returns positive, lower returns negative, same returns 0.",
         "starter": "public int compareTo(Player other) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate interface implementation clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: interface implementation.",
+          "List the required interface methods before writing the behavior inside them.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "An interface tells you which method names/signatures must exist.",
+          "For KeyListener, separate movement logic from drawing logic."
         ],
         "modelAnswer": "public int compareTo(Player other) {\n    return this.points - other.points;\n}\n",
         "explanation": "Subtracting gives positive, negative, or zero based on score order.",
@@ -1115,7 +1564,21 @@
           "compareTo",
           "interface",
           "objects"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for interface implementation.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for interface implementation.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-009",
@@ -1127,18 +1590,18 @@
         "task": "Complete the if statement so it prints Ready only when ready is true.",
         "starter": "boolean ready = true;\nif (/* condition */) {\n    System.out.println(\"Ready\");\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate assignment vs equality clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: assignment vs equality.",
+          "Write the method/class/loop shape first before filling in details for \u201cFix flag logic.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+          "toString should return the useful state of the object as a String."
         ],
         "modelAnswer": "boolean ready = true;\nif (ready) {\n    System.out.println(\"Ready\");\n}\n",
         "explanation": "A boolean variable can be used directly as the condition.",
@@ -1148,7 +1611,21 @@
           "boolean",
           "condition",
           "assignment"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for assignment vs equality.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for assignment vs equality.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-010",
@@ -1160,18 +1637,18 @@
         "task": "Write a loop that prints every line while input has another line.",
         "starter": "Scanner input = new Scanner(file);\n// your loop here\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate file reading concept clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: file reading concept.",
+          "Write the method/class/loop shape first before filling in details for \u201cScanner loop.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Put only the risky operation inside try when possible.",
+          "Before using object.method(), ask whether object could be null."
         ],
         "modelAnswer": "Scanner input = new Scanner(file);\nwhile (input.hasNextLine()) {\n    String line = input.nextLine();\n    System.out.println(line);\n}\n",
         "explanation": "Check hasNextLine before calling nextLine.",
@@ -1181,7 +1658,21 @@
           "Scanner",
           "file",
           "while"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test missing or bad input when appropriate.",
+          "Check what happens before and after the catch block.",
+          "Look for null before calling methods on an object."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for file reading concept.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for file reading concept.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-011",
@@ -1193,18 +1684,18 @@
         "task": "Complete the constructor so each new Counter increases objectCount.",
         "starter": "public class Counter {\n    private static int objectCount = 0;\n\n    public Counter() {\n        // your code here\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate instance vs static clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: instance vs static.",
+          "Write the method/class/loop shape first before filling in details for \u201cCount objects.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Ask: should this value belong to the class itself or to each object?",
+          "A final variable can be assigned once; a static variable is shared by the class."
         ],
         "modelAnswer": "public class Counter {\n    private static int objectCount = 0;\n\n    public Counter() {\n        objectCount++;\n    }\n}\n",
         "explanation": "The static field is shared by all Counter objects.",
@@ -1214,7 +1705,21 @@
           "static",
           "constructor",
           "field"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Create two objects and check what is shared vs separate.",
+          "Check whether a value belongs to the class or one object.",
+          "Confirm constants are not changed after initialization."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for instance vs static.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for instance vs static.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-012",
@@ -1226,18 +1731,18 @@
         "task": "Write one statement that draws a filled oval at x=40, y=50, width=100, height=80.",
         "starter": "public void drawFace(Graphics g) {\n    // your drawing line here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate coordinates clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: coordinates.",
+          "Sketch the coordinates before writing the draw calls.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Remember: x increases to the right, y increases downward.",
+          "Call super.paintComponent(g) before custom drawing in Swing."
         ],
         "modelAnswer": "public void drawFace(Graphics g) {\n    g.fillOval(40, 50, 100, 80);\n}\n",
         "explanation": "Graphics methods usually use x, y, width, and height.",
@@ -1247,7 +1752,21 @@
           "Graphics",
           "coordinates",
           "fillOval"
-        ]
+        ],
+        "studyGuideFocus": "Midterm/final focus: paintComponent, Graphics methods, coordinates, colors, repaint, and drawing order.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check x/y coordinates from the top-left corner.",
+          "Check drawing order when shapes overlap.",
+          "Confirm drawing code belongs in paintComponent."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for coordinates.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for coordinates.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-013",
@@ -1259,18 +1778,18 @@
         "task": "Given a Point record, write xPlusY that returns x plus y.",
         "starter": "public record Point(int x, int y) { }\n\npublic static int xPlusY(Point point) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate record accessor clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: record accessor.",
+          "Write the method/class/loop shape first before filling in details for \u201cUse record accessor.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Records are best for simple data carriers.",
+          "Record accessors use the field name, like name(), not getName()."
         ],
         "modelAnswer": "public record Point(int x, int y) { }\n\npublic static int xPlusY(Point point) {\n    return point.x() + point.y();\n}\n",
         "explanation": "Record accessors use the component name with parentheses.",
@@ -1280,7 +1799,21 @@
           "record",
           "accessor",
           "method"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: record syntax, generated constructor/accessors, immutability, and when a normal class is better.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check the generated accessor names.",
+          "Confirm record fields are initialized in the header.",
+          "Decide whether you need mutable state; if yes, use a class."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for record accessor.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for record accessor.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-014",
@@ -1292,18 +1825,18 @@
         "task": "Return the average of two ints as a double.",
         "starter": "public static double average(int a, int b) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate casting clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: casting.",
+          "Write the method/class/loop shape first before filling in details for \u201cAverage as double.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Write the variable declarations first, then the calculation, then the print statement.",
+          "Check whether Java will do numeric math or String concatenation at each step."
         ],
         "modelAnswer": "public static double average(int a, int b) {\n    return (a + b) / 2.0;\n}\n",
         "explanation": "Using 2.0 forces floating-point division.",
@@ -1313,7 +1846,21 @@
           "division",
           "double",
           "casting"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: variables, data types, arithmetic, String concatenation, and exact console output.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check integer vs double results.",
+          "Confirm the output label and spacing exactly match the prompt.",
+          "Trace what happens when values are changed before printing."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for casting.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for casting.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-015",
@@ -1325,18 +1872,18 @@
         "task": "Write isOdd so it returns true for odd numbers.",
         "starter": "public static boolean isOdd(int number) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate modulo clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: modulo.",
+          "Write the method/class/loop shape first before filling in details for \u201cOdd check.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+          "Write the first two loop values and the final loop value on paper."
         ],
         "modelAnswer": "public static boolean isOdd(int number) {\n    return number % 2 != 0;\n}\n",
         "explanation": "Modulo gives the remainder after division.",
@@ -1346,7 +1893,21 @@
           "modulo",
           "boolean",
           "operators"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for modulo.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for modulo.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-016",
@@ -1358,18 +1919,18 @@
         "task": "Complete firstRowSum for a non-empty grid.",
         "starter": "public static int firstRowSum(int[][] grid) {\n    int total = 0;\n    // your loop here\n    return total;\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate 2D array clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: 2D array.",
+          "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+          "The last valid array index is length - 1. For ArrayList, it is size() - 1."
         ],
         "modelAnswer": "public static int firstRowSum(int[][] grid) {\n    int total = 0;\n    for (int col = 0; col < grid[0].length; col++) {\n        total += grid[0][col];\n    }\n    return total;\n}\n",
         "explanation": "The first row is grid[0], and its columns go from 0 to length - 1.",
@@ -1379,7 +1940,21 @@
           "2D arrays",
           "indexes",
           "loop"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for 2D array.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for 2D array.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-017",
@@ -1391,18 +1966,18 @@
         "task": "Complete totalCost by calling subtotal and adding tax.",
         "starter": "public static double subtotal(double price, int quantity) {\n    return price * quantity;\n}\n\npublic static double totalCost(double price, int quantity) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate helper method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: helper method.",
+          "Copy the method header idea first: return type, name, parameters, then body.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Start from the method header: return type, name, and parameters tell you most of the answer.",
+          "A non-void method needs a return statement that gives back the promised type."
         ],
         "modelAnswer": "public static double subtotal(double price, int quantity) {\n    return price * quantity;\n}\n\npublic static double totalCost(double price, int quantity) {\n    double beforeTax = subtotal(price, quantity);\n    return beforeTax * 1.07;\n}\n",
         "explanation": "A helper method keeps one calculation in one place.",
@@ -1412,7 +1987,21 @@
           "methods",
           "helper",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for helper method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for helper method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-018",
@@ -1424,18 +2013,18 @@
         "task": "Write code that creates Book b with 200 pages and prints b.getPages().",
         "starter": "// Inside main.\n// Create one Book object and print pages.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate object creation clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: object creation.",
+          "Write fields first, then constructor, then one method that uses the fields.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "List the object state first, then write one behavior that uses that state.",
+          "Use this.fieldName when a parameter has the same name as a field."
         ],
         "modelAnswer": "Book b = new Book(\"CS202\", 200);\nSystem.out.println(b.getPages());\n",
         "explanation": "new creates the object and the reference b lets you call its methods.",
@@ -1445,7 +2034,21 @@
           "object",
           "new",
           "method call"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for object creation.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for object creation.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-019",
@@ -1457,18 +2060,18 @@
         "task": "Complete the copy constructor so it copies x and y from other.",
         "starter": "public class Dot {\n    private int x;\n    private int y;\n\n    public Dot(Dot other) {\n        // your code here\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate copy constructor clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: copy constructor.",
+          "Write the fields, then make sure every constructor initializes them consistently.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "The constructor name must match the class name and has no return type.",
+          "Overloaded constructors should initialize the same fields, just from different inputs."
         ],
         "modelAnswer": "public class Dot {\n    private int x;\n    private int y;\n\n    public Dot(Dot other) {\n        this.x = other.x;\n        this.y = other.y;\n    }\n}\n",
         "explanation": "A copy constructor creates a new object using another object as the source.",
@@ -1478,7 +2081,21 @@
           "copy constructor",
           "fields",
           "object"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for copy constructor.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for copy constructor.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-020",
@@ -1490,18 +2107,18 @@
         "task": "Write a loop that prints speak() for each Animal in the array.",
         "starter": "Animal[] animals = { new Dog(), new Cat() };\n// your loop here\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate polymorphic array clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: polymorphic array.",
+          "Write the superclass behavior first, then decide which method the subclass should override.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+          "When a method is overridden, the object type at runtime decides which version runs."
         ],
         "modelAnswer": "Animal[] animals = { new Dog(), new Cat() };\nfor (Animal animal : animals) {\n    System.out.println(animal.speak());\n}\n",
         "explanation": "Polymorphism calls the correct overridden method based on the real object.",
@@ -1511,7 +2128,21 @@
           "polymorphism",
           "array",
           "override"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for polymorphic array.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for polymorphic array.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-021",
@@ -1523,18 +2154,18 @@
         "task": "Write a try/catch/finally skeleton that prints Done in finally.",
         "starter": "try {\n    riskyWork();\n} catch (Exception error) {\n    // handle here\n} finally {\n    // cleanup here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate finally concept clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: finally concept.",
+          "Write the method/class/loop shape first before filling in details for \u201cClose resource idea.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Put only the risky operation inside try when possible.",
+          "Before using object.method(), ask whether object could be null."
         ],
         "modelAnswer": "try {\n    riskyWork();\n} catch (Exception error) {\n    System.out.println(\"Problem found\");\n} finally {\n    System.out.println(\"Done\");\n}\n",
         "explanation": "finally runs after try/catch whether an exception happened or not.",
@@ -1544,7 +2175,21 @@
           "try catch",
           "finally",
           "exceptions"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Test missing or bad input when appropriate.",
+          "Check what happens before and after the catch block.",
+          "Look for null before calling methods on an object."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for finally concept.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for finally concept.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-022",
@@ -1556,18 +2201,18 @@
         "task": "Write code inside keyPressed that moves x left and calls repaint.",
         "starter": "if (event.getKeyCode() == KeyEvent.VK_LEFT) {\n    // your code here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate event update clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: event update.",
+          "List the required interface methods before writing the behavior inside them.",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "An interface tells you which method names/signatures must exist.",
+          "For KeyListener, separate movement logic from drawing logic."
         ],
         "modelAnswer": "if (event.getKeyCode() == KeyEvent.VK_LEFT) {\n    x -= 5;\n    repaint();\n}\n",
         "explanation": "Changing the coordinate updates state; repaint asks Swing to redraw.",
@@ -1577,7 +2222,21 @@
           "KeyListener",
           "repaint",
           "state"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for event update.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for event update.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-023",
@@ -1589,18 +2248,18 @@
         "task": "Complete equals so two Badge objects are equal when ids match.",
         "starter": "@Override\npublic boolean equals(Object obj) {\n    if (!(obj instanceof Badge other)) {\n        return false;\n    }\n    // compare ids here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate equals method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: equals method.",
+          "Write the method/class/loop shape first before filling in details for \u201cCompare id fields.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+          "toString should return the useful state of the object as a String."
         ],
         "modelAnswer": "@Override\npublic boolean equals(Object obj) {\n    if (!(obj instanceof Badge other)) {\n        return false;\n    }\n    return this.id == other.id;\n}\n",
         "explanation": "After the instanceof check, other can be used as a Badge.",
@@ -1610,7 +2269,21 @@
           "equals",
           "instanceof",
           "object"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for equals method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for equals method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-024",
@@ -1622,18 +2295,18 @@
         "task": "Write the line that makes item stop referring to the object.",
         "starter": "Item item = new Item(\"pen\");\n// your line here\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate garbage collection concept clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: garbage collection concept.",
+          "Write the method/class/loop shape first before filling in details for \u201cDrop a reference.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Ask: should this value belong to the class itself or to each object?",
+          "A final variable can be assigned once; a static variable is shared by the class."
         ],
         "modelAnswer": "Item item = new Item(\"pen\");\nitem = null;\n",
         "explanation": "When no references point to an object, it becomes eligible for garbage collection.",
@@ -1643,7 +2316,21 @@
           "null",
           "reference",
           "garbage collection"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Create two objects and check what is shared vs separate.",
+          "Check whether a value belongs to the class or one object.",
+          "Confirm constants are not changed after initialization."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for garbage collection concept.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for garbage collection concept.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL1-025",
@@ -1655,18 +2342,18 @@
         "task": "Return the number of passing scores in the array.",
         "starter": "public static int countPassing(int[] scores) {\n    int count = 0;\n    // your loop here\n    return count;\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate mini integration clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [
-          "Read the prompt and underline the exact output/return value.",
-          "Use the starter shape; do not rewrite more than necessary.",
-          "Trace one small sample after writing the code."
+          "Read the task and identify the exact CS202 concept: mini integration.",
+          "Write the method/class/loop shape first before filling in details for \u201cSmall grade method.\u201d",
+          "Trace one small example by hand before showing the official solution."
         ],
         "hints": [
-          "Start from the method header or starter comment.",
-          "Check whether the prompt says print or return."
+          "Separate the task into small CS202 ideas before coding.",
+          "After writing code, trace one complete sample by hand."
         ],
         "modelAnswer": "public static int countPassing(int[] scores) {\n    int count = 0;\n    for (int score : scores) {\n        if (score >= 70) {\n            count++;\n        }\n    }\n    return count;\n}\n",
         "explanation": "This combines an accumulator, an enhanced for loop, and a boundary condition.",
@@ -1676,7 +2363,21 @@
           "arrays",
           "if",
           "accumulator"
-        ]
+        ],
+        "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+        "levelReason": "Level 1 quality target: guided enough to teach the pattern without giving away every line.",
+        "edgeCases": [
+          "Trace the sample by hand before writing code.",
+          "Identify which CS202 topics are being combined.",
+          "Test a boundary case and a normal case."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for mini integration.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for mini integration.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       }
     ],
     "level2": [
@@ -1690,14 +2391,18 @@
         "task": "Write labelId so 42 becomes ID-42.",
         "starter": "public static String labelId(int id) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate String conversion clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: String conversion.",
+          "Write the method/class/loop shape first before filling in details for \u201cNumber label.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Write the variable declarations first, then the calculation, then the print statement.",
+          "Check whether Java will do numeric math or String concatenation at each step."
         ],
         "modelAnswer": "public static String labelId(int id) {\n    return \"ID-\" + id;\n}\n",
         "explanation": "String concatenation converts the int to text automatically.",
@@ -1707,7 +2412,21 @@
           "String",
           "concatenation",
           "int"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: variables, data types, arithmetic, String concatenation, and exact console output.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check integer vs double results.",
+          "Confirm the output label and spacing exactly match the prompt.",
+          "Trace what happens when values are changed before printing."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for String conversion.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for String conversion.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-002",
@@ -1719,14 +2438,18 @@
         "task": "Use 90, 80, and 70 as the cutoffs.",
         "starter": "public static String grade(int score) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate nested if clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: nested if.",
+          "Write the method/class/loop shape first before filling in details for \u201cLetter grade.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+          "Write the first two loop values and the final loop value on paper."
         ],
         "modelAnswer": "public static String grade(int score) {\n    if (score >= 90) {\n        return \"A\";\n    } else if (score >= 80) {\n        return \"B\";\n    } else if (score >= 70) {\n        return \"C\";\n    } else {\n        return \"F\";\n    }\n}\n",
         "explanation": "Order matters because the first true branch returns.",
@@ -1736,7 +2459,21 @@
           "if else",
           "ordering",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for nested if.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for nested if.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-003",
@@ -1748,14 +2485,18 @@
         "task": "Produce the same output as the starter.",
         "starter": "int i = 1;\nwhile (i <= 4) {\n    System.out.println(i);\n    i++;\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate loop conversion clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: loop conversion.",
+          "Write the method/class/loop shape first before filling in details for \u201cWhile to for.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Circle the boundary value in the prompt before choosing <, <=, >, or >=.",
+          "Write the first two loop values and the final loop value on paper."
         ],
         "modelAnswer": "for (int i = 1; i <= 4; i++) {\n    System.out.println(i);\n}\n",
         "explanation": "A for loop groups initialization, condition, and update in one line.",
@@ -1765,7 +2506,21 @@
           "while",
           "for loop",
           "conversion"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for loop conversion.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for loop conversion.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-004",
@@ -1777,14 +2532,18 @@
         "task": "Complete min.",
         "starter": "public static int min(int[] values) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate minimum clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: minimum.",
+          "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+          "The last valid array index is length - 1. For ArrayList, it is size() - 1."
         ],
         "modelAnswer": "public static int min(int[] values) {\n    int smallest = values[0];\n    for (int value : values) {\n        if (value < smallest) {\n            smallest = value;\n        }\n    }\n    return smallest;\n}\n",
         "explanation": "Initialize with the first actual value so negative numbers work.",
@@ -1794,7 +2553,21 @@
           "arrays",
           "minimum",
           "loop"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for minimum.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for minimum.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-005",
@@ -1806,14 +2579,18 @@
         "task": "Use an index loop that does not skip after removal.",
         "starter": "public static void removeShort(ArrayList<String> names) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate ArrayList remove clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: ArrayList remove.",
+          "Decide whether this needs an index loop, enhanced for loop, or ArrayList method before coding.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Decide if you need indexes. If you only read values, an enhanced for loop may be enough.",
+          "The last valid array index is length - 1. For ArrayList, it is size() - 1."
         ],
         "modelAnswer": "public static void removeShort(ArrayList<String> names) {\n    for (int i = names.size() - 1; i >= 0; i--) {\n        if (names.get(i).length() < 3) {\n            names.remove(i);\n        }\n    }\n}\n",
         "explanation": "Looping backward avoids index shifting problems.",
@@ -1823,7 +2600,21 @@
           "ArrayList",
           "remove",
           "index loop"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for ArrayList remove.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for ArrayList remove.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-006",
@@ -1835,14 +2626,18 @@
         "task": "Use one parameter for square and two for rectangle.",
         "starter": "// Write two overloaded area methods.\n// One method has one parameter; one has two.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate overloading clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: overloading.",
+          "Copy the method header idea first: return type, name, parameters, then body.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Start from the method header: return type, name, and parameters tell you most of the answer.",
+          "A non-void method needs a return statement that gives back the promised type."
         ],
         "modelAnswer": "public static int area(int side) {\n    return side * side;\n}\n\npublic static int area(int width, int height) {\n    return width * height;\n}\n",
         "explanation": "Overloading uses the same name with different parameter lists.",
@@ -1852,7 +2647,21 @@
           "methods",
           "overloading",
           "parameters"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for overloading.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for overloading.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-007",
@@ -1864,14 +2673,18 @@
         "task": "Make sure every path returns a String.",
         "starter": "public static String sign(int number) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate return paths clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: return paths.",
+          "Copy the method header idea first: return type, name, parameters, then body.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Start from the method header: return type, name, and parameters tell you most of the answer.",
+          "A non-void method needs a return statement that gives back the promised type."
         ],
         "modelAnswer": "public static String sign(int number) {\n    if (number > 0) {\n        return \"positive\";\n    } else if (number < 0) {\n        return \"negative\";\n    }\n    return \"zero\";\n}\n",
         "explanation": "A non-void method must return on every possible path.",
@@ -1881,7 +2694,21 @@
           "methods",
           "return",
           "if else"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for return paths.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for return paths.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-008",
@@ -1893,14 +2720,18 @@
         "task": "Write a Backpack constructor that stores the Item parameter.",
         "starter": "public class Backpack {\n    private Item item;\n\n    public Backpack(Item item) {\n        // code\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate composition clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: composition.",
+          "Write fields first, then constructor, then one method that uses the fields.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "List the object state first, then write one behavior that uses that state.",
+          "Use this.fieldName when a parameter has the same name as a field."
         ],
         "modelAnswer": "public class Backpack {\n    private Item item;\n\n    public Backpack(Item item) {\n        this.item = item;\n    }\n}\n",
         "explanation": "An object can have a field that references another object.",
@@ -1910,7 +2741,21 @@
           "objects",
           "composition",
           "constructor"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for composition.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for composition.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-009",
@@ -1922,14 +2767,18 @@
         "task": "Create a Lamp class with a private boolean on and a public turnOn method.",
         "starter": "// Lamp\n// - on: boolean\n// + turnOn(): void\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate UML to class clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: UML to class.",
+          "Write fields first, then constructor, then one method that uses the fields.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "List the object state first, then write one behavior that uses that state.",
+          "Use this.fieldName when a parameter has the same name as a field."
         ],
         "modelAnswer": "public class Lamp {\n    private boolean on;\n\n    public void turnOn() {\n        on = true;\n    }\n}\n",
         "explanation": "Minus means private and plus means public in UML-style notation.",
@@ -1939,7 +2788,21 @@
           "UML",
           "class",
           "access modifiers"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for UML to class.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for UML to class.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-010",
@@ -1951,14 +2814,18 @@
         "task": "Make a Score record that throws IllegalArgumentException if points is negative.",
         "starter": "public record Score(int points) {\n    // compact constructor here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate canonical constructor clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: canonical constructor.",
+          "Write the fields, then make sure every constructor initializes them consistently.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "The constructor name must match the class name and has no return type.",
+          "Overloaded constructors should initialize the same fields, just from different inputs."
         ],
         "modelAnswer": "public record Score(int points) {\n    public Score {\n        if (points < 0) {\n            throw new IllegalArgumentException(\"points cannot be negative\");\n        }\n    }\n}\n",
         "explanation": "A compact record constructor can validate components before the record is created.",
@@ -1968,7 +2835,21 @@
           "record",
           "constructor",
           "validation"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for canonical constructor.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for canonical constructor.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-011",
@@ -1980,14 +2861,18 @@
         "task": "Make the no-arg Box constructor create a Box with size 1.",
         "starter": "public class Box {\n    private int size;\n\n    public Box() {\n        // code\n    }\n\n    public Box(int size) {\n        this.size = size;\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate constructor chaining clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: constructor chaining.",
+          "Write the fields, then make sure every constructor initializes them consistently.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "The constructor name must match the class name and has no return type.",
+          "Overloaded constructors should initialize the same fields, just from different inputs."
         ],
         "modelAnswer": "public class Box {\n    private int size;\n\n    public Box() {\n        this(1);\n    }\n\n    public Box(int size) {\n        this.size = size;\n    }\n}\n",
         "explanation": "this(1) calls another constructor in the same class.",
@@ -1997,7 +2882,21 @@
           "constructors",
           "this",
           "chaining"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for constructor chaining.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for constructor chaining.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-012",
@@ -2009,14 +2908,18 @@
         "task": "Complete Teacher.describe using the inherited label method.",
         "starter": "class Person {\n    protected String label() {\n        return \"person\";\n    }\n}\n\nclass Teacher extends Person {\n    public String describe() {\n        // code\n    }\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate protected clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: protected.",
+          "Write the superclass behavior first, then decide which method the subclass should override.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+          "When a method is overridden, the object type at runtime decides which version runs."
         ],
         "modelAnswer": "class Person {\n    protected String label() {\n        return \"person\";\n    }\n}\n\nclass Teacher extends Person {\n    public String describe() {\n        return label() + \" teacher\";\n    }\n}\n",
         "explanation": "protected members are available inside subclasses.",
@@ -2026,7 +2929,21 @@
           "protected",
           "inheritance",
           "method call"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for protected.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for protected.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-013",
@@ -2038,14 +2955,18 @@
         "task": "Use instanceof pattern matching.",
         "starter": "public static boolean isLargeCircle(Shape shape) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate instanceof clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: instanceof.",
+          "Write the superclass behavior first, then decide which method the subclass should override.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Use the is-a rule: a subclass object should be usable wherever the superclass is expected.",
+          "When a method is overridden, the object type at runtime decides which version runs."
         ],
         "modelAnswer": "public static boolean isLargeCircle(Shape shape) {\n    return shape instanceof Circle circle && circle.getRadius() > 10;\n}\n",
         "explanation": "instanceof checks the runtime type before using Circle-specific methods.",
@@ -2055,7 +2976,21 @@
           "instanceof",
           "polymorphism",
           "boolean"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for instanceof.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for instanceof.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-014",
@@ -2067,14 +3002,18 @@
         "task": "Write Machine so it implements Startable and returns true from start.",
         "starter": "interface Startable {\n    boolean start();\n}\n\n// Machine here\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate multiple interfaces clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: multiple interfaces.",
+          "List the required interface methods before writing the behavior inside them.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "An interface tells you which method names/signatures must exist.",
+          "For KeyListener, separate movement logic from drawing logic."
         ],
         "modelAnswer": "interface Startable {\n    boolean start();\n}\n\nclass Machine implements Startable {\n    @Override\n    public boolean start() {\n        return true;\n    }\n}\n",
         "explanation": "The class fulfills the interface by providing the method.",
@@ -2084,7 +3023,21 @@
           "interface",
           "implements",
           "visibility"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for multiple interfaces.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for multiple interfaces.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-015",
@@ -2096,14 +3049,18 @@
         "task": "Write the two common lines in a panel constructor to receive key events.",
         "starter": "public GamePanel() {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate listener registration clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: listener registration.",
+          "List the required interface methods before writing the behavior inside them.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "An interface tells you which method names/signatures must exist.",
+          "For KeyListener, separate movement logic from drawing logic."
         ],
         "modelAnswer": "public GamePanel() {\n    addKeyListener(this);\n    setFocusable(true);\n}\n",
         "explanation": "The panel must listen for keys and be focusable.",
@@ -2113,7 +3070,21 @@
           "KeyListener",
           "focus",
           "constructor"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for listener registration.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for listener registration.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-016",
@@ -2125,14 +3096,18 @@
         "task": "Return Integer.hashCode(id).",
         "starter": "@Override\npublic int hashCode() {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate hashCode concept clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: hashCode concept.",
+          "Write the method/class/loop shape first before filling in details for \u201cPair equals with hashCode.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+          "toString should return the useful state of the object as a String."
         ],
         "modelAnswer": "@Override\npublic int hashCode() {\n    return Integer.hashCode(id);\n}\n",
         "explanation": "Objects that are equal should have matching hash codes.",
@@ -2142,7 +3117,21 @@
           "equals",
           "hashCode",
           "object"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for hashCode concept.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for hashCode concept.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-017",
@@ -2154,14 +3143,18 @@
         "task": "Return a comma-separated list of names.",
         "starter": "public static String join(ArrayList<String> names) {\n    StringBuilder builder = new StringBuilder();\n    // code\n    return builder.toString();\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate StringBuilder clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: StringBuilder.",
+          "Write the method/class/loop shape first before filling in details for \u201cBuild output.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Use = to assign, == carefully for primitives/reference identity, and equals for object value comparison.",
+          "toString should return the useful state of the object as a String."
         ],
         "modelAnswer": "public static String join(ArrayList<String> names) {\n    StringBuilder builder = new StringBuilder();\n    for (int i = 0; i < names.size(); i++) {\n        if (i > 0) {\n            builder.append(\", \");\n        }\n        builder.append(names.get(i));\n    }\n    return builder.toString();\n}\n",
         "explanation": "The i > 0 check avoids a leading comma.",
@@ -2171,7 +3164,21 @@
           "StringBuilder",
           "ArrayList",
           "loop"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for StringBuilder.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for StringBuilder.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-018",
@@ -2183,14 +3190,18 @@
         "task": "Complete the method header and Scanner creation.",
         "starter": "// Write a method that returns a Scanner for a File.\n// It may throw FileNotFoundException.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate throws clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: throws.",
+          "Write the method/class/loop shape first before filling in details for \u201cDeclare file exception.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Put only the risky operation inside try when possible.",
+          "Before using object.method(), ask whether object could be null."
         ],
         "modelAnswer": "public static Scanner open(File file) throws FileNotFoundException {\n    return new Scanner(file);\n}\n",
         "explanation": "A method can declare that it throws a checked exception.",
@@ -2200,7 +3211,21 @@
           "throws",
           "Scanner",
           "file"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Test missing or bad input when appropriate.",
+          "Check what happens before and after the catch block.",
+          "Look for null before calling methods on an object."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for throws.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for throws.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-019",
@@ -2212,14 +3237,18 @@
         "task": "Declare MAX_SIZE as public static final int 100.",
         "starter": "public class Limits {\n    // constant here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate static final clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: static final.",
+          "Write the method/class/loop shape first before filling in details for \u201cClass constant.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Ask: should this value belong to the class itself or to each object?",
+          "A final variable can be assigned once; a static variable is shared by the class."
         ],
         "modelAnswer": "public class Limits {\n    public static final int MAX_SIZE = 100;\n}\n",
         "explanation": "static final constants belong to the class and should not change.",
@@ -2229,7 +3258,21 @@
           "static final",
           "constant",
           "class field"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Create two objects and check what is shared vs separate.",
+          "Check whether a value belongs to the class or one object.",
+          "Confirm constants are not changed after initialization."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for static final.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for static final.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-020",
@@ -2241,14 +3284,18 @@
         "task": "Write a paint line that draws \"Hi\" at x=10 and y=20.",
         "starter": "protected void paintComponent(Graphics g) {\n    super.paintComponent(g);\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate drawString clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: drawString.",
+          "Sketch the coordinates before writing the draw calls.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Remember: x increases to the right, y increases downward.",
+          "Call super.paintComponent(g) before custom drawing in Swing."
         ],
         "modelAnswer": "protected void paintComponent(Graphics g) {\n    super.paintComponent(g);\n    g.drawString(\"Hi\", 10, 20);\n}\n",
         "explanation": "drawString uses text, x, and y baseline coordinates.",
@@ -2258,7 +3305,21 @@
           "Graphics",
           "drawString",
           "coordinates"
-        ]
+        ],
+        "studyGuideFocus": "Midterm/final focus: paintComponent, Graphics methods, coordinates, colors, repaint, and drawing order.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check x/y coordinates from the top-left corner.",
+          "Check drawing order when shapes overlap.",
+          "Confirm drawing code belongs in paintComponent."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for drawString.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for drawString.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-021",
@@ -2270,14 +3331,18 @@
         "task": "Use Math.sqrt and the record accessors/components.",
         "starter": "public record Point(int x, int y) {\n    // method here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate record method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: record method.",
+          "Write the method/class/loop shape first before filling in details for \u201cAdd method to record.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Records are best for simple data carriers.",
+          "Record accessors use the field name, like name(), not getName()."
         ],
         "modelAnswer": "public record Point(int x, int y) {\n    public double distanceFromOrigin() {\n        return Math.sqrt(x * x + y * y);\n    }\n}\n",
         "explanation": "Records can still contain methods.",
@@ -2287,7 +3352,21 @@
           "record",
           "method",
           "Math.sqrt"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: record syntax, generated constructor/accessors, immutability, and when a normal class is better.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check the generated accessor names.",
+          "Confirm record fields are initialized in the header.",
+          "Decide whether you need mutable state; if yes, use a class."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for record method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for record method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-022",
@@ -2299,14 +3378,18 @@
         "task": "Return n! for non-negative n.",
         "starter": "public static int factorial(int n) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate recursion concept clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: recursion concept.",
+          "Copy the method header idea first: return type, name, parameters, then body.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Start from the method header: return type, name, and parameters tell you most of the answer.",
+          "A non-void method needs a return statement that gives back the promised type."
         ],
         "modelAnswer": "public static int factorial(int n) {\n    int result = 1;\n    for (int i = 2; i <= n; i++) {\n        result *= i;\n    }\n    return result;\n}\n",
         "explanation": "The accumulator starts at 1 because multiplying by 0 would ruin the result.",
@@ -2316,7 +3399,21 @@
           "loop",
           "accumulator",
           "methods"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for recursion concept.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for recursion concept.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-023",
@@ -2328,14 +3425,18 @@
         "task": "Search the array by calling getId.",
         "starter": "public static Student find(Student[] students, int id) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate array of objects clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: array of objects.",
+          "Write fields first, then constructor, then one method that uses the fields.",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "List the object state first, then write one behavior that uses that state.",
+          "Use this.fieldName when a parameter has the same name as a field."
         ],
         "modelAnswer": "public static Student find(Student[] students, int id) {\n    for (Student student : students) {\n        if (student.getId() == id) {\n            return student;\n        }\n    }\n    return null;\n}\n",
         "explanation": "Return null only after checking all students.",
@@ -2345,7 +3446,21 @@
           "objects",
           "arrays",
           "search"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for array of objects.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for array of objects.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-024",
@@ -2357,14 +3472,18 @@
         "task": "Assume the list is non-empty.",
         "starter": "public static double average(ArrayList<Integer> scores) {\n    // code\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate mixed collections clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: mixed collections.",
+          "Write the method/class/loop shape first before filling in details for \u201cAverage scores.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Separate the task into small CS202 ideas before coding.",
+          "After writing code, trace one complete sample by hand."
         ],
         "modelAnswer": "public static double average(ArrayList<Integer> scores) {\n    int total = 0;\n    for (int score : scores) {\n        total += score;\n    }\n    return (double) total / scores.size();\n}\n",
         "explanation": "Casting total to double prevents integer division.",
@@ -2374,7 +3493,21 @@
           "ArrayList",
           "average",
           "casting"
-        ]
+        ],
+        "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Trace the sample by hand before writing code.",
+          "Identify which CS202 topics are being combined.",
+          "Test a boundary case and a normal case."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for mixed collections.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for mixed collections.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL2-025",
@@ -2386,14 +3519,18 @@
         "task": "Complete LabSection toString using inherited getName and its room field.",
         "starter": "class Section {\n    private String name;\n    public Section(String name) { this.name = name; }\n    public String getName() { return name; }\n}\n\nclass LabSection extends Section {\n    private String room;\n    public LabSection(String name, String room) {\n        super(name);\n        this.room = room;\n    }\n\n    // toString here\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate mixed OOP clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
-        "guidelines": [],
+        "guidelines": [
+          "Read the task and identify the exact CS202 concept: mixed OOP.",
+          "Write the method/class/loop shape first before filling in details for \u201cDescribe subclass.\u201d",
+          "Trace one small example by hand before showing the official solution."
+        ],
         "hints": [
-          "Compare the method header to the requested behavior.",
-          "Test the boundary or empty-looking case mentally."
+          "Separate the task into small CS202 ideas before coding.",
+          "After writing code, trace one complete sample by hand."
         ],
         "modelAnswer": "class Section {\n    private String name;\n    public Section(String name) { this.name = name; }\n    public String getName() { return name; }\n}\n\nclass LabSection extends Section {\n    private String room;\n    public LabSection(String name, String room) {\n        super(name);\n        this.room = room;\n    }\n\n    @Override\n    public String toString() {\n        return getName() + \" in \" + room;\n    }\n}\n",
         "explanation": "The subclass uses a public inherited method instead of directly accessing the private parent field.",
@@ -2403,7 +3540,21 @@
           "inheritance",
           "toString",
           "private field"
-        ]
+        ],
+        "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+        "levelReason": "Level 2 quality target: less guidance so you practice choosing the pattern yourself.",
+        "edgeCases": [
+          "Trace the sample by hand before writing code.",
+          "Identify which CS202 topics are being combined.",
+          "Test a boundary case and a normal case."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for mixed OOP.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for mixed OOP.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       }
     ],
     "level3": [
@@ -2417,9 +3568,9 @@
         "task": "Use a normal String with \n or a text block.",
         "starter": "public static String menu() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate text block choice clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2431,7 +3582,21 @@
           "String",
           "escape sequence",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: variables, data types, arithmetic, String concatenation, and exact console output.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check integer vs double results.",
+          "Confirm the output label and spacing exactly match the prompt.",
+          "Trace what happens when values are changed before printing."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for text block choice.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for text block choice.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-002",
@@ -2443,9 +3608,9 @@
         "task": "Use String methods and &&.",
         "starter": "public static boolean validUsername(String name) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate compound boolean clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2457,7 +3622,21 @@
           "boolean",
           "String",
           "operators"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for compound boolean.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for compound boolean.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-003",
@@ -2469,9 +3648,9 @@
         "task": "Write nested loops to print 3 rows of 4 stars.",
         "starter": "public static void printRectangle() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate nested loops clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2483,7 +3662,21 @@
           "nested loops",
           "print",
           "boundary"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1 focus: boolean logic, comparison operators, loop boundaries, updates, and order of operations.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test the exact boundary value.",
+          "Check the first and last loop iteration.",
+          "Confirm the condition eventually becomes false."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for nested loops.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for nested loops.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-004",
@@ -2495,9 +3688,9 @@
         "task": "Use the same index in both arrays.",
         "starter": "public static double priceOf(String[] names, double[] prices, String target) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate parallel arrays clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2509,7 +3702,21 @@
           "parallel arrays",
           "equals",
           "search"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for parallel arrays.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for parallel arrays.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-005",
@@ -2521,9 +3728,9 @@
         "task": "Use nested loops over rows and values.",
         "starter": "public static int countZeros(int[][] grid) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate 2D traversal clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2535,7 +3742,21 @@
           "2D arrays",
           "nested loop",
           "count"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 1/final focus: indexing, length/size, traversal, accumulators, off-by-one errors, and safe updates.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test an array/list with one item.",
+          "Test the first and last index.",
+          "Check whether an enhanced for loop or index loop is safer for this task."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for 2D traversal.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for 2D traversal.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-006",
@@ -2547,9 +3768,9 @@
         "task": "Write a clean clamp-style method.",
         "starter": "public static int normalize(int score) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate method design clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2561,7 +3782,21 @@
           "methods",
           "conditions",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for method design.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for method design.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-007",
@@ -2573,9 +3808,9 @@
         "task": "Use charAt and concatenation.",
         "starter": "public static String initials(String first, String last) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate method composition clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2587,7 +3822,21 @@
           "String",
           "charAt",
           "methods"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: method headers, return types, parameters, return vs print, helper methods, and calling methods correctly.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check that the method returns instead of only printing when a return type is required.",
+          "Test one normal value and one boundary value.",
+          "Confirm the parameter names are used correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for method composition.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for method composition.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-008",
@@ -2599,9 +3848,9 @@
         "task": "Use a private balance field.",
         "starter": "public void deposit(double amount) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate mutator method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2613,7 +3862,21 @@
           "objects",
           "mutator",
           "validation"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for mutator method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for mutator method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-009",
@@ -2625,9 +3888,9 @@
         "task": "Keep the field private final.",
         "starter": "// Write the full NameTag class.\n// Use a private final name field.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate constructor and getter clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2639,7 +3902,21 @@
           "final",
           "class",
           "constructor"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: object state, behaviors, fields vs locals, encapsulation, and using objects from another class.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Create two different objects to make sure fields are not accidentally shared.",
+          "Check that fields are initialized through the constructor.",
+          "Confirm public methods use private state correctly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for constructor and getter.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for constructor and getter.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-010",
@@ -2651,9 +3928,9 @@
         "task": "Assume seconds is an int field.",
         "starter": "public Timer() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate default constructor clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2665,7 +3942,21 @@
           "constructor",
           "default",
           "field"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for default constructor.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for default constructor.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-011",
@@ -2677,9 +3968,9 @@
         "task": "Avoid storing the caller array directly.",
         "starter": "private int[] scores;\n\npublic ScoreBook(int[] scores) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate object aliasing clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2691,7 +3982,21 @@
           "constructor",
           "arrays",
           "aliasing"
-        ]
+        ],
+        "studyGuideFocus": "Midterm 2/final focus: constructor purpose, overloaded constructors, copy constructors, this, default values, and initialization order.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test the constructor with normal values.",
+          "Check overloaded constructors use consistent defaults.",
+          "Confirm fields are initialized before methods depend on them."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for object aliasing.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for object aliasing.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-012",
@@ -2703,9 +4008,9 @@
         "task": "Assume Payment has abstract String type().",
         "starter": "abstract class Payment {\n    public abstract String type();\n}\n\n// solo subclass\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate abstract method clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2717,7 +4022,21 @@
           "abstract",
           "inheritance",
           "override"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for abstract method.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for abstract method.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-013",
@@ -2729,9 +4048,9 @@
         "task": "Assume each Shape subclass overrides description.",
         "starter": "public static String describeAll(ArrayList<Shape> shapes) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate dynamic dispatch clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2743,7 +4062,21 @@
           "polymorphism",
           "ArrayList",
           "override"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: is-a relationships, overriding, dynamic dispatch, protected/private access, and superclass constructor calls.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Call the method through a superclass reference.",
+          "Check which overridden method runs at runtime.",
+          "Confirm the subclass still satisfies the superclass is-a relationship."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for dynamic dispatch.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for dynamic dispatch.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-014",
@@ -2755,9 +4088,9 @@
         "task": "Use an enhanced for loop.",
         "starter": "public static void playAll(Playable[] items) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate interface reference clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2769,7 +4102,21 @@
           "interface",
           "array",
           "polymorphism"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for interface reference.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for interface reference.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-015",
@@ -2781,9 +4128,9 @@
         "task": "Write the relevant keyReleased code.",
         "starter": "@Override\npublic void keyReleased(KeyEvent event) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate key release clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2795,7 +4142,21 @@
           "KeyListener",
           "keyReleased",
           "state"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: interface contracts, required methods, event-driven thinking, and KeyListener method responsibilities.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Confirm every required interface method is present.",
+          "Check what should happen on keyPressed vs keyReleased.",
+          "Make sure state changes are followed by repaint when drawing is involved."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for key release.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for key release.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-016",
@@ -2807,9 +4168,9 @@
         "task": "Use this == obj and instanceof.",
         "starter": "@Override\npublic boolean equals(Object obj) {\n    // first checks here\n    return id == other.id;\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate robust equals clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2821,7 +4182,21 @@
           "equals",
           "instanceof",
           "reference"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for robust equals.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for robust equals.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-017",
@@ -2833,9 +4208,9 @@
         "task": "Use the fields directly inside the class.",
         "starter": "@Override\npublic String toString() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate formatted toString clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2847,7 +4222,21 @@
           "toString",
           "String",
           "object state"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: assignment vs comparison, reference vs value comparison, overriding equals, and useful toString output.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check two different objects with the same data.",
+          "Check assignment, reference comparison, and value comparison separately.",
+          "Confirm toString returns a String and does not print directly."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for formatted toString.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for formatted toString.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-018",
@@ -2859,9 +4248,9 @@
         "task": "Use try/catch and an if check.",
         "starter": "public static int parsePositive(String text) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate multi-catch idea clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2873,7 +4262,21 @@
           "exceptions",
           "parseInt",
           "validation"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test missing or bad input when appropriate.",
+          "Check what happens before and after the catch block.",
+          "Look for null before calling methods on an object."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for multi-catch idea.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for multi-catch idea.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-019",
@@ -2885,9 +4288,9 @@
         "task": "Avoid calling a method on null.",
         "starter": "public static String displayName(User user) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate null object clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2899,7 +4302,21 @@
           "null",
           "object",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: try/catch flow, file-reading basics, null checks, and avoiding hidden runtime crashes.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Test missing or bad input when appropriate.",
+          "Check what happens before and after the catch block.",
+          "Look for null before calling methods on an object."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for null object.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for null object.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-020",
@@ -2911,9 +4328,9 @@
         "task": "Assume private static int nextId = 1;",
         "starter": "public static int nextId() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate static state clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2925,7 +4342,21 @@
           "static",
           "increment",
           "return"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Create two objects and check what is shared vs separate.",
+          "Check whether a value belongs to the class or one object.",
+          "Confirm constants are not changed after initialization."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for static state.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for static state.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-021",
@@ -2937,9 +4368,9 @@
         "task": "Use a temporary variable.",
         "starter": "String a = \"left\";\nString b = \"right\";\n// solo answer\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate reference assignment clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2951,7 +4382,21 @@
           "references",
           "variables",
           "assignment"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: static vs instance members, final constants, object references, aliases, and simple memory reasoning.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Create two objects and check what is shared vs separate.",
+          "Check whether a value belongs to the class or one object.",
+          "Confirm constants are not changed after initialization."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for reference assignment.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for reference assignment.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-022",
@@ -2963,9 +4408,9 @@
         "task": "Assume x and dx are fields.",
         "starter": "public void tick() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate animation state clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -2977,7 +4422,21 @@
           "Graphics",
           "animation",
           "repaint"
-        ]
+        ],
+        "studyGuideFocus": "Midterm/final focus: paintComponent, Graphics methods, coordinates, colors, repaint, and drawing order.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check x/y coordinates from the top-left corner.",
+          "Check drawing order when shapes overlap.",
+          "Confirm drawing code belongs in paintComponent."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for animation state.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for animation state.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-023",
@@ -2989,9 +4448,9 @@
         "task": "Write a record Product(String name, double price).",
         "starter": "// Write the Product record.\n// Components: String name, double price.\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate records vs classes clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -3003,7 +4462,21 @@
           "record",
           "immutable data",
           "toString"
-        ]
+        ],
+        "studyGuideFocus": "Final focus: record syntax, generated constructor/accessors, immutability, and when a normal class is better.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Check the generated accessor names.",
+          "Confirm record fields are initialized in the header.",
+          "Decide whether you need mutable state; if yes, use a class."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for records vs classes.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for records vs classes.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-024",
@@ -3015,9 +4488,9 @@
         "task": "Handle both failure cases before charAt.",
         "starter": "public static String firstChar(String text) {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate debug by writing clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -3029,7 +4502,21 @@
           "null",
           "String",
           "short-circuit"
-        ]
+        ],
+        "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Trace the sample by hand before writing code.",
+          "Identify which CS202 topics are being combined.",
+          "Test a boundary case and a normal case."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for debug by writing.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for debug by writing.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       },
       {
         "id": "CQL3-025",
@@ -3041,9 +4528,9 @@
         "task": "Sum song.getMinutes().",
         "starter": "public int totalMinutes() {\n    // solo answer\n}\n",
         "required": [
-          "Keep the answer CS202-level.",
-          "Use clear variable names.",
-          "Return or print exactly what the prompt asks."
+          "Demonstrate small class design clearly.",
+          "Use readable CS202-level Java, not advanced shortcuts.",
+          "Match the required return value, output, or object behavior exactly."
         ],
         "guidelines": [],
         "hints": [],
@@ -3055,8 +4542,31 @@
           "objects",
           "ArrayList",
           "method call"
-        ]
+        ],
+        "studyGuideFocus": "Final mixed focus: combine tracing, debugging, coding, OOP, arrays, methods, and Java vocabulary in one realistic task.",
+        "levelReason": "Level 3 quality target: final-style independence with no hints before the official review.",
+        "edgeCases": [
+          "Trace the sample by hand before writing code.",
+          "Identify which CS202 topics are being combined.",
+          "Test a boundary case and a normal case."
+        ],
+        "rubric": [
+          "Uses the correct Java structure for small class design.",
+          "Produces the exact return value or output required by the task.",
+          "Handles the listed edge case or boundary check without a hidden off-by-one/null/reference mistake."
+        ],
+        "reflectionPrompt": "In one sentence, explain why your answer fits the method/class/loop pattern for small class design.",
+        "examHabit": "Attempt first, then compare. Do not reveal the solution until you can explain your own code path."
       }
+    ]
+  },
+  "qualityPass": {
+    "name": "Midterm-to-Final Quality Pass",
+    "goal": "Make Coding Quest tasks more exam-sharp by adding study-guide focus, edge cases, rubrics, and reflection prompts.",
+    "coverage": [
+      "Midterm 1 Java basics, loops, arrays, graphics",
+      "Midterm 2 constructors, classes, inheritance, UML/OOP habits",
+      "Final topics: methods, interfaces, exceptions/files/null, static/final/memory, records, mixed practice"
     ]
   }
 };

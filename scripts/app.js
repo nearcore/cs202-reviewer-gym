@@ -1398,6 +1398,30 @@
     </div>`;
   }
 
+
+  function renderQuestQualityGrid(item, options = {}) {
+    const cards = [];
+    if (item.studyGuideFocus) cards.push(`<article><p class="eyebrow">Study guide focus</p><p>${escapeHtml(item.studyGuideFocus)}</p></article>`);
+    if (item.levelReason) cards.push(`<article><p class="eyebrow">Why this level</p><p>${escapeHtml(item.levelReason)}</p></article>`);
+    if (item.difficultyReason) cards.push(`<article><p class="eyebrow">Why this level</p><p>${escapeHtml(item.difficultyReason)}</p></article>`);
+    if (item.examHabit) cards.push(`<article><p class="eyebrow">Exam habit</p><p>${escapeHtml(item.examHabit)}</p></article>`);
+    const listItems = options.listField && Array.isArray(item[options.listField]) ? item[options.listField] : [];
+    if (listItems.length) cards.push(`<article><p class="eyebrow">${escapeHtml(options.listLabel || 'Edge cases')}</p><ul>${listItems.map(value => `<li>${escapeHtml(value)}</li>`).join('')}</ul></article>`);
+    if (!cards.length) return '';
+    return `<div class="quest-quality-grid">${cards.join('')}</div>`;
+  }
+
+  function renderRubricList(item, label = 'Quality rubric') {
+    const rubric = item.rubric || [];
+    if (!rubric.length) return '';
+    return `<article><p class="eyebrow">${escapeHtml(label)}</p><ul>${rubric.map(value => `<li>${escapeHtml(value)}</li>`).join('')}</ul></article>`;
+  }
+
+  function renderReflectionPrompt(item) {
+    if (!item.reflectionPrompt) return '';
+    return `<p class="reflection-prompt"><strong>Reflection prompt:</strong> ${escapeHtml(item.reflectionPrompt)}</p>`;
+  }
+
   function renderCodingSolution(item) {
     if (!codingQuestState.solutionShown) return '';
     const rating = codingQuestState.selfRated ? `<span class="pill ${codingQuestState.selfRated === 'solved' ? 'strong' : 'weak'}">${codingQuestState.selfRated === 'solved' ? 'Marked solved' : 'Needs review'}</span>` : '';
@@ -1409,6 +1433,7 @@
         <article><p class="eyebrow">Why it works</p><p>${escapeHtml(item.explanation)}</p></article>
         <article><p class="eyebrow">Common mistake</p><p>${escapeHtml(item.commonMistake)}</p></article>
         <article><p class="eyebrow">Self-check</p><p>${escapeHtml(item.selfCheck)}</p></article>
+        ${renderRubricList(item, 'Quality rubric')}
       </div>
       <div class="reflection-summary"><p><strong>Your attempt:</strong></p><pre><code>${escapeHtml(codingQuestState.codeAttempt || 'No code entered.')}</code></pre><p><strong>Your explanation:</strong> ${escapeHtml(codingQuestState.explanationNote || 'No explanation entered.')}</p></div>
       <div class="button-row"><button id="coding-solved" class="success">I solved/understood it</button><button id="coding-review" class="secondary">Keep in review</button><button id="coding-next" class="button quiet">Next quest →</button></div>
@@ -1438,6 +1463,7 @@
         ${renderCodingAssumptions()}
         <p class="task-callout"><strong>Prompt:</strong> ${escapeHtml(item.prompt)}</p>
         <p class="task-callout"><strong>Your task:</strong> ${escapeHtml(item.task)}</p>
+        ${renderQuestQualityGrid(item, { listField: 'edgeCases', listLabel: 'Edge checks' })}
         <div class="bugfix-brief-grid coding-check-grid">
           ${(item.required || []).map(requirement => `<article><p class="eyebrow">Requirement</p><p>${escapeHtml(requirement)}</p></article>`).join('')}
         </div>
@@ -1448,6 +1474,7 @@
         <section class="bugfix-reflection coding-workspace">
           <h3>Your attempt</h3>
           <label>Write your Java answer<textarea id="coding-code-attempt" rows="10" spellcheck="false" placeholder="Write your method, class, loop, or snippet here..." ${codingQuestState.solutionShown ? 'disabled' : ''}>${escapeHtml(codingQuestState.codeAttempt)}</textarea></label>
+          ${renderReflectionPrompt(item)}
           <label>Explain your approach<textarea id="coding-explanation-note" rows="3" placeholder="One or two sentences: why should this work?" ${codingQuestState.solutionShown ? 'disabled' : ''}>${escapeHtml(codingQuestState.explanationNote)}</textarea></label>
           <div class="button-row"><button id="show-coding-solution" class="primary-cta" ${codingQuestState.solutionShown ? 'disabled' : ''}>I attempted it — show official solution</button><button id="new-coding" class="button secondary">New random quest</button></div>
         </section>
@@ -1565,6 +1592,7 @@
         <article><p class="eyebrow">Why it works</p><p>${escapeHtml(item.explanation)}</p></article>
         <article><p class="eyebrow">Common mistake</p><p>${escapeHtml(item.commonMistake)}</p></article>
         <article><p class="eyebrow">Extension</p><p>${escapeHtml(item.extension)}</p></article>
+        ${renderRubricList(item, 'Build quality rubric')}
       </div>
       <div class="reflection-summary"><p><strong>Your plan:</strong> ${escapeHtml(buildChallengeState.planNote || 'No plan entered.')}</p><p><strong>Your code sketch:</strong></p><pre><code>${escapeHtml(buildChallengeState.codeNote || 'No code sketch entered.')}</code></pre><p><strong>Your test case:</strong> ${escapeHtml(buildChallengeState.testNote || 'No test case entered.')}</p></div>
       <div class="button-row"><button id="build-built" class="success">I built/understood it</button><button id="build-review" class="secondary">Keep in review</button><button id="build-next" class="button quiet">Next build →</button></div>
@@ -1594,6 +1622,7 @@
         ${renderBuildAssumptions()}
         <p class="task-callout"><strong>Scenario:</strong> ${escapeHtml(item.scenario)}</p>
         <p class="task-callout"><strong>Goal:</strong> ${escapeHtml(item.goal)}</p>
+        ${renderQuestQualityGrid(item, { listField: 'acceptanceTests', listLabel: 'Acceptance tests' })}
         <div class="bugfix-brief-grid build-deliverable-grid">
           ${(item.deliverables || []).map(deliverable => `<article><p class="eyebrow">Deliverable</p><p>${escapeHtml(deliverable)}</p></article>`).join('')}
         </div>
@@ -1605,6 +1634,7 @@
           <h3>Your build attempt</h3>
           <label>Plan the structure<textarea id="build-plan-note" rows="3" placeholder="Classes, fields, methods, and the order you will build them..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.planNote)}</textarea></label>
           <label>Write your Java sketch<textarea id="build-code-note" rows="12" spellcheck="false" placeholder="Write your class, method, or mini-project code sketch here..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.codeNote)}</textarea></label>
+          ${renderReflectionPrompt(item)}
           <label>Test case or edge case<textarea id="build-test-note" rows="3" placeholder="Example: input, expected output, or boundary case..." ${buildChallengeState.reviewShown ? 'disabled' : ''}>${escapeHtml(buildChallengeState.testNote)}</textarea></label>
           <div class="button-row"><button id="show-build-review" class="primary-cta" ${buildChallengeState.reviewShown ? 'disabled' : ''}>I attempted it — show build review</button><button id="new-build" class="button secondary">New random build</button></div>
         </section>

@@ -71,7 +71,7 @@ Use Java 21 or newer. The included examples were checked with a newer JDK and st
 
 ## Content Status
 
-The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, and 100 Coding Quest tasks and 60 Build Challenge tasks.
+The reviewer has 316 active runtime questions: 310 questions meeting the required per-topic targets plus six Vocabulary Bank questions. The bank includes multiple choice, trace, debugging, code-writing, vocabulary, matching, UML, short-answer, and final mixed prompts. The separate quest modes now include 100 Tracing Game problems, 100 Bug Fix Lab items, 100 Coding Quest tasks, and 60 Build Challenge tasks. Coding Quest and Build Challenge have a quality-pass layer with study-guide focus notes, edge/acceptance checks, rubrics, and reflection prompts.
 
 The reviewer has three related question-data sources:
 
@@ -112,7 +112,7 @@ Coding Quest is a website-only quest mode for writing small Java methods, classe
 - 25 extra Level 2 hinted quests
 - 25 extra Level 3 solo quests
 
-The app shows the starter/task first. The official solution, explanation, common mistake, and self-check stay hidden until after the student attempts the answer.
+The app shows the starter/task first. The official solution, explanation, common mistake, self-check, quality rubric, edge checks, and reflection prompt support are designed around the Midterm 1 → Final study-guide path and stay hidden or structured around an attempt-first workflow.
 
 Run the Coding Quest validator after changing the quest data:
 
@@ -129,10 +129,24 @@ Build Challenge adds website-only mini-project practice after Coding Quest. It i
 - 15 extra Level 2 hinted builds
 - 15 extra Level 3 solo builds
 
-Students plan the structure, write a Java sketch, name a test case, and reveal the official build review only after attempting.
+Students plan the structure, write a Java sketch, name a test case, and reveal the official build review only after attempting. Each build now includes a study-guide focus, acceptance tests, a quality rubric, and a reflection prompt to make the mini-projects more exam-sharp.
 
 Run the Build Challenge validator after changing the build data:
 
 ```bash
 node tests/validate-build-challenge.js
 ```
+
+
+## Quest Quality Pass
+
+Coding Quest and Build Challenge were upgraded with a Midterm-to-Final quality pass. The pass adds:
+
+- study-guide focus notes for each task
+- topic-specific hints and guided steps instead of generic directions
+- edge checks for Coding Quest
+- acceptance tests for Build Challenge
+- quality rubrics for comparing an attempt with the official answer
+- reflection prompts that ask the student to explain the concept, not just copy code
+
+The quality validators now require those learning fields, so future quest content cannot silently fall back to shallow or generic tasks.

@@ -1,0 +1,29 @@
+Coding Quest + Build Challenge Quality Pass
+==========================================
+
+Purpose
+-------
+This patch improves the learning quality of the website-only Coding Quest and Build Challenge modes. It does not add IntelliJ integration and does not add Java practice files.
+
+What changed
+------------
+- Upgraded Coding Quest data to version 2.
+- Upgraded Build Challenge data to version 2.
+- Added study-guide focus notes to every Coding Quest and Build Challenge item.
+- Added topic-specific hints/guided steps so the activities are less generic.
+- Added edge checks to every Coding Quest item.
+- Added acceptance tests to every Build Challenge item.
+- Added quality rubrics and reflection prompts to both modes.
+- Updated the UI so those learning supports appear directly inside the quest cards and official reviews.
+- Strengthened validators so future content must include quality fields, not just counts.
+
+Validation commands
+-------------------
+node --check scripts/app.js
+node --check scripts/coding-quest-data.js
+node --check scripts/build-challenge-data.js
+node tests/validate-coding-quest.js
+node tests/validate-build-challenge.js
+node tests/validate-tracing-game.js
+node tests/validate-bug-fix-lab.js
+node tests/audit-question-quality.js

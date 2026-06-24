@@ -1644,3 +1644,47 @@ html[data-theme="night"] .path-practice {
 .build-review .reflection-summary pre { margin: .35rem 0 .5rem; max-height: 16rem; overflow: auto; }
 @media (max-width: 1050px) { .build-mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 850px) { .build-mode-grid, .build-deliverable-grid { grid-template-columns: 1fr; } }
+
+/* Quest quality pass cards */
+.quest-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0;
+}
+
+.quest-quality-grid article,
+.review-grid article:has(ul) {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 18px;
+  padding: 0.9rem;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+[data-theme="night"] .quest-quality-grid article,
+[data-theme="night"] .review-grid article:has(ul) {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.quest-quality-grid ul,
+.review-grid ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.quest-quality-grid li,
+.review-grid li {
+  margin: 0.25rem 0;
+}
+
+.reflection-prompt {
+  margin: 0.8rem 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.8), rgba(237, 233, 254, 0.75));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+[data-theme="night"] .reflection-prompt {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(49, 46, 129, 0.42));
+}
